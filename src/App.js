@@ -1,16 +1,22 @@
 import React, { Component } from 'react';
-import Header from './Header';
-import Menu from './Menu';
-import Footer from './Footer';
+import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
+import Login from './Login';
+import Home from './Home'
+import Register from './Register';
+
 
 export default class App extends Component {
     render() {
         return (
-            <div>
-                <Header/>
-                <Menu/>
-                <Footer/>
-            </div>
+            <Router>
+        
+          <Switch>
+              <Route exact path='/' component={Home} />
+              <Route path='/login' component={Login} />
+              <Route path='/register' component={Register}/>
+          </Switch>
+        
+      </Router>
         );
     }
 }
