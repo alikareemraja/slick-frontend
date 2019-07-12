@@ -9,7 +9,8 @@
     "react-router-dom": "4.2.2",
     "react-md": "1.2.11",
     "webfontloader": "1.6.28",
-    "styled-components": "3.1.6"
+    "styled-components": "3.1.6",
+    "react-search-field": "1.0.0"
   },
   "scripts": {
     "start": "react-scripts start",

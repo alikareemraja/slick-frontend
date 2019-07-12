@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import SearchField from "react-search-field";
 
 export default class Header extends Component {
     render() {
@@ -22,6 +23,16 @@ export default class Header extends Component {
                         <div className="navbar-custom-menu">
                             <ul className="nav navbar-nav">
                                 {/* Messages: style can be found in dropdown.less*/}
+
+                                <li className="dropdown messages-menu">
+                                    {/* <SearchField
+                                        placeholder="Search..."
+                                        searchText="This is initial search text"
+                                        classNames="active-cyan-4 mb-4"
+                                    /> */}
+                                </li>
+
+
                                 {/* <li className="dropdown messages-menu">
                                     <a href="fake_url" className="dropdown-toggle" data-toggle="dropdown">
                                         <i className="fa fa-envelope-o" />
@@ -140,7 +151,7 @@ export default class Header extends Component {
                                         <li className="footer"><a href="fake_url">View all</a></li>
                                     </ul>
                                 </li>
-                                
+
                                 {/* User Account: style can be found in dropdown.less */}
                                 <li className="dropdown user user-menu">
                                     <a href="fake_url" className="dropdown-toggle" data-toggle="dropdown">
@@ -181,7 +192,7 @@ export default class Header extends Component {
                                             </div>
                                         </li>
                                     </ul>
-                                </li>                                
+                                </li>
                             </ul>
                         </div>
                     </nav>
