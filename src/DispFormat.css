@@ -1,0 +1,253 @@
+.ResultsRendercontainer {
+  margin-top: 0px;
+  background-color: rgb(238, 241, 210);
+  position: relative;
+  width: 1000px;
+  margin-left: 10px;
+}
+
+.search-result-item {
+  height: 180px;
+  margin-left: 10px;
+  margin-right: auto;
+  margin-top: 15px;
+  border-radius: 10px 10px 10px 10px;
+  background-color: rgba(23, 235, 76, 0.918);
+  top: -10px;
+  width: 980px;
+}
+.search-result-item-rec {
+  height: 180px;
+  margin-left: 10px;
+  margin-right: auto;
+  margin-top: 15px;
+  border-radius: 10px 10px 10px 10px;
+  background-color: rgba(240, 111, 190, 0.918);
+  top: -10px;
+  width: 980px;
+}
+
+.search-results-count {
+  margin-top: 30px;
+  text-align: center;
+  background-color: rgb(223, 84, 84);
+}
+@media (min-width: 768px) {
+  .search-result-item .image-link {
+    display: inline-block;
+    margin: -20px 0 -20px -20px;
+    float: left;
+    width: 200px;
+  }
+}
+
+@media (max-width: 767px) {
+  .search-result-item .image-link {
+    max-height: 200px;
+  }
+}
+
+.search-result-item + .search-result-item {
+  margin-top: 20px;
+}
+
+.image-col {
+  position: relative;
+  /*background: blueviolet;
+  */
+  margin-left: -15px;
+  height: 180px;
+  width: 180px;
+  border-radius: 10px 00px 00px 10px;
+}
+.image-col .item-image {
+  position: absolute;
+  display: inline-block;
+  border-radius: 10px 00px 00px 10px;
+  max-width: 100%;
+  max-height: 100%;
+  height: 180px;
+  width: 180px;
+  margin-left: -15px;
+}
+
+.search-result-item-rec .badge {
+  position: relative;
+  left: 80px;
+  top: 24px;
+  background: green;
+  text-align: center;
+  border-radius: 60px 60px 60px 60px;
+  color: white;
+  padding: 4px 4px;
+  font-size: 12px;
+  transform: rotate(45deg);
+}
+
+@media (min-width: 768px) {
+  .search-result-item-body-r {
+    height: 270px;
+    background-color: black;
+    margin-left: 600px;
+  }
+}
+
+.display-result-col {
+  height: 180px;
+  width: 550px;
+  max-height: 100%;
+  /* background-color: rgb(247, 2, 2);
+  */
+  text-align: left;
+  margin-left: 0px;
+}
+
+.search-result-heading {
+  /* background-color: burlywood;
+  */
+  font-size: 35px;
+  display: inline-block;
+}
+
+@media (min-width: 768px) {
+  .search-result-heading {
+    margin: 0;
+  }
+}
+
+.search-result-info {
+  max-height: 100%;
+  /* background-color: rgb(12, 12, 228);
+  */
+  margin-left: -15px;
+  width: 550px;
+  height: 130px;
+}
+
+.right-col {
+  /*  background-color: yellow;
+ */ /*display: inline-block;*/
+  top: -10px;
+  height: 130px;
+}
+
+.left-col {
+  position: relative;
+  /*  background-color: blueviolet;
+ */
+  top: -10px;
+  height: 130px;
+}
+
+.Brand {
+  /* background-color: brown;
+ */
+  font-size: 16px;
+  position: relative;
+  top: 0px;
+}
+
+/*.brand-result {
+  /* font-family: "Times New Roman", Times, serif;
+
+}*/
+.Color {
+  /*  background-color: aqua;
+ */
+  position: relative;
+  top: -5px;
+  font-size: 16px;
+  /*  position: absolute;
+  top: 30px;
+*/
+}
+.Top-Comment {
+  /* background-color: chartreuse;
+ */
+  position: relative;
+  top: -10px;
+
+  font-size: 16px;
+  /* position: absolute;
+  top: 60px;
+*/
+}
+.Description {
+  /* background-color: crimson;
+ */
+  position: relative;
+  top: -15px;
+  font-size: 16px;
+  /* position: absolute;
+   top: 90px;*/
+}
+.brand-result {
+  /*background-color: rgb(46, 186, 221);
+ */
+  position: relative;
+  top: 0px;
+
+  font-size: 16px;
+}
+.color-result {
+  /* background-color: black;
+ */
+  position: relative;
+  top: -5px;
+
+  font-size: 16px;
+}
+.comment-result {
+  /*  background-color: rgb(240, 231, 236);
+ */
+  position: relative;
+  top: -10px;
+  /* display: block;
+ */
+  font-size: 16px;
+}
+.desc-result {
+  /* background-color: rgb(63, 241, 19);
+  /*  display: block;
+ */
+  /*  margin-top: 17px;
+ */
+  position: relative;
+  top: -15px;
+  font-size: 16px;
+}
+
+.info-sec-col {
+  height: 180px;
+  width: 235px;
+  max-height: 100%;
+  /* background-color: rgb(7, 0, 0);
+  */
+  text-align: right;
+}
+.info-sec-col .price {
+  position: relative;
+  bottom: -10px;
+  /* background-color: rgb(242, 247, 247);*/
+}
+
+.info-sec-col .buttons {
+  position: relative;
+  top: 95px;
+  /*background-color: rgb(240, 10, 163);*/
+  text-align: right;
+  margin-right: -10px;
+}
+.info-sec-col .Go {
+  margin-right: 5px;
+}
+.info-sec-col .Add {
+  margin-right: 7px;
+}
+.from {
+  font-size: 20px;
+}
+
+.actualprice {
+  font-size: 25px;
+}

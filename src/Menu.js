@@ -1,63 +1,118 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 
 export default class Menu extends Component {
-    render() {
-        return (
-                <aside className="main-sidebar">
-                    {/* sidebar: style can be found in sidebar.less */}
-                    <section className="sidebar">
-                        {/* Sidebar user panel */}
-                        <div className="user-panel">
-                            <div className="pull-left image">
-                                <img src={require('./images/ali.jpg')} className="img-circle" alt="User" />
-                            </div>
-                            <div className="pull-left info">
-                                <p>Ali Kareem Raja</p>
-                                <a href="fake_url"><i className="fa fa-circle text-success" /> Online</a>
-                            </div>
-                        </div>
-                        {/* search form */}
-                        <form action="#" method="get" className="sidebar-form">
-                            <div className="input-group">
-                                <input type="text" name="q" className="form-control" placeholder="Search..." />
-                                <span className="input-group-btn">
-                                    <button type="submit" name="search" id="search-btn" className="btn btn-flat">
-                                        <i className="fa fa-search" />
-                                    </button>
-                                </span>
-                            </div>
-                        </form>
-                        {/* /.search form */}
-                        {/* sidebar menu: : style can be found in sidebar.less */}
-                        <ul className="sidebar-menu" data-widget="tree">
+  constructor(props) {
+    super(props);
+    this.onChangeSearchInput = this.onChangeSearchInput.bind(this);
+    this.onSubmit = this.onSubmit.bind(this);
+    this.state = {
+      search_history: "",
+      input_text: "",
+      search_text: "",
+      show: false
+    };
+  }
 
-                            <li>
-                                <a href="pages/widgets.html">
-                                    <i className="fa fa-th" /> <span>Dashboard</span>
-                                    <span className="pull-right-container">
-                                        {/* <small className="label pull-right bg-green">new</small> */}
-                                    </span>
-                                </a>
-                            </li>
+  onChangeSearchInput(e) {
+    this.setState({
+      input_text: e.target.value
+    });
+    console.log("this.state.input_text: " + this.state.input_text);
+  }
+  onSubmit(e) {
+    //called when the user submits the form
+    e.preventDefault(); //prevent browser's default behavior
+    this.search_text = this.state.input_text;
+    console.log("this.search_text" + this.search_text);
 
-                            <li>
-                                <a href="pages/widgets.html">
-                                    <i className="fa fa-th" /> <span>Dashboard</span>
-                                    <span className="pull-right-container">
-                                        {/* <small className="label pull-right bg-green">new</small> */}
-                                    </span>
-                                </a>
-                            </li>
+    if (this.state.input_text) {
+      window.alert("Non empty search text");
+      this.props.triggerParentUpdate(this.search_text);
+      this.setState({ show: true });
+    }
+  }
 
-                            <li>
-                                <a href="pages/widgets.html">
-                                    <i className="fa fa-th" /> <span>Dashboard</span>
-                                    <span className="pull-right-container">
-                                        {/* <small className="label pull-right bg-green">new</small> */}
-                                    </span>
-                                </a>
-                            </li>
-                            {/* <li className="header">MAIN NAVIGATION</li>
+  render() {
+    return (
+      <aside className="main-sidebar">
+        {/* sidebar: style can be found in sidebar.less */}
+        <section className="sidebar">
+          {/* Sidebar user panel */}
+          <div className="user-panel">
+            <div className="pull-left image">
+              <img
+                src={require("./images/ali.jpg")}
+                className="img-circle"
+                alt="User"
+              />
+            </div>
+            <div className="pull-left info">
+              <p>Ali Kareem Raja</p>
+              <a href="fake_url">
+                <i className="fa fa-circle text-success" /> Online
+              </a>
+            </div>
+          </div>
+          {/* search form */}
+          <form
+            action="#"
+            method="get"
+            className="sidebar-form"
+            onSubmit={this.onSubmit}
+          >
+            <div className="input-group">
+              <input
+                className="form-control"
+                type="text"
+                value={this.props.input_text} /**{this.state.input_text} */
+                onChange={this.onChangeSearchInput}
+                placeholder="Search..."
+              />
+              <span className="input-group-btn">
+                <button
+                  type="submit"
+                  name="search"
+                  id="search-btn"
+                  className="btn btn-flat"
+                  onClick={this.onSubmit}
+                >
+                  <i className="fa fa-search" />
+                </button>
+                {/*  React.cloneElement(this.props.children, input_text : "UUU")
+                 */}
+              </span>
+            </div>
+          </form>
+          {/* /.search form */}
+          {/* sidebar menu: : style can be found in sidebar.less */}
+          <ul className="sidebar-menu" data-widget="tree">
+            <li>
+              <a href="pages/widgets.html">
+                <i className="fa fa-th" /> <span>Dashboard</span>
+                <span className="pull-right-container">
+                  {/* <small className="label pull-right bg-green">new</small> */}
+                </span>
+              </a>
+            </li>
+
+            <li>
+              <a href="pages/widgets.html">
+                <i className="fa fa-th" /> <span>Dashboard</span>
+                <span className="pull-right-container">
+                  {/* <small className="label pull-right bg-green">new</small> */}
+                </span>
+              </a>
+            </li>
+
+            <li>
+              <a href="pages/widgets.html">
+                <i className="fa fa-th" /> <span>Dashboard</span>
+                <span className="pull-right-container">
+                  {/* <small className="label pull-right bg-green">new</small> */}
+                </span>
+              </a>
+            </li>
+            {/* <li className="header">MAIN NAVIGATION</li>
                             <li className="active treeview menu-open">
                                 <a href="fake_url">
                                     <i className="fa fa-dashboard" /> <span>Dashboard</span>
@@ -85,7 +140,7 @@ export default class Menu extends Component {
                                     <li><a href="pages/layout/collapsed-sidebar.html"><i className="fa fa-circle-o" /> Collapsed Sidebar</a></li>
                                 </ul>
                             </li> */}
-                            {/* <li className="treeview">
+            {/* <li className="treeview">
                                 <a href="fake_url">
                                     <i className="fa fa-pie-chart" />
                                     <span>Charts</span>
@@ -218,10 +273,11 @@ export default class Menu extends Component {
                             <li><a href="fake_url"><i className="fa fa-circle-o text-red" /> <span>Important</span></a></li>
                             <li><a href="fake_url"><i className="fa fa-circle-o text-yellow" /> <span>Warning</span></a></li>
                             <li><a href="fake_url"><i className="fa fa-circle-o text-aqua" /> <span>Information</span></a></li> */}
-                        </ul>
-                    </section>
-                    {/* /.sidebar */}
-                </aside>
-        );
-    }
+          </ul>
+        </section>
+        {/* /.sidebar */}
+        <section />
+      </aside>
+    );
+  }
 }
