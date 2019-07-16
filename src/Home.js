@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Header from './Header';
 import Menu from './Menu';
 import Footer from './Footer';
-import Comment from './Comment'
+import Thread from './Thread'
 
 class Home extends Component {
 
@@ -26,6 +26,7 @@ class Home extends Component {
                     </section>
                     {/* Main content */}
                     <section className="content">
+                        <Thread id="5d2a334af1ca4b48b6caaf85"/>
                         
                     </section>
                     {/* /.content */}

@@ -6,14 +6,28 @@ const commentStyle = {
 const actionButtonStyle = {
     margin: '2px',
 };
-export default class Comment extends Component {
+export default class Thread extends Component {
+
+    state = {
+        thread: []
+      }
+
+    componentDidMount() {
+        fetch('http://localhost:3001/comment/get/5d2d1e0294b2c46ded1c7baa')
+        .then(res => res.json())
+        .then((data) => {
+          this.setState({ contacts: data })
+        })
+        .catch(console.log)
+      }
+
     render() {
         return (
             <div className="container">
                 <div className="post-comments">
                     <form>
                         <div className="form-group">
-                            <label htmlFor="comment">Your Comment</label>
+                            <label htmlFor="comment">Your Comment ({this.props.id})</label>
                             <textarea name="comment" className="form-control" rows={3} defaultValue={""} />
                         </div>
                         <button type="submit" className="btn btn-default">Send</button>
