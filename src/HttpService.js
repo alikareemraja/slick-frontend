@@ -1,0 +1,75 @@
+export default class HttpService {
+
+    static apiURL() {return "http://localhost:4000"; }
+
+    static checkIfUnauthorized(res) {
+        if(res.status === 401) {
+            return true;
+        }
+        return false;
+    }
+
+    static get(url, onSuccess, onError) {
+        let token = window.localStorage['jwtToken'];
+        let header = new Headers();
+        if(token) {
+            header.append('Authorization', `JWT ${token}`);
+        }
+
+        fetch(url, {
+            method: 'GET',
+            headers: header
+        }).then((resp) => {
+            if(this.checkIfUnauthorized(resp)) {
+                window.location = "/#login";
+            }
+            else {
+                return resp.json();
+            }
+        }).then((resp) => {
+            if(resp.error) {
+                onError(resp.error);
+            }
+            else {
+                if(resp.hasOwnProperty('token')) {
+                    window.localStorage['jwtToken'] = resp.token;
+                }
+                onSuccess(resp);
+            }
+        }).catch((e) => {
+            onError(e.message);
+        });
+    }
+
+    static remove(url, onSuccess, onError) {
+        let token = window.localStorage['jwtToken'];
+        let header = new Headers();
+        if(token) {
+            header.append('Authorization', `JWT ${token}`);
+        }
+
+        fetch(url, {
+            method: 'DELETE',
+            headers: header
+        }).then((resp) => {
+            if(this.checkIfUnauthorized(resp)) {
+                window.location = "/#login";
+                return;
+            }
+            else {
+                return resp.json();
+            }
+        }).then((resp) => {
+            if(resp.error) {
+                onError(resp.error);
+            }
+            else {
+                onSuccess(resp)
+            }
+        }).catch((e) => {
+            onError(e.message);
+        });
+    }
+
+
+}
