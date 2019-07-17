@@ -4,6 +4,7 @@ import Menu from './Menu';
 import Footer from './Footer';
 import Thread from './Thread'
 import SearchResults from './components/SearchResults'
+import Wardrobe from './Wardrobe';
 
 class Home extends Component {
   constructor(props) {
@@ -44,11 +45,12 @@ class Home extends Component {
             {this.state.show && (
               <SearchResults input_text={this.state.input_text} />
             )}
+            <Wardrobe />
           </section>
           {/* /.content */}
         </div>
         {/* /.content-wrapper */}
-
+                
 
     
             </div>
