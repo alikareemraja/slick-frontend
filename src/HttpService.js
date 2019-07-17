@@ -1,6 +1,6 @@
 export default class HttpService {
 
-    static apiURL() {return "http://localhost:4000"; }
+    static apiURL() {return "http://localhost:3001"; }
 
     static checkIfUnauthorized(res) {
         if(res.status === 401) {
