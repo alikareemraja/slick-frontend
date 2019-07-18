@@ -7,12 +7,13 @@ const commentStyle = {
 
 export default class Thread extends Component {
 
-    state = {
-        thread: []
+    constructor(props) {
+        super(props);
+        this.state = { thread: [] };
     }
 
     componentDidMount() {
-        fetch('http://localhost:3001/comment/get/5d2d1e0294b2c46ded1c7baa')
+        fetch('http://localhost:3001/comment/get/5d2a0555d20c25e7b4276e3e')
             .then(res => res.json())
             .then((data) => {
                 this.setState({ thread: data })
@@ -46,14 +47,14 @@ export default class Thread extends Component {
                     </div> */}
 
                     <div className="row" style={commentStyle}>
-                        
+
                         {this.state.thread.map((comment) => (
-                        <div >
-                            <Comment comment={comment}/>
-                        </div>
+                            <div >
+                                <Comment comment={comment[0]} />
+                            </div>
                         ))}
-                        
-                        
+
+
                     </div>
                 </div>
             </div>
