@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Header from './Header';
 import Menu from './Menu';
+import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import Footer from './Footer';
 import Thread from './Thread'
 import SearchResults from './components/SearchResults'
@@ -41,11 +42,17 @@ class Home extends Component {
           </section>
           {/* Main content */}
           <section className="content">
+            <switch>
+              <Route path='/app/wardrobe' component={Wardrobe} />
+              <Route path='/app/thread/:id' component={Thread} />
+
+            </switch>
+          
             {/* <Thread id="5d2a334af1ca4b48b6caaf85"/> */}
-            {this.state.show && (
+            {/* {this.state.show && (
               <SearchResults input_text={this.state.input_text} />
             )}
-            <Wardrobe />
+            <Wardrobe /> */}
           </section>
           {/* /.content */}
         </div>
