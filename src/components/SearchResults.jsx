@@ -137,12 +137,21 @@ class SearchResults extends Component {
                 </a>
               </p>
               <p className="row-sm-2 row-md-3 row-lg-5 buttons">
-                <a className="btn btn-success btn-sm Add" href="#">
+                <button className="btn btn-primary btn-sm view" href="#">
+                  View item
+                </button>
+                <button className="btn btn-success btn-sm Add" href="#">
                   Add to wish list
-                </a>
-                <a className="btn btn-primary btn-sm Go" href="#">
+                </button>
+                <button
+                  className="btn btn-primary btn-sm active Go"
+                  aria-pressed="true"
+                  onClick={() => {
+                    window.open(currentItem.purchaseLink, "_blank");
+                  }}
+                >
                   Go to website
-                </a>
+                </button>
               </p>
             </div>
           </div>
@@ -208,12 +217,21 @@ class SearchResults extends Component {
                   </a>
                 </p>
                 <p className="row-sm-2 row-md-3 row-lg-5 buttons">
-                  <a className="btn btn-success btn-sm Add" href="#">
+                  <button className="btn btn-primary btn-sm view" href="#">
+                    View item
+                  </button>
+                  <button className="btn btn-success btn-sm Add" href="#">
                     Add to wish list
-                  </a>
-                  <a className="btn btn-primary btn-sm Go" href="#">
+                  </button>
+                  <button
+                    className="btn btn-primary btn-sm active Go"
+                    aria-pressed="true"
+                    onClick={() => {
+                      window.open(currentItem.purchaseLink, "_blank");
+                    }}
+                  >
                     Go to website
-                  </a>
+                  </button>
                 </p>
               </div>
             </div>{" "}
