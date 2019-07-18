@@ -1,18 +1,9 @@
 import React, { Component } from "react";
 import axios from "axios";
-//import "bootstrap/dist/css/bootstrap.css";
 import "../DispFormat.css";
 const SearchEndPoint = "http://localhost:4000/search/";
 
-/*
-const SearchObj = {
-  //result: this.state.result,
-  input_text: this.state.input_text,
-  search_history: this.state.search_history
-};*/
-
 class SearchResults extends Component {
-  // state = {};
   constructor(props) {
     // the constructor is to set the initial state of results
     super(props);
@@ -20,7 +11,6 @@ class SearchResults extends Component {
     this.state = {
       results: [] //empty array of results properties
       //number: "0"
-      //      input_text: this.props.search_text
     };
   }
   //init the results prop fron DB, send req to BE and get the list of items
@@ -43,30 +33,23 @@ class SearchResults extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    // Typical usage (don't forget to compare props):
-    // console.log(
-    // "INSIDE componentDidUpdate, this.props.input_text" + this.props.input_text
-    // );
-    console.log(
-      "INSIDE componentDidUpdate, this.state.results.length" +
-        this.state.results.length
-    );
-
-    //     <span className="badge badge-pill ">Recommended!</span>
-    axios
-      .get(SearchEndPoint, {
-        params: {
-          input_text: this.props.input_text
-          // input_text: "Great"
-        }
-      }) // no data sent with GET so we get the list of items
-      .then(response => {
-        this.setState({ results: response.data }); //once the response is available,
-        //this callback is active, setting the items sate to response data
-      }) // catch to print out to console in case of errors
-      .catch(function(error) {
-        console.log(error);
-      });
+    if (prevProps.input_text !== this.props.input_text) {
+      //     <span className="badge badge-pill ">Recommended!</span>
+      axios
+        .get(SearchEndPoint, {
+          params: {
+            input_text: this.props.input_text
+            // input_text: "Great"
+          }
+        }) // no data sent with GET so we get the list of items
+        .then(response => {
+          this.setState({ results: response.data }); //once the response is available,
+          //this callback is active, setting the items sate to response data
+        }) // catch to print out to console in case of errors
+        .catch(function(error) {
+          console.log(error);
+        });
+    }
   }
 
   itemList() {
