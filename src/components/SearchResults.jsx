@@ -58,8 +58,14 @@ class SearchResults extends Component {
     //used for every item
 
     return this.state.results.map((currentItem, i) => {
-      // return <ITEM resultItem={currentItem} key={i} />;
       console.log("currentItem: " + currentItem.input_text);
+      let itemPriceList = currentItem.prices,
+        priceList = [];
+      itemPriceList.map((p, i) => {
+        priceList.push(itemPriceList[i]["price"]);
+      });
+      let lowestPrice = Math.min.apply(null, priceList);
+
       if (currentItem.input_text === "Great")
         return (
           <div className="container search-result-item-rec">
@@ -108,7 +114,7 @@ class SearchResults extends Component {
               <p className="row-sm-1 row-md-2 row-lg-3 text-sm-right text-md-right text-lg-right text-primary price">
                 <a className="mb-2 text-dark font-weight-bold from">From </a>
                 <a className="mb-2 text-dark font-weight-bold actualprice">
-                  $3, 200
+                  {lowestPrice} €
                 </a>
               </p>
               <p className="row-sm-2 row-md-3 row-lg-5 buttons">
@@ -179,7 +185,7 @@ class SearchResults extends Component {
                 <p className="row-sm-1 row-md-2 row-lg-3 text-sm-right text-md-right text-lg-right text-primary price">
                   <a className="mb-2 text-dark font-weight-bold from">From </a>
                   <a className="mb-2 text-dark font-weight-bold actualprice">
-                    $3, 200
+                    {lowestPrice} €
                   </a>
                 </p>
                 <p className="row-sm-2 row-md-3 row-lg-5 buttons">
