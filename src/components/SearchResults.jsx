@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import axios from "axios";
 import "../DispFormat.css";
 const SearchEndPoint = "http://localhost:4000/search/";
+const StatisticsEndPoint = "http://localhost:3001/search/stat";
 
 class SearchResults extends Component {
   constructor(props) {
@@ -10,7 +11,6 @@ class SearchResults extends Component {
     this.itemList = this.itemList.bind(this);
     this.state = {
       results: [] //empty array of results properties
-      //number: "0"
     };
   }
   //init the results prop fron DB, send req to BE and get the list of items
@@ -30,6 +30,16 @@ class SearchResults extends Component {
       .catch(function(error) {
         console.log(error);
       });
+
+    axios
+      .get(StatisticsEndPoint) // no data sent with GET so we get the list of items
+      .then(response => {
+        this.setState({ number: response.length }); //once the response is available,
+        //this callback is active, setting the items sate to response data
+      }) // catch to print out to console in case of errors
+      .catch(function(error) {
+        console.log(error);
+      });
   }
 
   componentDidUpdate(prevProps) {
@@ -44,6 +54,15 @@ class SearchResults extends Component {
         }) // no data sent with GET so we get the list of items
         .then(response => {
           this.setState({ results: response.data }); //once the response is available,
+          //this callback is active, setting the items sate to response data
+        }) // catch to print out to console in case of errors
+        .catch(function(error) {
+          console.log(error);
+        });
+      axios
+        .get(StatisticsEndPoint) // no data sent with GET so we get the list of items
+        .then(response => {
+          this.setState({ number: response.length }); //once the response is available,
           //this callback is active, setting the items sate to response data
         }) // catch to print out to console in case of errors
         .catch(function(error) {
