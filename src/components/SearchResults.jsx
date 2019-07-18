@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import "../DispFormat.css";
-const SearchEndPoint = "http://localhost:4000/search/";
+const SearchEndPoint = "http://localhost:3001/search/get";
 const StatisticsEndPoint = "http://localhost:3001/search/stat";
 
 class SearchResults extends Component {
