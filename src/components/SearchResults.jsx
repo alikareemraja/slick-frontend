@@ -1,6 +1,14 @@
 import React, { Component } from "react";
+import {
+  BrowserRouter as Router,
+  Route,
+  Link,
+  Redirect,
+  withRouter
+} from "react-router-dom";
 import axios from "axios";
 import "../DispFormat.css";
+import searchStat from "./searchStat";
 const SearchEndPoint = "http://localhost:3001/search/get";
 const StatisticsEndPoint = "http://localhost:3001/search/stat";
 
@@ -8,6 +16,7 @@ class SearchResults extends Component {
   constructor(props) {
     // the constructor is to set the initial state of results
     super(props);
+    this.addDefaultSrc = this.addDefaultSrc.bind(this);
     this.itemList = this.itemList.bind(this);
     this.state = {
       results: [] //empty array of results properties
@@ -71,6 +80,12 @@ class SearchResults extends Component {
     }
   }
 
+  addDefaultSrc(ev) {
+    //    ev.target.src = "https://bootdey.com/img/Content/avatar/avatar2.png";
+    ev.target.src =
+      "http://icons.iconarchive.com/icons/iconsmind/outline/256/T-Shirt-icon.png";
+  }
+
   itemList() {
     //iterate over what is indside the state results using the map method
     //to iterate inside the elements of the results array, passing a callback function
@@ -91,12 +106,11 @@ class SearchResults extends Component {
             <div className="col-sm-5 col-md-6 col-lg-8 image-col">
               <img
                 className="img-fluid item-image"
-                alt="Responsive image"
-                src="https://bootdey.com/img/Content/avatar/avatar2.png"
+                alt="Slick Fashion Portal"
+                onError={this.addDefaultSrc}
+                src={"/dist/img/" + currentItem.imageURL}
               />
               <span className="badge badge-pill ">Recommended!</span>
-              {/*<div className="row search-result-item-body-r">*/}
-              {/*  <div className="col-sm-2 col-md-3 col-lg-8  display-result">*/}
             </div>
             <div className="col-sm-6 col-md-7 col-lg-8 display-result-col">
               <p className="row-sm-2 row-md-3 row-lg-5 text-left text-primary search-result-heading">
@@ -165,8 +179,9 @@ class SearchResults extends Component {
               <div className="col-sm-5 col-md-6 col-lg-8 image-col">
                 <img
                   className="img-fluid item-image"
-                  alt="Responsive image"
-                  src="https://bootdey.com/img/Content/avatar/avatar2.png"
+                  alt="Slick Fashion Portal"
+                  onError={this.addDefaultSrc}
+                  src={"/dist/img/" + currentItem.imageURL}
                 />
                 {/*  <span className="badge badge-pill ">Recommended!</span>*/}
                 {/*<div className="row search-result-item-body-r">*/}
@@ -284,4 +299,4 @@ class SearchResults extends Component {
   }
 }
 
-export default SearchResults;
+export default withRouter(SearchResults);
