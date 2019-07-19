@@ -44,7 +44,7 @@ export default class OwnedItemPage extends Component {
                 </div>
                 {/* TODO: Change fakeuserId with the real one*/}
                 {console.log("Passing itemId: " + this.props.match.params.id + " to Thread.")}
-                {/*<Thread userId={this.fakeUserId} itemId={this.state.item._id}/>*/}
+                <Thread userId={this.fakeUserId} itemId={this.state.item._id}/>
             </div>
         );
     }

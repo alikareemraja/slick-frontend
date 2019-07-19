@@ -135,7 +135,7 @@ export default class Comment extends Component {
                                             <label htmlFor="comment">Your Comment</label>
                                             <textarea name="comment" className="form-control" rows={3} defaultValue={""} onChange={this.handleChange} />
                                         </div>
-                                        <button data-toggle="collapse" href={"#replyComment" + this.props.comment._id} onClick={this.replyToComment.bind(this, "5d2a04e2d20c25e7b4276e16",this.props.comment._id, this.state.updateText)}  className="btn btn-default">Post</button>
+                                        <button data-toggle="collapse" href={"#replyComment" + this.props.comment._id} onClick={this.replyToComment.bind(this, this.props.userId, this.props.comment._id, this.state.updateText)}  className="btn btn-default">Post</button>
                                     </div>
                                 </div>
                             </div>
@@ -143,7 +143,6 @@ export default class Comment extends Component {
                             {this.props.comment.replies.map((reply) => (
                                 <div >
                                     <Comment comment={reply} callback={this.props.callback} />
-                                    {/* {this.props.comment.replies.length > 0 ? <Comment comment={} /> : 'no replies here'} */}
                                 </div>
                             ))}
                         </div>
