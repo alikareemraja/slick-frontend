@@ -52,7 +52,6 @@ export default class Login extends Component {
         console.log(this.state);
     }
 
-
     render() {
         return (
             
@@ -66,7 +65,7 @@ export default class Login extends Component {
                 {/* /.login-logo */}
                 <div className="login-box-body">
                     <p className="login-box-msg">Sign in to start your session</p>
-                    <form action="../../index2.html" >
+                    <form action="../../index2.html" onSubmit={this.handleLogin}>
                         <div className="form-group has-feedback">
                             <input id="email" type="email" className="form-control" placeholder="Email" onChange={this.handleFormChange} required={true}/>
                             <span className="glyphicon glyphicon-envelope form-control-feedback" />
@@ -85,7 +84,7 @@ export default class Login extends Component {
                             </div>
                             {/* /.col */}
                             <div className="col-xs-4">
-                                <button type="submit" className="btn btn-primary btn-block btn-flat" onClick={this.handleLogin}>Sign In</button>
+                                <button type="submit" className="btn btn-primary btn-block btn-flat">Sign In</button>
                             </div>
                             {/* /.col */}
                         </div>

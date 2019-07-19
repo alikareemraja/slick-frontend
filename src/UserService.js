@@ -54,6 +54,20 @@ export default class UserService {
         });
     }
 
+    static register(user, pass) {
+        console.log("UserService is registering user: " + user + ", pass:" + pass);
+        return new Promise((resolve, reject) => {
+            HttpService.post(HttpService.apiURL() + "/auth/register", {
+                username: user,
+                password: pass
+            }, function(data) {
+                resolve(data);
+            }, function(textStatus) {
+                reject(textStatus);
+            });
+        });
+    }
+
     static login(user, pass) {
         console.log("UserService is posting with user: " + user + ", pass:" + pass);
         return new Promise((resolve, reject) => {
