@@ -6,6 +6,7 @@ import Footer from './Footer';
 import Thread from './Thread'
 import SearchResults from './components/SearchResults'
 import Wardrobe from './Wardrobe';
+import OwnedItemPage from './OwnedItemPage';
 
 class Home extends Component {
   constructor(props) {
@@ -43,9 +44,9 @@ class Home extends Component {
           {/* Main content */}
           <section className="content">
             <switch>
-              <Route path='/app/wardrobe' component={Wardrobe} />
+              <Route exact path='/app/wardrobe' component={Wardrobe} />
               <Route path='/app/thread/:id' component={Thread} />
-
+              <Route path='/app/wardrobe/ownedItem/:itemId' component={OwnedItemPage} /> 
             </switch>
           
             {/* <Thread id="5d2a334af1ca4b48b6caaf85"/> */}
