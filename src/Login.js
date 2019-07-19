@@ -1,12 +1,55 @@
 import React, { Component } from 'react';
+import UserService from './UserService';
 
 export default class Login extends Component {
+
+    constructor(props){
+        super(props);
+
+        this.handleLogin = this.handleLogin.bind(this);
+        this.handleFormChange = this.handleFormChange.bind(this);
+    }
 
     componentWillMount() {
         document.getElementById('body').className = 'hold-transition login-page'
     }
     componentWillUnmount() {
         document.getElementById('body').className = 'hold-transition skin-black sidebar-mini'
+    }
+
+    handleLogin(event){
+        event.preventDefault();
+
+        console.log("TRying to sign in with user: " + this.state.username + ", pass: " + this.state.password);
+        UserService.login(this.state.username, this.state.password).then((data) => {
+            console.log("Hurray, you are logged in!");
+            this.props.history.push("/app/wardrobe");
+        }).catch((e) => {
+            console.error("An error was returned while logging in: " + e);
+            this.setState({
+                error: e
+            });
+        });
+    }
+
+    handleFormChange(event){
+        console.log(event.target);
+        if(event.target && event.target.id && event.target.value){
+            switch(event.target.id) {
+                case "email":
+                    this.setState({
+                        username: event.target.value
+                    });
+                    break;
+                case "password":
+                    this.setState({
+                        password: event.target.value
+                    });
+                    break;
+                default:
+            }
+        }
+        console.log(this.state);
     }
 
 
@@ -23,13 +66,13 @@ export default class Login extends Component {
                 {/* /.login-logo */}
                 <div className="login-box-body">
                     <p className="login-box-msg">Sign in to start your session</p>
-                    <form action="../../index2.html" method="post">
+                    <form action="../../index2.html" >
                         <div className="form-group has-feedback">
-                            <input type="email" className="form-control" placeholder="Email" />
+                            <input id="email" type="email" className="form-control" placeholder="Email" onChange={this.handleFormChange} required={true}/>
                             <span className="glyphicon glyphicon-envelope form-control-feedback" />
                         </div>
                         <div className="form-group has-feedback">
-                            <input type="password" className="form-control" placeholder="Password" />
+                            <input id="password" type="password" className="form-control" placeholder="Password" onChange={this.handleFormChange} required={true}/>
                             <span className="glyphicon glyphicon-lock form-control-feedback" />
                         </div>
                         <div className="row">
@@ -42,7 +85,7 @@ export default class Login extends Component {
                             </div>
                             {/* /.col */}
                             <div className="col-xs-4">
-                                <button type="submit" className="btn btn-primary btn-block btn-flat">Sign In</button>
+                                <button type="submit" className="btn btn-primary btn-block btn-flat" onClick={this.handleLogin}>Sign In</button>
                             </div>
                             {/* /.col */}
                         </div>

@@ -53,4 +53,34 @@ export default class UserService {
             });
         });
     }
+
+    static login(user, pass) {
+        console.log("UserService is posting with user: " + user + ", pass:" + pass);
+        return new Promise((resolve, reject) => {
+            HttpService.post(HttpService.apiURL() + "/auth/login", {
+                username: user,
+                password: pass
+            }, function(data) {
+                resolve(data);
+            }, function(textStatus) {
+                reject(textStatus);
+            });
+        });
+    }
+
+    static getCurrentUser() {
+        let token = window.localStorage['jwtToken'];
+        if (!token) return {};
+
+        let base64Url = token.split('.')[1];
+        let base64 = base64Url.replace('-', '+').replace('_', '/');
+        return {
+            id : JSON.parse(window.atob(base64)).id,
+            username: JSON.parse(window.atob(base64)).username
+        };
+    }
+
+    static logout(){
+        window.localStorage.removeItem('jwtToken');
+    }
 }

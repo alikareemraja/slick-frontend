@@ -21,7 +21,7 @@ export default class HttpService {
             headers: header
         }).then((resp) => {
             if(this.checkIfUnauthorized(resp)) {
-                window.location = "/#login";
+                window.location = "/login";
             }
             else {
                 return resp.json();
@@ -53,7 +53,7 @@ export default class HttpService {
             headers: header
         }).then((resp) => {
             if(this.checkIfUnauthorized(resp)) {
-                window.location = "/#login";
+                window.location = "/login";
                 return;
             }
             else {
@@ -85,7 +85,7 @@ export default class HttpService {
             body: JSON.stringify(data)
         }).then((resp) => {
             if(this.checkIfUnauthorized(resp)) {
-                window.location = "/#login";
+                window.location = "/login";
                 return;
             }
             else {

@@ -6,13 +6,14 @@ import UserService from './UserService';
 export default class Wardrobe extends Component {
 
     static defaultImgSrc;
-    static fakeUserId;
+    static userId;
 
     constructor(props) {
         super(props);
 
         this.defaultImgSrc = "http://icons.iconarchive.com/icons/iconsmind/outline/256/T-Shirt-icon.png";
-        this.fakeUserId = "5d0baa4849c47a1732d2b4e8";
+        this.userId = UserService.getCurrentUser().id;
+        console.log("Loading wardrobe for userid: " + this.userId);
 
         this.handleAddItemFormChange = this.handleAddItemFormChange.bind(this);
         this.handleAddItemFormSubmit = this.handleAddItemFormSubmit.bind(this);
@@ -23,14 +24,8 @@ export default class Wardrobe extends Component {
             loading: true
         });
 
-        {/* TODO: Fake data, remove after implementing data load from database
-        this.state = {
-            loading: false,            
-            data: [{imageURL: "https://image.flaticon.com/icons/png/128/118/118781.png", title: "This is a very very very very long title my dear friend"}, {imageURL: "https://dictionary.cambridge.org/images/thumb/ball_noun_001_01090.jpg", title: "ball This is a very very very very long title my dear friend"}, {imageURL: "https://image.flaticon.com/icons/png/128/118/118781.png", title: "This is a very very very very long title my dear friend"},{imageURL: "https://dictionary.cambridge.org/images/thumb/ball_noun_001_01090.jpg", title: "ball"}]
-        };*/}
 
-        {/* TODO: Fake userId, get actual userId from cookie*/ }
-        UserService.getOwnedItems(this.fakeUserId).then((data) => {
+        UserService.getOwnedItems(this.userId).then((data) => {
             console.log("Data: " + data.ownedItems + ", keys: " + Object.keys(data.ownedItems))
             this.setState({
                 data: data.ownedItems,
@@ -69,7 +64,7 @@ export default class Wardrobe extends Component {
 
     handleAddItemFormSubmit(event){
         if (!window.confirm("Are you sure? The item will be added to your wardrobe if you click 'OK'.")){
-            event.preventDefault()
+            event.preventDefault();
             return;
         }
 
@@ -81,7 +76,7 @@ export default class Wardrobe extends Component {
         }
         console.log("The submitted item is: ");
         console.log(item)
-        UserService.addOwnedItem(this.fakeUserId, item).then((msg) => {
+        UserService.addOwnedItem(this.userId, item).then((msg) => {
             console.log(msg);
         }).catch((e) => {
             console.log(e);
@@ -93,9 +88,7 @@ export default class Wardrobe extends Component {
         if (!window.confirm("Are you sure? The item will be deleted if you click 'OK'."))
             return;
 
-        {/* TODO: Fake userId, get actual userId from cookie*/ }
-        let fakeUserId = "5d0baa4849c47a1732d2b4e8"
-        UserService.deleteOwnedItem(fakeUserId, itemId).then((msg) => {
+        UserService.deleteOwnedItem(this.userId, itemId).then((msg) => {
             console.log(msg);
             this.setState({
                 data: this.state.data.filter(item => item._id !== itemId),
@@ -107,7 +100,6 @@ export default class Wardrobe extends Component {
     }
 
     render() {
-        {/* Add modifyItem? */ }
         if (this.state.loading) {
             return ("Loading the wardrobe...")
         }
@@ -156,7 +148,7 @@ export default class Wardrobe extends Component {
 
                                                     <div class="form-group">
                                                         <label for="title">Title:</label>
-                                                        <input type="text" class="form-control" id="title" placeholder="Title" required="true" onChange={this.handleAddItemFormChange}/>
+                                                        <input type="text" class="form-control" id="title" placeholder="Title" required={true} onChange={this.handleAddItemFormChange}/>
                                                     </div>
 
                                                     <div class="form-group">

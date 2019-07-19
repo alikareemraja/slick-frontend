@@ -4,12 +4,12 @@ import Thread from './Thread';
 
 export default class OwnedItemPage extends Component {
 
-    static fakeUserId;
+    static userId;
 
     constructor(props) {
         super(props);
 
-        this.fakeUserId = "5d0baa4849c47a1732d2b4e8";
+        this.userId = UserService.getCurrentUser().id;
     }
 
     componentWillMount(props) {
@@ -17,8 +17,7 @@ export default class OwnedItemPage extends Component {
             loading: true
         });
 
-        {/* TODO: Fake userId, get actual userId from cookie*/ }
-        UserService.getOwnedItem(this.fakeUserId, this.props.match.params.itemId).then((data) => {
+        UserService.getOwnedItem(this.userId, this.props.match.params.itemId).then((data) => {
             console.log("OwnedItemPage got the data:");
             console.log(data);
             console.log("OwnedItemPage data has the keys: ");
@@ -33,6 +32,7 @@ export default class OwnedItemPage extends Component {
     }
 
     render() {
+        {/* TODO: Add editItem */ }
         if (this.state.loading)
             return (<div>Loading your item...</div>);
         console.log("Rendering item_id: " + this.state.item._id);
@@ -42,9 +42,8 @@ export default class OwnedItemPage extends Component {
                     <img src={this.state.item.imageURL} alt={this.state.item.title} style={{ "maxWidth": "200px", "maxHeight": "200px" }} />
                     <h4>{this.state.item.title}</h4>
                 </div>
-                {/* TODO: Change fakeuserId with the real one*/}
                 {console.log("Passing itemId: " + this.props.match.params.id + " to Thread.")}
-                <Thread userId={this.fakeUserId} itemId={this.state.item._id}/>
+                {/*<Thread userId={this.fakeUserId} itemId={this.state.item._id}/>*/}
             </div>
         );
     }
