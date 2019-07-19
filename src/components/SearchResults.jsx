@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import axios from "axios";
 import "../DispFormat.css";
-const SearchEndPoint = "http://localhost:4000/search/";
+const SearchEndPoint = "http://localhost:3001/search/get";
+const StatisticsEndPoint = "http://localhost:3001/search/stat";
 
 class SearchResults extends Component {
   constructor(props) {
@@ -10,7 +11,6 @@ class SearchResults extends Component {
     this.itemList = this.itemList.bind(this);
     this.state = {
       results: [] //empty array of results properties
-      //number: "0"
     };
   }
   //init the results prop fron DB, send req to BE and get the list of items
@@ -25,6 +25,16 @@ class SearchResults extends Component {
       }) // no data sent with GET so we get the list of items
       .then(response => {
         this.setState({ results: response.data }); //once the response is available,
+        //this callback is active, setting the items sate to response data
+      }) // catch to print out to console in case of errors
+      .catch(function(error) {
+        console.log(error);
+      });
+
+    axios
+      .get(StatisticsEndPoint) // no data sent with GET so we get the list of items
+      .then(response => {
+        this.setState({ number: response.length }); //once the response is available,
         //this callback is active, setting the items sate to response data
       }) // catch to print out to console in case of errors
       .catch(function(error) {
@@ -49,6 +59,15 @@ class SearchResults extends Component {
         .catch(function(error) {
           console.log(error);
         });
+      axios
+        .get(StatisticsEndPoint) // no data sent with GET so we get the list of items
+        .then(response => {
+          this.setState({ number: response.length }); //once the response is available,
+          //this callback is active, setting the items sate to response data
+        }) // catch to print out to console in case of errors
+        .catch(function(error) {
+          console.log(error);
+        });
     }
   }
 
@@ -58,8 +77,14 @@ class SearchResults extends Component {
     //used for every item
 
     return this.state.results.map((currentItem, i) => {
-      // return <ITEM resultItem={currentItem} key={i} />;
       console.log("currentItem: " + currentItem.input_text);
+      let itemPriceList = currentItem.prices,
+        priceList = [];
+      itemPriceList.map((p, i) => {
+        priceList.push(itemPriceList[i]["price"]);
+      });
+      let lowestPrice = Math.min.apply(null, priceList);
+
       if (currentItem.input_text === "Great")
         return (
           <div className="container search-result-item-rec">
@@ -108,16 +133,25 @@ class SearchResults extends Component {
               <p className="row-sm-1 row-md-2 row-lg-3 text-sm-right text-md-right text-lg-right text-primary price">
                 <a className="mb-2 text-dark font-weight-bold from">From </a>
                 <a className="mb-2 text-dark font-weight-bold actualprice">
-                  $3, 200
+                  {lowestPrice} €
                 </a>
               </p>
               <p className="row-sm-2 row-md-3 row-lg-5 buttons">
-                <a className="btn btn-success btn-sm Add" href="#">
+                <button className="btn btn-primary btn-sm view" href="#">
+                  View item
+                </button>
+                <button className="btn btn-success btn-sm Add" href="#">
                   Add to wish list
-                </a>
-                <a className="btn btn-primary btn-sm Go" href="#">
+                </button>
+                <button
+                  className="btn btn-primary btn-sm active Go"
+                  aria-pressed="true"
+                  onClick={() => {
+                    window.open(currentItem.purchaseLink, "_blank");
+                  }}
+                >
                   Go to website
-                </a>
+                </button>
               </p>
             </div>
           </div>
@@ -179,16 +213,25 @@ class SearchResults extends Component {
                 <p className="row-sm-1 row-md-2 row-lg-3 text-sm-right text-md-right text-lg-right text-primary price">
                   <a className="mb-2 text-dark font-weight-bold from">From </a>
                   <a className="mb-2 text-dark font-weight-bold actualprice">
-                    $3, 200
+                    {lowestPrice} €
                   </a>
                 </p>
                 <p className="row-sm-2 row-md-3 row-lg-5 buttons">
-                  <a className="btn btn-success btn-sm Add" href="#">
+                  <button className="btn btn-primary btn-sm view" href="#">
+                    View item
+                  </button>
+                  <button className="btn btn-success btn-sm Add" href="#">
                     Add to wish list
-                  </a>
-                  <a className="btn btn-primary btn-sm Go" href="#">
+                  </button>
+                  <button
+                    className="btn btn-primary btn-sm active Go"
+                    aria-pressed="true"
+                    onClick={() => {
+                      window.open(currentItem.purchaseLink, "_blank");
+                    }}
+                  >
                     Go to website
-                  </a>
+                  </button>
                 </p>
               </div>
             </div>{" "}
