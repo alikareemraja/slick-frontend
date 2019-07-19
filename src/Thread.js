@@ -9,7 +9,36 @@ export default class Thread extends Component {
 
     constructor(props) {
         super(props);
-        this.state = { thread: [] };
+        this.state = { thread: [], text : "", refresh: false };
+    }
+
+    handleChange = (e) =>{ 
+        this.setState({text: e.target.value});
+      }
+
+    reloadThread = (e) => {
+        this.setState({refresh: !this.state.refresh})
+        this.componentDidMount();
+        console.log("updated!");
+    }
+    postComment = function (itemId, userId, text) {
+        fetch('http://localhost:3001/comment/add/', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                item: itemId,
+                user: userId,
+                date: new Date().getTime() / 1000,
+                text: text,
+            })
+        }).then((data) => {
+            console.log("success!")
+            this.reloadThread();
+        }).catch(console.log)
+
     }
 
     componentDidMount() {
@@ -25,13 +54,13 @@ export default class Thread extends Component {
         return (
             <div className="container">
                 <div className="post-comments">
-                    <form>
+                    <div>
                         <div className="form-group">
                             <label htmlFor="comment">Your Comment ({this.state.thread.length})</label>
-                            <textarea name="comment" className="form-control" rows={3} defaultValue={""} />
+                            <textarea name="comment" className="form-control" rows={3} value={this.state.text} onChange={this.handleChange} />
                         </div>
-                        <button type="submit" className="btn btn-default">Send</button>
-                    </form>
+                        <button  onClick={this.postComment.bind(this, "5d2a0555d20c25e7b4276e3e", "5d2a04e2d20c25e7b4276e16", this.state.text)} className="btn btn-default">Send</button>
+                    </div>
                     {/* <div className="comments-nav">
                         <ul className="nav nav-pills">
                             <li role="presentation" className="dropdown">
@@ -50,7 +79,7 @@ export default class Thread extends Component {
 
                         {this.state.thread.map((comment) => (
                             <div >
-                                <Comment comment={comment[0]} />
+                                <Comment comment={comment[0]} callback={this.reloadThread}/>
                             </div>
                         ))}
 
