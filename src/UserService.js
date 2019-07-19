@@ -28,4 +28,14 @@ export default class UserService {
             });
         });
     }
+
+    static addOwnedItem(userId, item) {
+        return new Promise((resolve, reject) => {
+            HttpService.post(this.baseURL() + "/" + userId + "/owned", item, function(data) {
+                resolve(data);
+            }, function(textStatus) {
+                reject(textStatus);
+            });
+        });
+    }
 }

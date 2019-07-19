@@ -71,5 +71,39 @@ export default class HttpService {
         });
     }
 
+    static post(url, data, onSuccess, onError) {
+        let token = window.localStorage['jwtToken'];
+        let header = new Headers();
+        if(token) {
+            header.append('Authorization', `JWT ${token}`);
+        }
+        header.append('Content-Type', 'application/json');
+
+        fetch(url, {
+            method: 'POST',
+            headers: header,
+            body: JSON.stringify(data)
+        }).then((resp) => {
+            if(this.checkIfUnauthorized(resp)) {
+                window.location = "/#login";
+                return;
+            }
+            else {
+                return resp.json();
+            }
+        }).then((resp) => {
+            if(resp.error) {
+                onError(resp.error);
+            }
+            else {
+                if(resp.hasOwnProperty('token')) {
+                    window.localStorage['jwtToken'] = resp.token;
+                }
+                onSuccess(resp);
+            }
+        }).catch((e) => {
+            onError(e.message);
+        });
+    }
 
 }
