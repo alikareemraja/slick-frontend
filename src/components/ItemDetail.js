@@ -75,9 +75,27 @@ export class ItemDetail extends React.Component {
 
     constructor(props) {
         super(props);
+        this.state = {
+          buyLink: "",
+          price: this.props.item.retailers[0].price,
+        };
+        this.myFunction=this.myFunction.bind(this);
     }
 
 
+myFunction(){
+
+  this.setState(state => ({
+    buyLink: this.props.item.retailers[0].website,
+    price: this.props.item.retailers[1].price,
+  }));
+
+}
+
+
+handleClick() {
+  window.location.assign('http://ebay.com');
+}
 
 
     render() {
@@ -159,35 +177,43 @@ export class ItemDetail extends React.Component {
                               }}
                             >
                               <div style={{ fontSize: 18, marginTop: 10 }}>
-                                Year: {this.props.item.year}
+                                Price: {this.state.price}
                               </div>
     
     
     
                               <div>
     
-                                <Tab.Container id="list-group-tabs-example" defaultActiveKey="#link1">
+                                <Tab.Container id="list-group-tabs" defaultActiveKey="link">
                                   <Row>
                                     <Col sm={9}>
+                                    
                                       <ListGroup>
-                                        <ListGroup.Item action href="#link1">
-                                          Link 1
+
+                                        <ListGroup.Item action href="#link1" onClick={
+                                                  (this.myFunction)
+
+                                        }>
+                                        {this.props.item.retailers[0].name}
                                         </ListGroup.Item>
+                                  
                                         <ListGroup.Item action href="#link2">
-                                          Link 2
+                                        {this.props.item.retailers[1].name}
                                         </ListGroup.Item>
+                                        
                                       </ListGroup>
                                     </Col>
                                     <Col sm={5}>
                                       <Tab.Content>
                                         <Tab.Pane eventKey="#link1">
-                                        
+                                      
                                         </Tab.Pane>
                                         <Tab.Pane eventKey="#link2">
                                         
                                         </Tab.Pane>
                                       </Tab.Content>
                                     </Col>
+
                                   </Row>
                                 </Tab.Container>
                                 </div>
@@ -205,9 +231,7 @@ export class ItemDetail extends React.Component {
                           </div>
                               <div>
     
-                                <Link to="/list">
-                                <button type="button" class="btn btn-success">Buy</button>
-                              </Link>
+                              <button onClick={this.handleClick.bind(this)} type="button" class="btn btn-success">Buy</button>
     
                               </div>
     
