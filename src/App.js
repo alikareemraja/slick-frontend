@@ -14,6 +14,8 @@ export default class App extends Component {
               <Route path='/app' component={Home} />
               <Route path='/login' component={Login} />
               <Route path='/register' component={Register}/>
+              <Route exact path='/item' component={ItemListView} />
+              <Route exact path='/show/:id' component={ItemDetailView} /> 
           </Switch>
         
       </Router>
