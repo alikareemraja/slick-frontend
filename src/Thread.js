@@ -59,7 +59,7 @@ export default class Thread extends Component {
                             <label htmlFor="comment">Your Comment ({this.state.thread.length})</label>
                             <textarea name="comment" className="form-control" rows={3} value={this.state.text} onChange={this.handleChange} />
                         </div>
-                        <button  onClick={this.postComment.bind(this, "5d2a0555d20c25e7b4276e3e", "5d2a04e2d20c25e7b4276e16", this.state.text)} className="btn btn-default">Send</button>
+                        <button  onClick={this.postComment.bind(this, "5d2a0555d20c25e7b4276e3e", "5d2a04e2d20c25e7b4276e16", this.state.text)} className="btn btn-default">Post</button>
                     </div>
                     {/* <div className="comments-nav">
                         <ul className="nav nav-pills">
