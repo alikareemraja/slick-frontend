@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { Component } from 'react'
 
 
@@ -6,15 +7,86 @@ const actionButtonStyle = {
 };
 
 export default class Comment extends Component {
+    
+    constructor(props) {
+        super(props);
+        this.state = { editMode : false, updateText : "" };
+    }
+
+    handleChange = (e) =>{
+        
+        this.state.updateText = e.target.value;
+      }
+    toggleEdit = (e) =>{
+        this.setState(prevState => ({
+            editMode: !prevState.editMode
+          }));
+    }
+
+    deleteComment = function (commentId) {
+        fetch('http://localhost:3001/comment/delete/' + commentId, {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            }
+        })
+        .then(res => 
+            res.json()
+            )
+        .then((data) => {            
+            console.log("success!")
+            this.props.callback()
+        })
+        .catch(console.log)
+
+    }
+
+    replyToComment = function (userId, commentId, text) {
+        fetch('http://localhost:3001/comment/add/' + commentId, {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                user: userId,
+                date: new Date().getTime() / 1000,
+                text: text,
+            })
+        }).then((data) => {
+            console.log("success!")
+            this.props.callback()
+        }).catch(console.log)
+
+    }
+
+    updateComment = function (commentId, text) {
+        fetch('http://localhost:3001/comment/update/' + commentId, {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                text: text,
+            })
+        }).then((data) => {
+            console.log("success!")
+            this.props.callback()
+        }).catch(console.log)
+
+    }
+
     render() {
         return (
             <div>
                 <div className="media">
                     {/* first comment */}
                     <div className="media-heading">
-                        <button className="btn btn-default btn-xs" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseExample"><span className="glyphicon glyphicon-minus" aria-hidden="true" /></button> <span className="label label-info">12314</span> terminator 12 hours ago
+                        <button className="btn btn-default btn-xs" type="button" data-toggle="collapse" data-target={"#collapse"+ this.props.comment._id} aria-expanded="false" aria-controls="collapseExample"><span className="glyphicon glyphicon-minus" aria-hidden="true" /></button> <span className="label label-info">12314</span> terminator 12 hours ago
         </div>
-                    <div className="panel-collapse collapse in" id="collapseOne">
+                    <div className="panel-collapse collapse in" id={"collapse" + this.props.comment._id}>
                         <div className="media-left">
                             <div className="vote-wrap">
                                 <div className="save-post">
@@ -31,28 +103,37 @@ export default class Comment extends Component {
                         </div>
                         {/* media-left */}
                         <div className="media-body">
-                            <p>{this.props.comment.text}</p>
+                            <p>{ this.state.editMode ? null : this.props.comment.text}</p>
+                            <div className="collapse" id={"editComment" + this.props.comment._id}>
+                                    <div>
+                                        <div className="form-group">
+                                            <textarea name="comment" className="form-control" rows={3} defaultValue={this.props.comment.text} onChange={this.handleChange} />
+                                        </div>
+                                        <button onClick={this.updateComment.bind(this, this.props.comment._id, this.state.text)} className="btn btn-default">Update</button>
+                                    </div>
+                                </div>
                             <div className="comment-meta">
-                                <span><a href="fake_url" style={actionButtonStyle}>delete</a></span>
-                                <span><a href="fake_url" style={actionButtonStyle}>report</a></span>
-                                <span><a href="fake_url" style={actionButtonStyle}>hide</a></span>
+                                <span><a className role="button" onClick={this.deleteComment.bind(this, this.props.comment._id)} style={actionButtonStyle}>delete</a></span>
                                 <span>
-                                    <a className role="button" data-toggle="collapse" href="#replyCommentT" aria-expanded="false" aria-controls="collapseExample">reply</a>
+                                    <a className role="button" data-toggle="collapse" href={"#editComment" + this.props.comment._id} aria-expanded="false" aria-controls="collapseExample" onClick={this.toggleEdit}>edit</a>
                                 </span>
-                                <div className="collapse" id="replyCommentT">
-                                    <form>
+                                <span>
+                                    <a className role="button" data-toggle="collapse" href={"#replyComment" + this.props.comment._id} aria-expanded="false" aria-controls="collapseExample">reply</a>
+                                </span>
+                                <div className="collapse" id={"replyComment" + this.props.comment._id}>
+                                    <div>
                                         <div className="form-group">
                                             <label htmlFor="comment">Your Comment</label>
                                             <textarea name="comment" className="form-control" rows={3} defaultValue={""} />
                                         </div>
-                                        <button type="submit" className="btn btn-default">Send</button>
-                                    </form>
+                                        <button onClick={this.replyToComment.bind(this, "5d2a04e2d20c25e7b4276e16",this.props.comment._id, this.state.text)}  className="btn btn-default">Send</button>
+                                    </div>
                                 </div>
                             </div>
                             {/* comment-meta */}
                             {this.props.comment.replies.map((reply) => (
                                 <div >
-                                    <Comment comment={reply}/>
+                                    <Comment comment={reply} />
                                     {/* {this.props.comment.replies.length > 0 ? <Comment comment={} /> : 'no replies here'} */}
                                 </div>
                             ))}
