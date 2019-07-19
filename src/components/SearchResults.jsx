@@ -10,7 +10,7 @@ import axios from "axios";
 import "../DispFormat.css";
 import searchStat from "./searchStat";
 const SearchEndPoint = "http://localhost:3001/search/get";
-const StatisticsEndPoint = "http://localhost:3001/search/stat";
+//const StatisticsEndPoint = "http://localhost:3001/search/stat";
 
 class SearchResults extends Component {
   constructor(props) {
@@ -39,7 +39,7 @@ class SearchResults extends Component {
       .catch(function(error) {
         console.log(error);
       });
-
+/*
     axios
       .get(StatisticsEndPoint) // no data sent with GET so we get the list of items
       .then(response => {
@@ -48,7 +48,7 @@ class SearchResults extends Component {
       }) // catch to print out to console in case of errors
       .catch(function(error) {
         console.log(error);
-      });
+      });*/
   }
 
   componentDidUpdate(prevProps) {
@@ -68,6 +68,7 @@ class SearchResults extends Component {
         .catch(function(error) {
           console.log(error);
         });
+        /*
       axios
         .get(StatisticsEndPoint) // no data sent with GET so we get the list of items
         .then(response => {
@@ -77,7 +78,7 @@ class SearchResults extends Component {
         .catch(function(error) {
           console.log(error);
         });
-    }
+    }*/
   }
 
   addDefaultSrc(ev) {
