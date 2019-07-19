@@ -1,3 +1,4 @@
+
 "use strict";
 
 import { Link } from 'react-router-dom'
@@ -35,7 +36,7 @@ myFunction(){
 
 
 handleClick() {
-  window.location.assign('http://ebay.com');
+  window.location.assign(this.props.item.retailers[0].website);
 }
 
 
