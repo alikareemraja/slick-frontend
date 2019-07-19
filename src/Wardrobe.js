@@ -5,8 +5,17 @@ import UserService from './UserService';
 
 export default class Wardrobe extends Component {
 
+    static defaultImgSrc;
+    static fakeUserId;
+
     constructor(props) {
         super(props);
+
+        this.defaultImgSrc = "http://icons.iconarchive.com/icons/iconsmind/outline/256/T-Shirt-icon.png";
+        this.fakeUserId = "5d0baa4849c47a1732d2b4e8";
+
+        this.handleAddItemFormChange = this.handleAddItemFormChange.bind(this);
+        this.handleAddItemFormSubmit = this.handleAddItemFormSubmit.bind(this);
     }
 
     componentWillMount(props) {
@@ -21,26 +30,62 @@ export default class Wardrobe extends Component {
         };*/}
 
         {/* TODO: Fake userId, get actual userId from cookie*/ }
-        let fakeUserId = "5d0baa4849c47a1732d2b4e8";
-        let defaultImgSrc = "http://icons.iconarchive.com/icons/iconsmind/outline/256/T-Shirt-icon.png";
-        UserService.getOwnedItems(fakeUserId).then((data) => {
+        UserService.getOwnedItems(this.fakeUserId).then((data) => {
             console.log("Data: " + data.ownedItems + ", keys: " + Object.keys(data.ownedItems))
             this.setState({
                 data: data.ownedItems,
                 loading: false,
-                imgSrc: defaultImgSrc
+                addItemImgSrc: this.defaultImgSrc
             });
         }).catch((e) => {
             console.error(e);
         });
     }
 
-    onFilePick = (event) => {
-        if (event.target.files && event.target.files[0]) {
-            this.setState({
-                imgSrc: URL.createObjectURL(event.target.files[0])
-            });
+    handleAddItemFormChange(event){
+        if(event.target && event.target.id && event.target.value){
+            switch(event.target.id) {
+                case "title":
+                    this.setState({
+                        addItemTitle: event.target.value
+                    });
+                    break;
+                case "description":
+                    this.setState({
+                        addItemDescription: event.target.value
+                    });
+                    break;
+                case "filePicker":
+                    if (event.target.files && event.target.files[0]) {
+                        this.setState({
+                            addItemImgSrc: URL.createObjectURL(event.target.files[0])
+                        });
+                    }
+                    break;
+                default:
+            }
         }
+    }
+
+    handleAddItemFormSubmit(event){
+        if (!window.confirm("Are you sure? The item will be added to your wardrobe if you click 'OK'.")){
+            event.preventDefault()
+            return;
+        }
+
+        console.log("AddItemForm is submitted.");
+        let item = {
+            title: this.state.addItemTitle,
+            imageURL: this.state.addItemImgSrc,
+            description: this.state.addItemDescription
+        }
+        console.log("The submitted item is: ");
+        console.log(item)
+        UserService.addOwnedItem(this.fakeUserId, item).then((msg) => {
+            console.log(msg);
+        }).catch((e) => {
+            console.log(e);
+        });
     }
 
     deleteOwnedItem(itemId) {
@@ -58,7 +103,6 @@ export default class Wardrobe extends Component {
             });
         }).catch((e) => {
             console.log(e);
-
         });
     }
 
@@ -92,38 +136,40 @@ export default class Wardrobe extends Component {
                             {/* Modal that contains add item form */}
                             <div class="modal fade" id="addItemModal" tabindex="-1" role="dialog" aria-labelledby="modalTitle" aria-hidden="true">
                                 <div class="modal-dialog modal-dialog-centered" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="modalTitle">Add new item</h5>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <form class="col">
-                                                <div class="form-group">
-                                                    <input id="filePicker" type="file" class="form-control-file" accept=".gif,.jpg,.jpeg,.png" onChange={this.onFilePick} />
-                                                </div>
+                                    <div class="modal-content">                                                                  
+                                            <div class="modal-header">
+                                                <h3 class="modal-title" id="modalTitle">Add new item
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button></h3>
+                                            </div>
+                                            <form onSubmit={this.handleAddItemFormSubmit}>   
+                                            <div class="modal-body">                                                       
+                                                <div class="col">
+                                                    <div class="form-group">
+                                                        <input id="filePicker" type="file" class="form-control-file" accept=".gif,.jpg,.jpeg,.png" onChange={this.handleAddItemFormChange} />
+                                                    </div>
 
-                                                <div class="form-group">
-                                                    <img id="image" src={this.state.imgSrc} alt="File to upload" style={{ maxWidth: "200px", maxHeight: "200px" }} class=""></img>
-                                                </div>
+                                                    <div class="form-group">
+                                                        <img id="image" src={this.state.addItemImgSrc} alt="File to upload" style={{ maxWidth: "200px", maxHeight: "200px" }} class=""></img>
+                                                    </div>
 
-                                                <div class="form-group">
-                                                    <label for="title">Title:</label>
-                                                    <input type="text" class="form-control" id="title" placeholder="Title" required />
-                                                </div>
+                                                    <div class="form-group">
+                                                        <label for="title">Title:</label>
+                                                        <input type="text" class="form-control" id="title" placeholder="Title" required="true" onChange={this.handleAddItemFormChange}/>
+                                                    </div>
 
-                                                <div class="form-group">
-                                                    <label for="description">Description:</label>
-                                                    <textarea class="form-control" rows="5" id="description" placeholder="Description"></textarea>
+                                                    <div class="form-group">
+                                                        <label for="description">Description:</label>
+                                                        <textarea class="form-control" rows="5" id="description" placeholder="Description" onChange={this.handleAddItemFormChange}></textarea>
+                                                    </div>
                                                 </div>
-                                            </form>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                            <button type="button" class="btn btn-primary">Add to Wardrobe</button>
-                                        </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                <button type="submit" class="btn btn-primary">Add to Wardrobe</button>
+                                            </div>
+                                        </form>
                                     </div>
                                 </div>
                             </div>

@@ -12,10 +12,12 @@ export default class WardrobeItem extends Component {
 
         // Shorten the title so that it fits the title box
         let MAX_LENGTH = 34;
-        let len = this.props.item.title.length;
-        console.log("title: " + this.props.item.title + ", length: " + this.props.item.title.length);
-        if (len > MAX_LENGTH) {
-            this.props.item.title = this.props.item.title.substring(0, MAX_LENGTH - 3) + "..."
+        if (this.props.item.title) {
+            let len = this.props.item.title.length;
+            console.log("title: " + this.props.item.title + ", length: " + this.props.item.title.length);
+            if (len > MAX_LENGTH) {
+                this.props.item.title = this.props.item.title.substring(0, MAX_LENGTH - 3) + "..."
+            }
         }
     }
 
