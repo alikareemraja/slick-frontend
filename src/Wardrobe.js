@@ -12,7 +12,7 @@ export default class Wardrobe extends Component {
         super(props);
 
         this.defaultImgSrc = "http://icons.iconarchive.com/icons/iconsmind/outline/256/T-Shirt-icon.png";
-        this.fakeUserId = "5d0baa4849c47a1732d2b4e8";
+        this.fakeUserId = "5d31cba35207b8ed7fada852";
 
         this.handleAddItemFormChange = this.handleAddItemFormChange.bind(this);
         this.handleAddItemFormSubmit = this.handleAddItemFormSubmit.bind(this);
