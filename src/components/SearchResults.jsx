@@ -9,7 +9,7 @@ import {
 import axios from "axios";
 import "../DispFormat.css";
 import searchStat from "./searchStat";
-const SearchEndPoint = "http://localhost:3001/search/get";
+const SearchEndPoint = "http://localhost:3002/search/get";
 const StatisticsEndPoint = "http://localhost:3001/search/stat";
 
 class SearchResults extends Component {
@@ -31,39 +31,43 @@ class SearchResults extends Component {
       .then(res => res.json())
       .then(response => {
         this.setState({ results: response });
+        console.log("TTTTTTTTTTTTTTTTTTTTTTT");
+        console.log(response);
       })
       .catch(function(error) {
         console.log(error);
       });
-
+    /*
     fetch(StatisticsEndPoint) // no data sent with GET so we get the list of items
       .then(res => res.json())
       .then(response => {
-        this.setState({ number: response.length }); //once the response is available,
-        //this callback is active, setting the items sate to response data
-      }) // catch to print out to console in case of errors
+        this.setState({ number: response.length });
+      })
       .catch(function(error) {
         console.log(error);
-      });
+      });*/
   }
 
   componentDidUpdate(prevProps, prevState) {
     if (prevProps.input_text !== this.props.input_text) {
-      fetch(StatisticsEndPoint) // no data sent with GET so we get the list of items
+      /*     fetch(StatisticsEndPoint) // no data sent with GET so we get the list of items
         .then(res => res.json())
         .then(response => {
-          this.setState({ number: response.length }); //once the response is available,
-          //this callback is active, setting the items sate to response data
-        }) // catch to print out to console in case of errors
+          this.setState({ number: response.length });
+          console.log("ZZZZZZZZZZZZZZZZZZZZZZZZZZ");
+          console.log(response);
+        })
         .catch(function(error) {
           console.log(error);
-        });
+        });*/
 
       var url = SearchEndPoint + "?category=" + this.props.input_text;
       fetch(url)
         .then(res => res.json())
         .then(response => {
           this.setState({ results: response });
+          console.log("ZZZZZZZZZZZZZZZZZZZZZZZZZ");
+          console.log(response);
         })
         .catch(function(error) {
           console.log(error);
@@ -94,15 +98,21 @@ class SearchResults extends Component {
       console.log("currentItem id: " + currentItem._id);
       console.log("currentItem image: " + currentItem.imageURL);
       console.log("currentItem isRecommended: " + currentItem.isRecommended);
+      console.log("currentItem prices: ");
+      console.log(currentItem.prices);
       let itemPriceList = currentItem.prices,
         priceList = [];
+      console.log("itemPriceList ");
+      console.log(itemPriceList);
       itemPriceList.map((p, i) => {
         priceList.push(itemPriceList[i]["price"]);
       });
+      console.log(priceList);
       let lowestPrice = Math.min.apply(null, priceList);
+      console.log("Lowest Price: ");
+      console.log(lowestPrice);
       let colorsList = currentItem.color;
-      //let recommended = currentItem.isRecommended; //this.recommender();
-      let recommended = this.recommender();
+      let recommended = currentItem.isRecommended;
       if (recommended)
         return (
           <div className="container search-result-item-rec">
@@ -117,7 +127,7 @@ class SearchResults extends Component {
             </div>
             <div className="col-sm-6 col-md-7 col-lg-8 display-result-col">
               <p className="row-sm-2 row-md-3 row-lg-5 text-left text-primary search-result-heading">
-                Adidas,{i}
+                {currentItem.category},{i}
               </p>
               <p className="row text-left search-result-info">
                 <h5 className="col-sm-1 col-md-2 col-lg-3 text-sm-left text-md-left text-lg-left text-dark left-col">
@@ -147,7 +157,8 @@ class SearchResults extends Component {
                     {currentItem.reviews[0]["reviewTitle"]}
                   </span>
                   <span className="row text-dark text-truncate desc-result">
-                    {currentItem.description}
+                    {/*  {currentItem.description}*/}
+                    {currentItem.isRecommended}
                   </span>
                 </h5>
               </p>
@@ -156,7 +167,7 @@ class SearchResults extends Component {
               <p className="row-sm-1 row-md-2 row-lg-3 text-sm-right text-md-right text-lg-right  price">
                 <span className="p-3 mb-2 text-dark  from">From </span>
                 <span className="p-3 mb-2 text-dark font-weight-bold actualprice">
-                  {lowestPrice} €
+                  {/*  {lowestPrice} €*/}
                 </span>
               </p>
               <p className="row-sm-2 row-md-3 row-lg-5 buttons">
@@ -193,7 +204,7 @@ class SearchResults extends Component {
             </div>
             <div className="col-sm-6 col-md-7 col-lg-8 display-result-col">
               <p className="row-sm-2 row-md-3 row-lg-5 text-left text-primary search-result-heading">
-                Adidas, {i}
+                {currentItem.category}, {i}
               </p>
               <p className="row text-left search-result-info">
                 <h5 className="col-sm-1 col-md-2 col-lg-3 text-sm-left text-md-left text-lg-left text-dark left-col">
@@ -223,7 +234,8 @@ class SearchResults extends Component {
                     {currentItem.reviews[0]["reviewTitle"]}
                   </span>
                   <span className="row text-dark text-truncate desc-result">
-                    {currentItem.description}
+                    {/*  {currentItem.description}*/}
+                    {currentItem.isRecommended}
                   </span>
                 </h5>
               </p>
