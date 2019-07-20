@@ -10,9 +10,11 @@ import NotFound from "./NotFound";
 import Thread from "./Thread";
 import SearchResults from "./components/SearchResults"
 
+
 class Home extends Component {
   constructor(props) {
     super(props);
+    var location = window.location.href;
     this.state = {
       input_text: "",
       show: false
@@ -46,16 +48,11 @@ class Home extends Component {
           {/* Main content */}
           <section className="content">
             <switch>
-              <Route exact path="/" component={Wardrobe} />
-              <Route exact path="/thread" component={Thread} />
-              <Route
-                exact
-                path="/wardrobe/ownedItem/:itemId"
-                component={OwnedItemPage}
-              />
-              <Route exact path="/item" component={ItemListView} />
-              <Route exact path="/show/:id" component={ItemDetailView} />
-              <Route exact path="/search" component={SearchResults} />
+              <Route exact path="/home" component={Wardrobe} />
+              <Route  path="/home/wardrobe/ownedItem/:itemId" component={OwnedItemPage}/>
+              <Route  path="/home/item" component={ItemListView} />
+              <Route  path="/home/show/:id" component={ItemDetailView} />
+              <Route  path="/home/search" component={SearchResults} />
             </switch>
 
             {/* <Thread id="5d2a334af1ca4b48b6caaf85"/> */}
