@@ -1,6 +1,23 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
+
+const card = {
+    boxShadow: "0 4px 8px 0 rgba(0,0,0,0.2)",
+    
+    transition: "0.3s",
+    maxWidth: "300px",
+    minHeight: "350px",
+    
+    margin: "20px 20px"
+}
+const card_hover = {
+    ".card:hover": { boxShadow: "0 8px 16px 0 rgba(0,0,0,0.2)" }
+};
+
+const container = { padding: "2px 16px" };
+
+
 export default class WardrobeItem extends Component {
 
     constructor(props) {
@@ -24,14 +41,24 @@ export default class WardrobeItem extends Component {
 
     render() {
         return (
-            <div className="col-sm-4" style={{ "marginTop": "10px" }}>
-                <div className="text-center">
-                <Link to={"/wardrobe/ownedItem/" + this.props.item._id}><img src={this.props.item.imageURL} alt={this.props.item.title} style={{ "maxWidth": "200px", "maxHeight": "200px" }} /></Link>
-                    <button className="btn btn-danger" style={{ "position": "absolute", "top": "0", "height": "35px", "width": "35px", "transform": "translate(-100%, 0)" }} onClick={() => this.props.onDelete(this.props.item._id)}>X</button>
-                    <h4>{this.props.item.title}</h4>
+            <div className="col-lg-3">
+                <div style={card}  >
+                    <Link to={"/wardrobe/ownedItem/" + this.props.item._id}><img src={this.props.item.imageURL} alt="Avatar" style={{ width: '100%' }} /> </Link>
+                    <div style={container}>
+                    <button className="btn btn-danger" style={{ "position": "absolute", "top": "5px", "height": "35px", "width": "35px", "transform": "translate(-100%, 0)" }} onClick={() => this.props.onDelete(this.props.item._id)}>X</button>
+                        <h4><b>{this.props.item.title}</b></h4>
+                    </div>
                 </div>
-                {/* TODO: Add link on image div to pop-up item modal*/}
             </div>
+
+            // <div className="col-sm-4" style={{ "marginTop": "10px" }}>
+            //     <div className="text-center">
+            //     <Link to={"/wardrobe/ownedItem/" + this.props.item._id}><img src={this.props.item.imageURL} alt={this.props.item.title} style={{ "maxWidth": "200px", "maxHeight": "200px" }} /></Link>
+            //         <button className="btn btn-danger" style={{ "position": "absolute", "top": "0", "height": "35px", "width": "35px", "transform": "translate(-100%, 0)" }} onClick={() => this.props.onDelete(this.props.item._id)}>X</button>
+            //         <h4>{this.props.item.title}</h4>
+            //     </div>
+            //     {/* TODO: Add link on image div to pop-up item modal*/}
+            // </div>
         );
     }
 }

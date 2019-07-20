@@ -39,7 +39,7 @@ export default class OwnedItemPage extends Component {
         return (
             <div className="row d-flex justify-content-center">
                 <div className="text-center">
-                    <img src={this.state.item.imageURL} alt={this.state.item.title} style={{ "maxWidth": "200px", "maxHeight": "200px" }} />
+                    <img src={this.state.item.imageURL} alt={this.state.item.title} style={{ "maxWidth": "300px", "maxHeight": "500px" }} />
                     <h4>{this.state.item.title}</h4>
                 </div>
                 {console.log("Passing itemId: " + this.props.match.params.id + " to Thread.")}

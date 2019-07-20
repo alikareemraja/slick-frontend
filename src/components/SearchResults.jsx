@@ -9,7 +9,7 @@ import {
 import axios from "axios";
 import "../DispFormat.css";
 import searchStat from "./searchStat";
-const SearchEndPoint = "http://localhost:3001/search/get";
+const SearchEndPoint = "http://localhost:3001/search/getd";
 const StatisticsEndPoint = "http://localhost:3001/search/stat";
 
 class SearchResults extends Component {
