@@ -32,20 +32,7 @@ class Home extends Component {
         <Menu triggerParentUpdate={this.Callback} />
         <div className="content-wrapper">
           {/* Content Header (Page header) */}
-          <section className="content-header">
-            <h1>
-              Wardrobe
-              <small>your custom choice</small>
-            </h1>
-            <ol className="breadcrumb">
-              <li>
-                <a href="no_url">
-                  <i className="fa fa-dashboard" /> Home
-                </a>
-              </li>
-              <li className="active">Home page</li>
-            </ol>
-          </section>
+          
           {/* Main content */}
           <section className="content">
             <switch>

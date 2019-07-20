@@ -38,15 +38,33 @@ export default class OwnedItemPage extends Component {
             return (<div>Loading your item...</div>);
         console.log("Rendering item_id: " + this.state.item._id);
         return (
-            <div className="row d-flex justify-content-center">
+            <div>
+                <section className="content-header">
+                    <h1>
+                        Wardrobe
+              <small>your custom choice</small>
+                    </h1>
+                    <ol className="breadcrumb">
+                        <li>
+                            <a href="/home"> <i className="fa fa-dashboard" /> Home</a>
+                        </li>
+                        <li>
+                            <a href="/home"> <i /> Wardrobe</a>
+                        </li>
+                        <li className="active">Item</li>
+                    </ol>
+                </section>
+                <div className="row d-flex justify-content-center">
                 <div className="text-center">
-                    <img src={this.state.item.imageURL} alt={this.state.item.title} style={{ "maxWidth": "300px", "maxHeight": "500px" }} />
+                    <img src={this.state.item.imageURL} alt={this.state.item.title} style={{ "maxWidth": "600px", "maxHeight": "600px", "minWidth" : "350px", "minHeight":"350px", "boxShadow": "0 4px 8px 0 rgba(0,0,0,0.2)", "borderRadius": "5px" }} />
                     <h4>{this.state.item.title}</h4>
                     <button data-toggle="modal" data-target="#itemModal" style={{whiteSpace: "pre"}} ><span className="glyphicon glyphicon-pencil" />  Edit your item</button>
             </div>
             <Thread userId={this.userId} itemId={this.state.item._id}/>
             <ItemModal title={this.state.item.title} imgSrc={this.state.item.imageURL} description={this.state.item.description} itemId={this.props.match.params.itemId}/>
             </div>
+            </div>
+            
         );
     }
 }
