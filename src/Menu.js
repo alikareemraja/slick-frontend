@@ -87,8 +87,8 @@ export default class Menu extends Component {
           {/* sidebar menu: : style can be found in sidebar.less */}
           <ul className="sidebar-menu" data-widget="tree">
             <li>
-              <a href="pages/widgets.html">
-                <i className="fa fa-th" /> <span>Dashboard</span>
+              <a href="/">
+                <i className="fa fa-shirtsinbulk" /> <span>Wardrobe</span>
                 <span className="pull-right-container">
                   {/* <small className="label pull-right bg-green">new</small> */}
                 </span>
@@ -96,8 +96,8 @@ export default class Menu extends Component {
             </li>
 
             <li>
-              <a href="pages/widgets.html">
-                <i className="fa fa-th" /> <span>Dashboard</span>
+              <a href="/">
+                <i className="fa fa-umbrella" /> <span>Owned Items</span>
                 <span className="pull-right-container">
                   {/* <small className="label pull-right bg-green">new</small> */}
                 </span>
@@ -105,8 +105,8 @@ export default class Menu extends Component {
             </li>
 
             <li>
-              <a href="pages/widgets.html">
-                <i className="fa fa-th" /> <span>Dashboard</span>
+              <a href="/">
+                <i className="fa fa-angellist" /> <span>Wishlist</span>
                 <span className="pull-right-container">
                   {/* <small className="label pull-right bg-green">new</small> */}
                 </span>

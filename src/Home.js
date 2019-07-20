@@ -2,13 +2,11 @@ import React, { Component } from 'react';
 import Header from './Header';
 import Menu from './Menu';
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
-import Footer from './Footer';
-import Thread from './Thread'
-import SearchResults from './components/SearchResults'
 import Wardrobe from './Wardrobe';
 import OwnedItemPage from './OwnedItemPage';
 import { ItemListView } from './views/ItemListView';
 import { ItemDetailView }   from './views/ItemDetailView';
+import NotFound from './NotFound';
 
 class Home extends Component {
   constructor(props) {
@@ -46,11 +44,10 @@ class Home extends Component {
           {/* Main content */}
           <section className="content">
             <switch>
-              <Route exact path='/app/wardrobe' component={Wardrobe} />
-              <Route path='/app/thread/:id' component={Thread} />
-              <Route path='/app/wardrobe/ownedItem/:itemId' component={OwnedItemPage} /> 
-              <Route exact path='/app/item' component={ItemListView} />
-              <Route exact path='/app/show/:id' component={ItemDetailView} /> 
+              <Route exact path='/' component={Wardrobe} />
+              <Route exact path='/wardrobe/ownedItem/:itemId' component={OwnedItemPage} /> 
+              <Route exact path='/item' component={ItemListView} />
+              <Route exact path='/show/:id' component={ItemDetailView} /> 
             </switch>
           
             {/* <Thread id="5d2a334af1ca4b48b6caaf85"/> */}
