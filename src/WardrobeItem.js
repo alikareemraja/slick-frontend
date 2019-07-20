@@ -4,10 +4,11 @@ import { Link } from 'react-router-dom';
 
 const card = {
     boxShadow: "0 4px 8px 0 rgba(0,0,0,0.2)",
-    
+    background: "#222d32",
+    borderRadius: "5px",
     transition: "0.3s",
     maxWidth: "300px",
-    minHeight: "350px",
+    maxHeight: "400px",
     
     margin: "20px 20px"
 }
@@ -43,10 +44,11 @@ export default class WardrobeItem extends Component {
         return (
             <div className="col-lg-3">
                 <div style={card}  >
-                    <Link to={"/wardrobe/ownedItem/" + this.props.item._id}><img src={this.props.item.imageURL} alt="Avatar" style={{ width: '100%' }} /> </Link>
+                    <Link to={"/home/wardrobe/ownedItem/" + this.props.item._id}><img src={this.props.item.imageURL} alt="Avatar" style={{ width: '100%' }} /> </Link>
                     <div style={container}>
-                    <button className="btn btn-danger" style={{ "position": "absolute", "top": "5px", "height": "35px", "width": "35px", "transform": "translate(-100%, 0)" }} onClick={() => this.props.onDelete(this.props.item._id)}>X</button>
-                        <h4><b>{this.props.item.title}</b></h4>
+                    <button className="btn btn-danger" style={{ "position": "absolute", "top": "5px", "height": "35px", "width": "35px", "transform": "translate(-100%, 0)", "borderRadius": "25px" }} onClick={() => this.props.onDelete(this.props.item._id)}>X</button>
+                    <h4><b style={{"color":"#ffffff"}}>{this.props.item.title}</b></h4>
+                    
                     </div>
                 </div>
             </div>

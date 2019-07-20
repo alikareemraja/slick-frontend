@@ -1,9 +1,8 @@
-
 "use strict";
 
 import { Link } from 'react-router-dom'
 import React, { Component } from 'react'
-import Button from 'react-bootstrap/Button'
+//import Button from 'react-bootstrap/Button'
 import Container from 'react-bootstrap/Container'
 import Col from 'react-bootstrap/Col'
 import Row from 'react-bootstrap/Row';
@@ -25,7 +24,7 @@ export class ItemDetail extends React.Component {
         this.menu=this.menu.bind(this);
     }
 
-
+//change the state after event
 myFunction(id){
   console.log(id);
   this.setState({
@@ -35,6 +34,9 @@ myFunction(id){
 
 }
 
+
+//generating the list fields from which the user can choose the retailer he wants 
+//and the onclick support to change the price
 menu(){
 
   let menuItems = [];
@@ -53,24 +55,23 @@ menu(){
 }
 
 
-
+//function to handle clicks and redirect to the retailers' website
 handleClick() {
   window.location.assign(this.state.buyLink);
 }
 
-
+    //rendering
     render() {
 
-
         return (
-            //<Page>
+           
           <div>
     
-                        <Container>
+                 <Container>
     
-                          <Row>
+                      <Row>
     
-                            <Col sm={7}>
+                          <Col sm={7}>
                             
                         <div className="details" style={{ 
                           width: 680,
@@ -161,7 +162,7 @@ handleClick() {
     
     
     
-                              <div>
+                             <div>
                               <Link to="/list">
                                 <button type="button" class="btn btn-info">Back to Products</button>
                               </Link>
@@ -170,19 +171,20 @@ handleClick() {
                               <Link to="/list">
                                 <button type="button" class="btn btn-info">Add to Wardrobe</button>
                               </Link>
-                          </div>
-                              <div>
+                            </div>
+
+                             <div>
     
-                              <button onClick={this.handleClick.bind(this)} type="button" class="btn btn-success">Buy</button>
-    
-                              </div>
+                               <button onClick={this.handleClick.bind(this)} type="button" class="btn btn-success">Buy</button>
     
                             </div>
+    
+                        </div>
                           
                           
     
     
-                          </div>
+                        </div>
     
                           <div
                             style={{
@@ -243,7 +245,7 @@ handleClick() {
                          
                           </div>
     
-                            </div>
+                         </div>
     
     
     
@@ -308,25 +310,22 @@ handleClick() {
                                       />
                                     </div>
     
-                                    
     
                             </div>
-    
-    
-    
-    
-    
+
                           </div>
     
-                          </Col>
-                          </Row>
-                        </Container>
-                  
-                  </div>
+                        </Col>
 
-                  //</Page>
-                )
+                      </Row>
+
+                  </Container>
+                  
+                 </div>
+
+
+              )
     
-        }
+       }
 
 }

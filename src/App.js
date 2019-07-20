@@ -6,6 +6,7 @@ import Register from './Register';
 
 
 export default class App extends Component {
+    
     constructor(props) {
         super(props);
         var location = window.location.pathname;

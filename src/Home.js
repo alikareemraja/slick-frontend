@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Header from "./Header";
 import Menu from "./Menu";
+import Footer from "./Footer"
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import Wardrobe from "./Wardrobe";
 import OwnedItemPage from "./OwnedItemPage";
@@ -8,12 +9,13 @@ import { ItemListView } from "./views/ItemListView";
 import { ItemDetailView } from "./views/ItemDetailView";
 import NotFound from "./NotFound";
 import Thread from "./Thread";
-import SearchResults from "./components/SearchResults";
+import SearchResults from "./components/SearchResults"
+
 
 class Home extends Component {
   constructor(props) {
     super(props);
-    var location = window.location.href;
+    
     this.state = {
       input_text: "",
       show: false
@@ -30,20 +32,7 @@ class Home extends Component {
         <Menu triggerParentUpdate={this.Callback} />
         <div className="content-wrapper">
           {/* Content Header (Page header) */}
-          <section className="content-header">
-            <h1>
-              Wardrobe
-              <small>your custom choice</small>
-            </h1>
-            <ol className="breadcrumb">
-              <li>
-                <a href="no_url">
-                  <i className="fa fa-dashboard" /> Home
-                </a>
-              </li>
-              <li className="active">Home page</li>
-            </ol>
-          </section>
+          
           {/* Main content */}
           <section className="content">
             <switch>
@@ -63,8 +52,11 @@ class Home extends Component {
             )}
             <Wardrobe /> */}
           </section>
+          
           {/* /.content */}
+          
         </div>
+        <Footer/>
         {/* /.content-wrapper */}
       </div>
     );

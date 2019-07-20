@@ -26,6 +26,7 @@ export default class Thread extends Component {
         CommentService.postComment(itemId, userId, text)
         .then((data) => {
             console.log("success!")
+            this.setState({text: ""});
             this.reloadThread();
         }).catch(console.log)
 

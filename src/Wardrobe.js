@@ -106,91 +106,108 @@ export default class Wardrobe extends Component {
         }
 
         return (
-            <div className="row">
+            <div>
+                <section className="content-header">
+                    <h1>
+                        Wardrobe
+              <small>your custom choice</small>
+                    </h1>
+                    <ol className="breadcrumb">
+                        <li>
+                            <a href="/home">
+                                <i className="fa fa-dashboard" /> Home
+                </a>
+                        </li>
+                        <li className="active">Wardrobe</li>
+                    </ol>
+                </section>
+                <div className="row">
 
-                {/* Nav tabs */}
-                <ul className="nav nav-tabs row">
-                    <li className="nav-item col-sm-5 active">
-                        <a data-toggle="tab" href="#owned">Owned Items</a>
-                    </li>
-                    <li className="nav-item col-sm-5">
-                        <a data-toggle="tab" href="#wishlist">Wishlist</a>
-                    </li>
-                </ul>
+                    {/* Nav tabs */}
+                    <ul className="nav nav-tabs row">
+                        <li className="nav-item col-sm-5 active" >
+                            <a data-toggle="tab" href="#owned">Owned Items</a>
+                        </li>
+                        <li className="nav-item col-sm-5">
+                            <a data-toggle="tab" href="#wishlist">Wishlist</a>
+                        </li>
+                    </ul>
 
-                {/* Nav panes */}
-                <div className="tab-content">
-                    <div className="tab-pane active" id="owned">
-                        <div className="row">
+                    {/* Nav panes */}
+                    <div className="tab-content">
+                        <div className="tab-pane active" id="owned">
+                            <div className="row">
 
-                            {/* Big plus button, a modal shows up when clicked */}
-                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addItemModal" style={{ position: "fixed", bottom: "10px", right: "10px", width: "80px", height: "80px", borderRadius: "100%", fontSize: "50px", lineHeight: "50px", paddingTop: "0px", zIndex: "99" }}>+</button>
+                                {/* Big plus button, a modal shows up when clicked */}
+                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addItemModal" style={{ position: "fixed", bottom: "10px", right: "10px", width: "80px", height: "80px", borderRadius: "100%", fontSize: "50px", lineHeight: "50px", paddingTop: "0px", zIndex: "99" }}>+</button>
 
-                            {/* Modal that contains add item form */}
-                            <div class="modal fade" id="addItemModal" tabindex="-1" role="dialog" aria-labelledby="modalTitle" aria-hidden="true">
-                                <div class="modal-dialog modal-dialog-centered" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h3 class="modal-title" id="modalTitle">Add new item
+                                {/* Modal that contains add item form */}
+                                <div class="modal fade" id="addItemModal" tabindex="-1" role="dialog" aria-labelledby="modalTitle" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h3 class="modal-title" id="modalTitle">Add new item
                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                    <span aria-hidden="true">&times;</span>
-                                                </button></h3>
-                                        </div>
-                                        <form onSubmit={this.handleAddItemFormSubmit}>
-                                            <div class="modal-body">
-                                                <div class="col">
-                                                    <div class="form-group">
-                                                        <input id="filePicker" type="file" class="form-control-file" accept=".gif,.jpg,.jpeg,.png" onChange={this.handleAddItemFormChange} />
-                                                    </div>
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button></h3>
+                                            </div>
+                                            <form onSubmit={this.handleAddItemFormSubmit}>
+                                                <div class="modal-body">
+                                                    <div class="col">
+                                                        <div class="form-group">
+                                                            <input id="filePicker" type="file" class="form-control-file" accept=".gif,.jpg,.jpeg,.png" onChange={this.handleAddItemFormChange} />
+                                                        </div>
 
-                                                    <div class="form-group">
-                                                        <img id="image" src={this.state.addItemImgSrc} alt="File to upload" style={{ maxWidth: "200px", maxHeight: "200px" }} class=""></img>
-                                                    </div>
+                                                        <div class="form-group">
+                                                            <img id="image" src={this.state.addItemImgSrc} alt="File to upload" style={{ maxWidth: "200px", maxHeight: "200px" }} class=""></img>
+                                                        </div>
 
-                                                    <div class="form-group">
-                                                        <label for="title">Title:</label>
-                                                        <input type="text" class="form-control" id="title" placeholder="Title" required={true} onChange={this.handleAddItemFormChange} />
-                                                    </div>
+                                                        <div class="form-group">
+                                                            <label for="title">Title:</label>
+                                                            <input type="text" class="form-control" id="title" placeholder="Title" required={true} onChange={this.handleAddItemFormChange} />
+                                                        </div>
 
-                                                    <div class="form-group">
-                                                        <label for="description">Description:</label>
-                                                        <textarea class="form-control" rows="5" id="description" placeholder="Description" onChange={this.handleAddItemFormChange}></textarea>
+                                                        <div class="form-group">
+                                                            <label for="description">Description:</label>
+                                                            <textarea class="form-control" rows="5" id="description" placeholder="Description" onChange={this.handleAddItemFormChange}></textarea>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                <button type="submit" class="btn btn-primary">Add to Wardrobe</button>
-                                            </div>
-                                        </form>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                    <button type="submit" class="btn btn-primary">Add to Wardrobe</button>
+                                                </div>
+                                            </form>
+                                        </div>
                                     </div>
                                 </div>
+
+                                {/* Each item in OwnedItems is displayed in a WardrobeItem */}
+                                {this.state.data.map((item) => {
+                                    return (
+
+                                        <WardrobeItem key={item._id} item={item} onDelete={(itemId) => this.deleteOwnedItem(itemId)} />
+
+                                    );
+                                })}
                             </div>
 
-                            {/* Each item in OwnedItems is displayed in a WardrobeItem */}
-                            {this.state.data.map((item) => {
-                                return (
-                                    
-                                        <WardrobeItem key={item._id} item={item} onDelete={(itemId) => this.deleteOwnedItem(itemId)} />
-                                    
-                                );
-                            })}
+
+
+                            {/* Show number of items in OwnedItems */}
+                            <div className="text-center">
+                                You have {this.state.data.length} item(s) in your wardrobe.
+                    </div>
                         </div>
-                        
-                        
-                        
-                        {/* Show number of items in OwnedItems */}
-                        <div className="text-center">
-                            You have {this.state.data.length} item(s) in your wardrobe.
-                    </div>
-                    </div>
-                    <div className="tab-pane" id="wishlist">
-                        This is wishlist
+                        <div className="tab-pane" id="wishlist">
+                            This is wishlist
                     {/* There should be wishlist items here */}
-                        {/*<WardrobeItem />*/}
+                            {/*<WardrobeItem />*/}
+                        </div>
                     </div>
                 </div>
             </div>
+
         );
     }
 }
