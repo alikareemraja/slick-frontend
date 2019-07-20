@@ -9,6 +9,8 @@ import {
 import axios from "axios";
 import "../DispFormat.css";
 import searchStat from "./searchStat";
+import UserService from "../UserService";
+import HttpService from "../HttpService";
 const SearchEndPoint = "http://localhost:3001/search/get";
 const StatisticsEndPoint = "http://localhost:3001/search/stat";
 
@@ -26,18 +28,25 @@ class SearchResults extends Component {
   }
 
   componentDidMount() {
-    var url = SearchEndPoint + "?category=" + this.props.input_text;
-    fetch(url)
+    //   var url = SearchEndPoint + "?category=" + this.props.input_text;
+    var url = SearchEndPoint + "?category=" + this.props.match.params.query;
+    console.log("URL: ");
+    console.log(url);
+    let token = window.localStorage["jwtToken"];
+    let header = new Headers();
+    if (token) {
+      header.append("Authorization", `JWT ${token}`);
+    }
+    fetch(url, { headers: header })
       .then(res => res.json())
       .then(response => {
         this.setState({ results: response });
-
       })
       .catch(function(error) {
         console.log(error);
       });
-    
-    fetch(StatisticsEndPoint) // no data sent with GET so we get the list of items
+
+    fetch(StatisticsEndPoint, { headers: header }) // no data sent with GET so we get the list of items
       .then(res => res.json())
       .then(response => {
         this.setState({ number: response.length });
@@ -49,7 +58,12 @@ class SearchResults extends Component {
 
   componentDidUpdate(prevProps, prevState) {
     if (prevProps.input_text !== this.props.input_text) {
-           fetch(StatisticsEndPoint) // no data sent with GET so we get the list of items
+      let token = window.localStorage["jwtToken"];
+      let header = new Headers();
+      if (token) {
+        header.append("Authorization", `JWT ${token}`);
+      }
+      fetch(StatisticsEndPoint, { headers: header }) // no data sent with GET so we get the list of items
         .then(res => res.json())
         .then(response => {
           this.setState({ number: response.length });
@@ -58,8 +72,12 @@ class SearchResults extends Component {
           console.log(error);
         });
 
-      var url = SearchEndPoint + "?category=" + this.props.input_text;
-      fetch(url)
+      // var url = SearchEndPoint + "?category=" + this.props.input_text;
+      var url = SearchEndPoint + "?category=" + this.props.match.params.query;
+      console.log("URL: ");
+      console.log(url);
+
+      fetch(url, { headers: header })
         .then(res => res.json())
         .then(response => {
           this.setState({ results: response });
@@ -89,14 +107,17 @@ class SearchResults extends Component {
       "http://icons.iconarchive.com/icons/iconsmind/outline/256/T-Shirt-icon.png";
   }
   itemList() {
+    console.log("this.state.results: ");
+    console.log(this.state.results);
     return this.state.results.map((currentItem, i) => {
       console.log("currentItem: " + currentItem.category);
       console.log("currentItem id: " + currentItem._id);
       console.log("currentItem image: " + currentItem.imageURL);
       console.log("currentItem isRecommended: " + currentItem.isRecommended);
-      console.log("currentItem prices: ");
-      console.log(currentItem.prices);
-      let itemPriceList = currentItem.prices,
+      console.log("currentItem retailers: ");
+      console.log(currentItem.retailers);
+      console.log(currentItem);
+      let itemPriceList = currentItem.retailers,
         priceList = [];
       console.log("itemPriceList ");
       console.log(itemPriceList);
@@ -150,7 +171,7 @@ class SearchResults extends Component {
                     })}
                   </span>
                   <span className="row text-dark text-truncate comment-result">
-                    {currentItem.reviews[0]["reviewTitle"]}
+                    {/* {currentItem.reviews[0]["reviewTitle"]}*/}
                   </span>
                   <span className="row text-dark text-truncate desc-result">
                     {/*  {currentItem.description}*/}
@@ -163,14 +184,35 @@ class SearchResults extends Component {
               <p className="row-sm-1 row-md-2 row-lg-3 text-sm-right text-md-right text-lg-right  price">
                 <span className="p-3 mb-2 text-dark  from">From </span>
                 <span className="p-3 mb-2 text-dark font-weight-bold actualprice">
-                  {/*  {lowestPrice} €*/}
+                  {lowestPrice} €
                 </span>
               </p>
               <p className="row-sm-2 row-md-3 row-lg-5 buttons">
                 <button className="btn btn-primary btn-sm view" href="#">
                   View item
                 </button>
-                <button className="btn btn-success btn-sm Add" href="#">
+                <button
+                  className="btn btn-success btn-sm Add"
+                  href="#"
+                  onClick={() => {
+                    return new Promise((resolve, reject) => {
+                      HttpService.post(
+                        this.baseURL() +
+                          "/users/" +
+                          UserService.getCurrentUser().id +
+                          "/wishlist/" +
+                          currentItem._id,
+                        {},
+                        function(data) {
+                          resolve(data);
+                        },
+                        function(textStatus) {
+                          reject(textStatus);
+                        }
+                      );
+                    });
+                  }}
+                >
                   Add to wish list
                 </button>
                 <button
@@ -227,7 +269,7 @@ class SearchResults extends Component {
                     })}
                   </a>
                   <span className="row text-dark text-truncate comment-result">
-                    {currentItem.reviews[0]["reviewTitle"]}
+                    {/* {currentItem.reviews[0]["reviewTitle"]}*/}
                   </span>
                   <span className="row text-dark text-truncate desc-result">
                     {/*  {currentItem.description}*/}

@@ -8,7 +8,7 @@ const card = {
     borderRadius: "5px",
     transition: "0.3s",
     maxWidth: "300px",
-    minHeight: "350px",
+    maxHeight: "400px",
     
     margin: "20px 20px"
 }
