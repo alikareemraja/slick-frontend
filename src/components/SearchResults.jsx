@@ -9,7 +9,7 @@ import {
 import axios from "axios";
 import "../DispFormat.css";
 import searchStat from "./searchStat";
-const SearchEndPoint = "http://localhost:3002/search/get";
+const SearchEndPoint = "http://localhost:3001/search/get";
 const StatisticsEndPoint = "http://localhost:3001/search/stat";
 
 class SearchResults extends Component {
@@ -31,13 +31,12 @@ class SearchResults extends Component {
       .then(res => res.json())
       .then(response => {
         this.setState({ results: response });
-        console.log("TTTTTTTTTTTTTTTTTTTTTTT");
-        console.log(response);
+
       })
       .catch(function(error) {
         console.log(error);
       });
-    /*
+    
     fetch(StatisticsEndPoint) // no data sent with GET so we get the list of items
       .then(res => res.json())
       .then(response => {
@@ -45,28 +44,25 @@ class SearchResults extends Component {
       })
       .catch(function(error) {
         console.log(error);
-      });*/
+      });
   }
 
   componentDidUpdate(prevProps, prevState) {
     if (prevProps.input_text !== this.props.input_text) {
-      /*     fetch(StatisticsEndPoint) // no data sent with GET so we get the list of items
+           fetch(StatisticsEndPoint) // no data sent with GET so we get the list of items
         .then(res => res.json())
         .then(response => {
           this.setState({ number: response.length });
-          console.log("ZZZZZZZZZZZZZZZZZZZZZZZZZZ");
-          console.log(response);
         })
         .catch(function(error) {
           console.log(error);
-        });*/
+        });
 
       var url = SearchEndPoint + "?category=" + this.props.input_text;
       fetch(url)
         .then(res => res.json())
         .then(response => {
           this.setState({ results: response });
-          console.log("ZZZZZZZZZZZZZZZZZZZZZZZZZ");
           console.log(response);
         })
         .catch(function(error) {
