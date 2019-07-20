@@ -7,6 +7,8 @@ import Thread from './Thread'
 import SearchResults from './components/SearchResults'
 import Wardrobe from './Wardrobe';
 import OwnedItemPage from './OwnedItemPage';
+import { ItemListView } from './views/ItemListView';
+import { ItemDetailView }   from './views/ItemDetailView';
 
 class Home extends Component {
   constructor(props) {
@@ -47,6 +49,8 @@ class Home extends Component {
               <Route exact path='/app/wardrobe' component={Wardrobe} />
               <Route path='/app/thread/:id' component={Thread} />
               <Route path='/app/wardrobe/ownedItem/:itemId' component={OwnedItemPage} /> 
+              <Route exact path='/app/item' component={ItemListView} />
+              <Route exact path='/app/show/:id' component={ItemDetailView} /> 
             </switch>
           
             {/* <Thread id="5d2a334af1ca4b48b6caaf85"/> */}

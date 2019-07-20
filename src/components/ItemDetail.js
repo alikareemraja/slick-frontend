@@ -9,8 +9,7 @@ import Col from 'react-bootstrap/Col'
 import Row from 'react-bootstrap/Row';
 import ListGroup from 'react-bootstrap/ListGroup'
 import Tab from 'react-bootstrap/Tab'
-import Header from '../Header';
-import Menu from '../Menu';
+
 
 
 export class ItemDetail extends React.Component {
@@ -45,8 +44,6 @@ handleClick() {
         return (
             //<Page>
           <div>
-            <Header />
-            <Menu />
     
                         <Container>
     
@@ -61,7 +58,7 @@ handleClick() {
                                 paddingBottom: 5,
                                 paddingLeft: 40,
                                 paddingRight: 40,
-                                marginLeft: 190,
+                                marginLeft: 20,
                                 border: "1px solid lightgray",
                                 borderRadius: "5px",
                           padding: 10 }}>
@@ -79,8 +76,8 @@ handleClick() {
                           <div style={{ display: "flex" }}>
                             <div
                               style={{
-                                width: 450,
-                                height: 450,
+                                width: 400,
+                                height: 400,
                                 paddingTop: 5,
                                 paddingBottom: 5,
                                 paddingLeft: 40,
@@ -97,8 +94,8 @@ handleClick() {
                                         alt="Item"
                                         style={{
                                           objectFit: "contain",
-                                          height: 450,
-                                          width: 450
+                                          height: 350,
+                                          width: 350
                                         }}
                                         src={this.props.item.posters.detailed} 
                                       />
@@ -258,7 +255,7 @@ handleClick() {
                                 paddingBottom: 5,
                                 paddingLeft: 40,
                                 paddingRight: 40,
-                                marginLeft: 900,
+                                marginLeft: 720,
                                 marginTop: -1250,
                                 flex: 2,
                                 //marginLeft: 20,
@@ -301,8 +298,8 @@ handleClick() {
                                         alt="Item"
                                         style={{
                                           objectFit: "contain",
-                                          height: 280,
-                                          width: 280
+                                          height: 250,
+                                          width: 250
                                         }}
                                         src={this.props.item.posters.detailed}
                                       />

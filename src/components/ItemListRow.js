@@ -15,8 +15,8 @@ export class ItemListRow extends React.Component {
     render() {
         return (
             <TableRow key={this.props.key}>
-                <TableColumn><Link to={`/show/${this.props.item._id}`}><FontIcon>image</FontIcon></Link></TableColumn>
-                <TableColumn><SimpleLink to={`/show/${this.props.item._id}`}>{this.props.item.title}</SimpleLink></TableColumn>
+                <TableColumn><Link to={`/app/show/${this.props.item._id}`}><FontIcon>image</FontIcon></Link></TableColumn>
+                <TableColumn><SimpleLink to={`/app/show/${this.props.item._id}`}>{this.props.item.title}</SimpleLink></TableColumn>
             </TableRow>
         );
     }
