@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { Component } from 'react'
-
+import CommentService from './CommentService'
 
 const actionButtonStyle = {
     margin: '2px',
@@ -31,16 +31,7 @@ export default class Comment extends Component {
         }
     }
     deleteComment = function (commentId) {
-        fetch('http://localhost:3001/comment/delete/' + commentId, {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-            }
-        })
-        .then(res => 
-            res.json()
-            )
+        CommentService.deleteComment(commentId)
         .then((data) => {            
             console.log("success!")
             this.props.callback()
@@ -50,18 +41,8 @@ export default class Comment extends Component {
     }
 
     replyToComment = function (userId, commentId, text) {
-        fetch('http://localhost:3001/comment/add/' + commentId, {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                user: userId,
-                date: new Date().getTime() / 1000,
-                text: text,
-            })
-        }).then((data) => {
+        CommentService.replyToComment(userId, commentId, text)
+        .then((data) => {
             console.log("success!")
             
             this.props.callback()
@@ -70,16 +51,8 @@ export default class Comment extends Component {
     }
 
     updateComment = function (commentId, text) {
-        fetch('http://localhost:3001/comment/update/' + commentId, {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                text: text,
-            })
-        }).then((data) => {
+        CommentService.updateComment(commentId, text)
+        .then((data) => {
             console.log("success!")
             this.props.callback()
             this.toggleEdit();

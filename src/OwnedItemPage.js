@@ -43,7 +43,7 @@ export default class OwnedItemPage extends Component {
                     <h4>{this.state.item.title}</h4>
                 </div>
                 {console.log("Passing itemId: " + this.props.match.params.id + " to Thread.")}
-                {/*<Thread userId={this.fakeUserId} itemId={this.state.item._id}/>*/}
+                <Thread userId={this.userId} itemId={this.state.item._id}/>
             </div>
         );
     }

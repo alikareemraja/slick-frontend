@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import Comment from './Comment'
+import CommentService from './CommentService'
 
 const commentStyle = {
     marginTop: '10px',
@@ -22,19 +23,8 @@ export default class Thread extends Component {
         console.log("updated!");
     }
     postComment = function (itemId, userId, text) {
-        fetch('http://localhost:3001/comment/add/', {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                item: itemId,
-                user: userId,
-                date: new Date().getTime() / 1000,
-                text: text,
-            })
-        }).then((data) => {
+        CommentService.postComment(itemId, userId, text)
+        .then((data) => {
             console.log("success!")
             this.reloadThread();
         }).catch(console.log)
@@ -42,8 +32,8 @@ export default class Thread extends Component {
     }
 
     componentDidMount() {
-        fetch('http://localhost:3001/comment/get/'+ this.props.itemId)
-            .then(res => res.json())
+        
+        CommentService.getComments(this.props.itemId)
             .then((data) => {
                 this.setState({ thread: data })
             })
