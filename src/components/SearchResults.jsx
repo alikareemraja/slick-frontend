@@ -130,6 +130,8 @@ class SearchResults extends Component {
       console.log(lowestPrice);
       let colorsList = currentItem.color;
       let recommended = currentItem.isRecommended;
+
+      
       if (recommended)
         return (
           <div className="container search-result-item-rec">
