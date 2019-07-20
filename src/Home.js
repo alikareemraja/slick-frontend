@@ -15,7 +15,7 @@ import SearchResults from "./components/SearchResults"
 class Home extends Component {
   constructor(props) {
     super(props);
-    var location = window.location.href;
+    
     this.state = {
       input_text: "",
       show: false
@@ -64,6 +64,7 @@ class Home extends Component {
           </section>
           
           {/* /.content */}
+          
         </div>
         <Footer/>
         {/* /.content-wrapper */}

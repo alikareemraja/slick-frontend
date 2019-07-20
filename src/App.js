@@ -6,12 +6,21 @@ import Register from './Register';
 
 
 export default class App extends Component {
+    
+    constructor(props) {
+        super(props);
+        var location = window.location.pathname;
+        if(location === "/"){
+            window.location.href = '/home'; 
+        }
+      }
+
     render() {
         return (
             <Router>
         
           <Switch>
-              <Route exact path='/home' component={Home} />
+              <Route path='/home' component={Home} />
               <Route exact path='/login' component={Login} />
               <Route exact path='/register' component={Register}/>
               

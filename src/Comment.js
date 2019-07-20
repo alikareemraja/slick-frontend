@@ -45,7 +45,7 @@ export default class Comment extends Component {
         CommentService.replyToComment(userId, commentId, text)
         .then((data) => {
             console.log("success!")
-            
+            this.setState({updateText: ""});
             this.props.callback()
         }).catch(console.log)
 
@@ -55,6 +55,7 @@ export default class Comment extends Component {
         CommentService.updateComment(commentId, text)
         .then((data) => {
             console.log("success!")
+            this.setState({updateText: ""});
             this.props.callback()
             this.toggleEdit();
         }).catch(console.log)
