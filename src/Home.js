@@ -10,7 +10,8 @@ import { ItemDetailView } from "./views/ItemDetailView";
 import NotFound from "./NotFound";
 import Thread from "./Thread";
 import SearchResults from "./components/SearchResults"
-
+import {NotificationContainer, NotificationManager} from 'react-notifications';
+import 'react-notifications/lib/notifications.css';
 
 class Home extends Component {
   constructor(props) {
@@ -28,6 +29,7 @@ class Home extends Component {
   render() {
     return (
       <div>
+        <link rel="stylesheet" type="text/css" href="path/to/notifications.css"></link>
         <Header />
         <Menu triggerParentUpdate={this.Callback} />
         <div className="content-wrapper">
@@ -49,7 +51,7 @@ class Home extends Component {
             )}
             <Wardrobe /> */}
           </section>
-          
+          <NotificationContainer/>
           {/* /.content */}
           
         </div>

@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import Comment from './Comment'
 import CommentService from './CommentService'
+import {NotificationContainer, NotificationManager} from 'react-notifications';
 
 const commentStyle = {
     marginTop: '10px',
@@ -27,6 +28,7 @@ export default class Thread extends Component {
         .then((data) => {
             console.log("success!")
             this.setState({text: ""});
+            NotificationManager.success('Comment Posted');
             this.reloadThread();
         }).catch(console.log)
 

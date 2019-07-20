@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import UserService from './UserService';
+import {NotificationContainer, NotificationManager} from 'react-notifications';
+import 'react-notifications/lib/notifications.css';
 
 export default class Login extends Component {
 
@@ -23,13 +25,19 @@ export default class Login extends Component {
         console.log("TRying to sign in with user: " + this.state.username + ", pass: " + this.state.password);
         UserService.login(this.state.username, this.state.password).then((data) => {
             console.log("Hurray, you are logged in!");
+            NotificationManager.success('Login successful!');
             this.props.history.push("/home/");
         }).catch((e) => {
             console.error("An error was returned while logging in: " + e);
+            NotificationManager.error('Login failed!');
             this.setState({
                 error: e
             });
         });
+    }
+
+    socialLogin = function(id){
+        NotificationManager.info('Social login not available');
     }
 
     handleFormChange(event) {
@@ -56,16 +64,16 @@ export default class Login extends Component {
         return (
 
             <div className="login-box">
-
+                
                 <script src="../../plugins/iCheck/icheck.min.js"></script>
 
                 <div className="login-logo">
-                    <a href="../../index2.html"><b>Slick</b></a>
+                    <a href="./login"><b>Slick</b></a>
                 </div>
                 {/* /.login-logo */}
                 <div className="login-box-body">
                     <p className="login-box-msg">Sign in to start your session</p>
-                    <form action="../../index2.html" onSubmit={this.handleLogin}>
+                    <form  onSubmit={this.handleLogin}>
                         <div className="form-group has-feedback">
                             <input id="email" type="email" className="form-control" placeholder="Email" onChange={this.handleFormChange} required={true} />
                             <span className="glyphicon glyphicon-envelope form-control-feedback" />
@@ -91,16 +99,17 @@ export default class Login extends Component {
                     </form>
                     <div className="social-auth-links text-center">
                         <p>- OR -</p>
-                        <a href="fake_url" className="btn btn-block btn-social btn-facebook btn-flat"><i className="fa fa-facebook" /> Sign in using
+                        <a onClick={this.socialLogin.bind(this,1)}  className="btn btn-block btn-social btn-facebook btn-flat"><i className="fa fa-facebook" /> Sign in using
           Facebook</a>
-                        <a href="fake_url" className="btn btn-block btn-social btn-google btn-flat"><i className="fa fa-google-plus" /> Sign in using
+                        <a onClick={this.socialLogin.bind(this,2)} className="btn btn-block btn-social btn-google btn-flat"><i className="fa fa-google-plus" /> Sign in using
           Google+</a>
                     </div>
                     {/* /.social-auth-links */}
-                    <a href="fake_url">I forgot my password</a><br />
-                    <a href="register.html" className="text-center">Register a new membership</a>
+                    {/* <a href="fake_url">I forgot my password</a><br /> */}
+                    <a href="register" className="text-center">Register a new membership</a>
                 </div>
                 {/* /.login-box-body */}
+                <NotificationContainer/>
             </div>
 
 

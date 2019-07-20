@@ -1,6 +1,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { Component } from 'react'
 import CommentService from './CommentService'
+import {NotificationContainer, NotificationManager} from 'react-notifications';
 
 const actionButtonStyle = {
     margin: '2px',
@@ -35,9 +36,13 @@ export default class Comment extends Component {
         CommentService.deleteComment(commentId)
         .then((data) => {            
             console.log("success!")
+            NotificationManager.success('Comment Deleted');
             this.props.callback()
         })
-        .catch(console.log)
+        .catch((error) => {
+            console.log(error);
+            NotificationManager.error('Comment Failed to delete');
+        })
 
     }
 
@@ -46,8 +51,12 @@ export default class Comment extends Component {
         .then((data) => {
             console.log("success!")
             this.setState({updateText: ""});
+            NotificationManager.success('Reply posted');
             this.props.callback()
-        }).catch(console.log)
+        }).catch((error) => {
+            console.log(error);
+            NotificationManager.error('Reply Failed to post');
+        })
 
     }
 
@@ -57,8 +66,12 @@ export default class Comment extends Component {
             console.log("success!")
             this.setState({updateText: ""});
             this.props.callback()
+            NotificationManager.success('Comment updated');
             this.toggleEdit();
-        }).catch(console.log)
+        }).catch((error) => {
+            console.log(error);
+            NotificationManager.error('Comment Failed to update');
+        })
 
     }
 
