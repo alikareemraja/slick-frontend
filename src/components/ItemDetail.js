@@ -17,10 +17,11 @@ export class ItemDetail extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-          buyLink: "",
+          buyLink: this.props.item.retailers[0].website,
           price: this.props.item.retailers[0].price,
         };
         this.myFunction=this.myFunction.bind(this);
+        this.myFunction_2=this.myFunction_2.bind(this);
     }
 
 
@@ -28,14 +29,26 @@ myFunction(){
 
   this.setState(state => ({
     buyLink: this.props.item.retailers[0].website,
-    price: this.props.item.retailers[1].price,
+    price: this.props.item.retailers[0].price,
   }));
 
 }
 
 
+myFunction_2(){
+
+  this.setState(state => ({
+    buyLink: this.props.item.retailers[1].website,
+    price: this.props.item.retailers[1].price,
+  }));
+
+
+
+}
+
+
 handleClick() {
-  window.location.assign(this.props.item.retailers[0].website);
+  window.location.assign(this.state.buyLink);
 }
 
 
@@ -49,16 +62,16 @@ handleClick() {
     
                           <Row>
     
-                            <Col>
+                            <Col sm={7}>
                             
                         <div className="details" style={{ 
-                          width: 700,
-                                height: 1000,
+                          width: 680,
+                                height: 700,
                                 paddingTop: 5,
                                 paddingBottom: 5,
                                 paddingLeft: 40,
                                 paddingRight: 40,
-                                marginLeft: 20,
+                                //marginLeft: 20,
                                 border: "1px solid lightgray",
                                 borderRadius: "5px",
                           padding: 10 }}>
@@ -76,8 +89,8 @@ handleClick() {
                           <div style={{ display: "flex" }}>
                             <div
                               style={{
-                                width: 400,
-                                height: 400,
+                                width: 350,
+                                height: 350,
                                 paddingTop: 5,
                                 paddingBottom: 5,
                                 paddingLeft: 40,
@@ -94,8 +107,8 @@ handleClick() {
                                         alt="Item"
                                         style={{
                                           objectFit: "contain",
-                                          height: 350,
-                                          width: 350
+                                          height: 320,
+                                          width: 320
                                         }}
                                         src={this.props.item.posters.detailed} 
                                       />
@@ -123,9 +136,9 @@ handleClick() {
     
                               <div>
     
-                                <Tab.Container id="list-group-tabs" defaultActiveKey="link">
+                                <Tab.Container id="list-group-tabs" defaultActiveKey="#link1">
                                   <Row>
-                                    <Col sm={9}>
+                                    <Col sm={5}>
                                     
                                       <ListGroup>
 
@@ -136,7 +149,10 @@ handleClick() {
                                         {this.props.item.retailers[0].name}
                                         </ListGroup.Item>
                                   
-                                        <ListGroup.Item action href="#link2">
+                                        <ListGroup.Item action href="#link2" onClick={
+                                                  (this.myFunction_2)
+
+                                        }>
                                         {this.props.item.retailers[1].name}
                                         </ListGroup.Item>
                                         
@@ -161,11 +177,12 @@ handleClick() {
     
                               <div>
                               <Link to="/list">
-                                <button type="button" class="btn btn-success">Back to Products</button>
+                                <button type="button" class="btn btn-info">Back to Products</button>
                               </Link>
-                               
+                               </div>
+                               <div>
                               <Link to="/list">
-                                <button type="button" class="btn btn-success">Add to Wardrobe</button>
+                                <button type="button" class="btn btn-info">Add to Wardrobe</button>
                               </Link>
                           </div>
                               <div>
@@ -246,17 +263,17 @@ handleClick() {
     
                         </Col>
     
-                            <Col>
+                            <Col sm={3}>
     
                         <div className="details2" style={{ 
-                          width: 300,
-                                height: 1000,
+                          width: 320,
+                                height: 700,
                                 paddingTop: 5,
                                 paddingBottom: 5,
                                 paddingLeft: 40,
                                 paddingRight: 40,
-                                marginLeft: 720,
-                                marginTop: -1250,
+                                //marginLeft: 720,
+                                //marginTop: -1250,
                                 flex: 2,
                                 //marginLeft: 20,
                                 display: "flex",
