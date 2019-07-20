@@ -7,7 +7,7 @@ export default class Header extends Component {
             <div>
                 <header className="main-header">
                     {/* Logo */}
-                    <a href="index2.html" className="logo">
+                    <a href="/" className="logo">
                         {/* mini logo for sidebar mini 50x50 pixels */}
                         <span className="logo-mini"><b>A</b>LT</span>
                         {/* logo for regular state and mobile devices */}
@@ -32,83 +32,6 @@ export default class Header extends Component {
                                     /> */}
                                 </li>
 
-
-                                {/* <li className="dropdown messages-menu">
-                                    <a href="fake_url" className="dropdown-toggle" data-toggle="dropdown">
-                                        <i className="fa fa-envelope-o" />
-                                        <span className="label label-success">4</span>
-                                    </a>
-                                    <ul className="dropdown-menu">
-                                        <li className="header">You have 4 messages</li>
-                                        <li>
-                                            
-                                            <ul className="menu">
-                                                <li>
-                                                    <a href="fake_url">
-                                                        <div className="pull-left">
-                                                            <img src="dist/img/user2-160x160.jpg" className="img-circle" alt="User" />
-                                                        </div>
-                                                        <h4>
-                                                            Support Team
-                        <small><i className="fa fa-clock-o" /> 5 mins</small>
-                                                        </h4>
-                                                        <p>Why not buy a new awesome theme?</p>
-                                                    </a>
-                                                </li>
-                                                
-                                                <li>
-                                                    <a href="fake_url">
-                                                        <div className="pull-left">
-                                                            <img src="dist/img/user3-128x128.jpg" className="img-circle" alt="User" />
-                                                        </div>
-                                                        <h4>
-                                                            AdminLTE Design Team
-                        <small><i className="fa fa-clock-o" /> 2 hours</small>
-                                                        </h4>
-                                                        <p>Why not buy a new awesome theme?</p>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="fake_url">
-                                                        <div className="pull-left">
-                                                            <img src="dist/img/user4-128x128.jpg" className="img-circle" alt="User" />
-                                                        </div>
-                                                        <h4>
-                                                            Developers
-                        <small><i className="fa fa-clock-o" /> Today</small>
-                                                        </h4>
-                                                        <p>Why not buy a new awesome theme?</p>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="fake_url">
-                                                        <div className="pull-left">
-                                                            <img src="dist/img/user3-128x128.jpg" className="img-circle" alt="User" />
-                                                        </div>
-                                                        <h4>
-                                                            Sales Department
-                        <small><i className="fa fa-clock-o" /> Yesterday</small>
-                                                        </h4>
-                                                        <p>Why not buy a new awesome theme?</p>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="fake_url">
-                                                        <div className="pull-left">
-                                                            <img src="dist/img/user4-128x128.jpg" className="img-circle" alt="User" />
-                                                        </div>
-                                                        <h4>
-                                                            Reviewers
-                        <small><i className="fa fa-clock-o" /> 2 days</small>
-                                                        </h4>
-                                                        <p>Why not buy a new awesome theme?</p>
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                        <li className="footer"><a href="fake_url">See All Messages</a></li>
-                                    </ul>
-                                </li> */}
                                 {/* Notifications: style can be found in dropdown.less */}
                                 <li className="dropdown notifications-menu">
                                     <a href="fake_url" className="dropdown-toggle" data-toggle="dropdown">
@@ -168,20 +91,7 @@ export default class Header extends Component {
                                             </p>
                                         </li>
                                         {/* Menu Body */}
-                                        {/* <li className="user-body">
-                                            <div className="row">
-                                                <div className="col-xs-4 text-center">
-                                                    <a href="fake_url">Followers</a>
-                                                </div>
-                                                <div className="col-xs-4 text-center">
-                                                    <a href="fake_url">Sales</a>
-                                                </div>
-                                                <div className="col-xs-4 text-center">
-                                                    <a href="fake_url">Friends</a>
-                                                </div>
-                                            </div>
-                                            
-                                        </li> */}
+                                        
                                         {/* Menu Footer*/}
                                         <li className="user-footer">
                                             <div className="pull-left">

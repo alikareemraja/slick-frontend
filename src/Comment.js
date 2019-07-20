@@ -6,6 +6,7 @@ const actionButtonStyle = {
     margin: '2px',
 };
 
+
 export default class Comment extends Component {
     
     constructor(props) {
@@ -95,12 +96,12 @@ export default class Comment extends Component {
                                     </div>
                                 </div>
                             <div className="comment-meta">
-                                <span><a className role="button" onClick={this.deleteComment.bind(this, this.props.comment._id)} style={actionButtonStyle}>delete</a></span>
+                                <span><a className role="button" onClick={this.deleteComment.bind(this, this.props.comment._id)} style={actionButtonStyle}>Delete</a></span>
                                 <span>
-                                    <a className role="button" data-toggle="collapse" href={"#editComment" + this.props.comment._id} aria-expanded="false" aria-controls="collapseExample" onClick={this.toggleEdit}>edit</a>
+                                    <a className role="button" data-toggle="collapse" href={"#editComment" + this.props.comment._id} style={actionButtonStyle} aria-expanded="false" aria-controls="collapseExample" onClick={this.toggleEdit}>Edit</a>
                                 </span>
                                 <span>
-                                    <a className role="button" data-toggle="collapse" href={"#replyComment" + this.props.comment._id} aria-expanded="false" aria-controls="collapseExample">reply</a>
+                                    <a className role="button" data-toggle="collapse" href={"#replyComment" + this.props.comment._id} style={actionButtonStyle} aria-expanded="false" aria-controls="collapseExample">Reply</a>
                                 </span>
                                 <div className="collapse" id={"replyComment" + this.props.comment._id}>
                                     <div>
