@@ -110,7 +110,7 @@ export default class Wardrobe extends Component {
 
                 {/* Nav tabs */}
                 <ul className="nav nav-tabs row">
-                    <li className="nav-item col-sm-5 active">
+                    <li className="nav-item col-sm-5 active" >
                         <a data-toggle="tab" href="#owned">Owned Items</a>
                     </li>
                     <li className="nav-item col-sm-5">

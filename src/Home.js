@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Header from "./Header";
 import Menu from "./Menu";
+import Footer from "./Footer"
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import Wardrobe from "./Wardrobe";
 import OwnedItemPage from "./OwnedItemPage";
@@ -61,8 +62,10 @@ class Home extends Component {
             )}
             <Wardrobe /> */}
           </section>
+          
           {/* /.content */}
         </div>
+        <Footer/>
         {/* /.content-wrapper */}
       </div>
     );
