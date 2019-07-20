@@ -1,9 +1,9 @@
 export default class HttpService {
 
-    static apiURL() {return "http://localhost:3001"; }
+    static apiURL() { return "http://localhost:3001"; }
 
     static checkIfUnauthorized(res) {
-        if(res.status === 401) {
+        if (res.status === 401) {
             return true;
         }
         return false;
@@ -12,7 +12,7 @@ export default class HttpService {
     static get(url, onSuccess, onError) {
         let token = window.localStorage['jwtToken'];
         let header = new Headers();
-        if(token) {
+        if (token) {
             header.append('Authorization', `JWT ${token}`);
         }
 
@@ -20,18 +20,18 @@ export default class HttpService {
             method: 'GET',
             headers: header
         }).then((resp) => {
-            if(this.checkIfUnauthorized(resp)) {
+            if (this.checkIfUnauthorized(resp)) {
                 window.location = "/login";
             }
             else {
                 return resp.json();
             }
         }).then((resp) => {
-            if(resp.error) {
+            if (resp.error) {
                 onError(resp.error);
             }
             else {
-                if(resp.hasOwnProperty('token')) {
+                if (resp.hasOwnProperty('token')) {
                     window.localStorage['jwtToken'] = resp.token;
                 }
                 onSuccess(resp);
@@ -44,7 +44,7 @@ export default class HttpService {
     static remove(url, onSuccess, onError) {
         let token = window.localStorage['jwtToken'];
         let header = new Headers();
-        if(token) {
+        if (token) {
             header.append('Authorization', `JWT ${token}`);
         }
 
@@ -52,7 +52,7 @@ export default class HttpService {
             method: 'DELETE',
             headers: header
         }).then((resp) => {
-            if(this.checkIfUnauthorized(resp)) {
+            if (this.checkIfUnauthorized(resp)) {
                 window.location = "/login";
                 return;
             }
@@ -60,7 +60,7 @@ export default class HttpService {
                 return resp.json();
             }
         }).then((resp) => {
-            if(resp.error) {
+            if (resp.error) {
                 onError(resp.error);
             }
             else {
@@ -74,13 +74,48 @@ export default class HttpService {
     static post(url, data, onSuccess, onError) {
         let token = window.localStorage['jwtToken'];
         let header = new Headers();
-        if(token) {
+        if (token) {
             header.append('Authorization', `JWT ${token}`);
         }
         header.append('Content-Type', 'application/json');
 
         fetch(url, {
             method: 'POST',
+            headers: header,
+            body: JSON.stringify(data)
+        }).then((resp) => {
+            if (this.checkIfUnauthorized(resp)) {
+                window.location = "/login";
+                return;
+            }
+            else {
+                return resp.json();
+            }
+        }).then((resp) => {
+            if (resp.error) {
+                onError(resp.error);
+            }
+            else {
+                if (resp.hasOwnProperty('token')) {
+                    window.localStorage['jwtToken'] = resp.token;
+                }
+                onSuccess(resp);
+            }
+        }).catch((e) => {
+            onError(e.message);
+        });
+    }
+
+    static put(url, data, onSuccess, onError) {
+        let token = window.localStorage['jwtToken'];
+        let header = new Headers();
+        if(token) {
+            header.append('Authorization', `JWT ${token}`);
+        }
+        header.append('Content-Type', 'application/json');
+        window.alert("Put request came to HttpService. Url: " + url + ", data:");
+        fetch(url, {
+            method: 'PUT',
             headers: header,
             body: JSON.stringify(data)
         }).then((resp) => {
