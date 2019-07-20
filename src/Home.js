@@ -8,6 +8,7 @@ import { ItemListView } from "./views/ItemListView";
 import { ItemDetailView } from "./views/ItemDetailView";
 import NotFound from "./NotFound";
 import Thread from "./Thread";
+import SearchResults from "./components/SearchResults"
 
 class Home extends Component {
   constructor(props) {
