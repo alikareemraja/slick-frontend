@@ -39,7 +39,6 @@ class SearchResults extends Component {
     fetch(StatisticsEndPoint) // no data sent with GET so we get the list of items
       .then(res => res.json())
       .then(response => {
-        //        console.log(response);
         this.setState({ number: response.length }); //once the response is available,
         //this callback is active, setting the items sate to response data
       }) // catch to print out to console in case of errors
@@ -49,43 +48,10 @@ class SearchResults extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    /*  
-    axios
-      .get(SearchEndPoint, {
-        params: {
-          // input_text: this.props.input_text
-          category: this.props.input_text
-        }
-      }) // no data sent with GET so we get the list of items
-      .then(response => {
-        console.log("Hiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii");
-        console.log(response);
-        this.setState({ results: response.data }); //once the response is available,
-        //this callback is active, setting the items sate to response data
-      }) // catch to print out to console in case of errors
-      .catch(function(error) {
-        console.log(error);
-      });
-    axios
-      .get(StatisticsEndPoint) // no data sent with GET so we get the list of items
-      .then(response => {
-        console.log("NUMBER-NUMBER-NUMBER-NUMBER-NUMBER");
-        console.log(response);
-
-        this.setState({ number: response.data }); //once the response is available,
-        //this callback is active, setting the items sate to response data
-      }) // catch to print out to console in case of errors
-      .catch(function(error) {
-        console.log(error);
-      });
-    
-*/ if (
-      prevProps.input_text !== this.props.input_text
-    ) {
+    if (prevProps.input_text !== this.props.input_text) {
       fetch(StatisticsEndPoint) // no data sent with GET so we get the list of items
         .then(res => res.json())
         .then(response => {
-          //   console.log(response);
           this.setState({ number: response.length }); //once the response is available,
           //this callback is active, setting the items sate to response data
         }) // catch to print out to console in case of errors
@@ -97,8 +63,6 @@ class SearchResults extends Component {
       fetch(url)
         .then(res => res.json())
         .then(response => {
-          //    console.log("============================================");
-          //    console.log(response);
           this.setState({ results: response });
         })
         .catch(function(error) {
@@ -108,13 +72,11 @@ class SearchResults extends Component {
   }
 
   recommender() {
-    // const rand = Boolean(Math.round(Math.random()));
     let recommended = Math.random() >= 0.5;
     return recommended;
   }
 
   handleSubmit = () => {
-    console.log("TTTTTTTTTTTTTTTTTTTTTTTTTT");
     this.props.history.push("/searchStat");
     //return <Redirect to="/searchStat" />;
     // return <Link to="/searchStat">Conference</Link>;
@@ -127,13 +89,11 @@ class SearchResults extends Component {
       "http://icons.iconarchive.com/icons/iconsmind/outline/256/T-Shirt-icon.png";
   }
   itemList() {
-    //iterate over what is indside the state results using the map method
-    //to iterate inside the elements of the results array, passing a callback function
-    //used for every item
-
     return this.state.results.map((currentItem, i) => {
       console.log("currentItem: " + currentItem.category);
+      console.log("currentItem id: " + currentItem._id);
       console.log("currentItem image: " + currentItem.imageURL);
+      console.log("currentItem isRecommended: " + currentItem.isRecommended);
       let itemPriceList = currentItem.prices,
         priceList = [];
       itemPriceList.map((p, i) => {
@@ -141,7 +101,8 @@ class SearchResults extends Component {
       });
       let lowestPrice = Math.min.apply(null, priceList);
       let colorsList = currentItem.color;
-      let recommended = currentItem.isRecommended; //this.recommender();
+      //let recommended = currentItem.isRecommended; //this.recommender();
+      let recommended = this.recommender();
       if (recommended)
         return (
           <div className="container search-result-item-rec">
@@ -337,7 +298,7 @@ class SearchResults extends Component {
             <p className="row-sm-1 row-md-1 row-lg-2">
               You have searched for {this.state.number} item(s)
               {/*    <Link to="/searchStat" target="_blank">
-                {" "}
+                
                 Check search history
     </Link>*/}
               <butaton
