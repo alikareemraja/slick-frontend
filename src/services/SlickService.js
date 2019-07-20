@@ -7,7 +7,7 @@ export default class SlickService {
     constructor(){
     }
 
-    static baseURL() {return "http://localhost:3001/movies" }
+    static baseURL() {return "http://localhost:3001/items" }
 
     static getItems(){
        return new Promise((resolve, reject) => {

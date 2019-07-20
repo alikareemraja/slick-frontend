@@ -19,7 +19,7 @@ export class ItemDetailView extends React.Component {
         });
 
         let id = this.props.match.params.id;
-
+        console.log(id)
         SlickService.getItem(id).then((data) => {
             this.setState({
                 item: data,

@@ -118,7 +118,7 @@ handleClick() {
                                           height: 320,
                                           width: 320
                                         }}
-                                        src={this.props.item.posters.detailed} 
+                                        src={this.props.item.imageURL} 
                                       />
                                     </div>
     
@@ -209,7 +209,7 @@ handleClick() {
                                 overflow: "auto"
                               }}
                             >
-                                {this.props.item.synopsis}
+                                {this.props.item.description}
                             </div>
     
                           
@@ -305,7 +305,7 @@ handleClick() {
                                           height: 250,
                                           width: 250
                                         }}
-                                        src={this.props.item.posters.detailed}
+                                        src={this.props.item.imageURL}
                                       />
                                     </div>
     
