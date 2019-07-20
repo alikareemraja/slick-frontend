@@ -1,6 +1,6 @@
 "use strict";
 
-import HttpService from './HttpService';
+import HttpService from '../HttpService';
 
 export default class SlickService {
 

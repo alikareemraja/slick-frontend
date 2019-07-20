@@ -20,31 +20,38 @@ export class ItemDetail extends React.Component {
           buyLink: this.props.item.retailers[0].website,
           price: this.props.item.retailers[0].price,
         };
+        
         this.myFunction=this.myFunction.bind(this);
-        this.myFunction_2=this.myFunction_2.bind(this);
+        this.menu=this.menu.bind(this);
     }
 
 
-myFunction(){
+myFunction(id){
+  console.log(id);
+  this.setState({
+    buyLink: id.website,
+    price: id.price,
+  });
 
-  this.setState(state => ({
-    buyLink: this.props.item.retailers[0].website,
-    price: this.props.item.retailers[0].price,
-  }));
+}
+
+menu(){
+
+  let menuItems = [];
+  var i = 0;
+  for (i = 0; i < this.props.item.retailers.length; i++) {
+      menuItems.push(
+      <ListGroup.Item id={i} action href={"#link" + this.props.item.retailers[i].name}
+      
+      onClick={() => this.myFunction} onClick={this.myFunction.bind(this, this.props.item.retailers[i])} value={i}
+     >
+          {this.props.item.retailers[i].name}
+      </ListGroup.Item>);
+  }
+  return menuItems
 
 }
 
-
-myFunction_2(){
-
-  this.setState(state => ({
-    buyLink: this.props.item.retailers[1].website,
-    price: this.props.item.retailers[1].price,
-  }));
-
-
-
-}
 
 
 handleClick() {
@@ -53,6 +60,7 @@ handleClick() {
 
 
     render() {
+
 
         return (
             //<Page>
@@ -136,37 +144,15 @@ handleClick() {
     
                               <div>
     
-                                <Tab.Container id="list-group-tabs" defaultActiveKey="#link1">
+                                <Tab.Container id="list-group-tabs" defaultActiveKey={"#link" + this.props.item.retailers[0].name}>
                                   <Row>
-                                    <Col sm={5}>
+                                    <Col sm={6}>
                                     
                                       <ListGroup>
-
-                                        <ListGroup.Item action href="#link1" onClick={
-                                                  (this.myFunction)
-
-                                        }>
-                                        {this.props.item.retailers[0].name}
-                                        </ListGroup.Item>
-                                  
-                                        <ListGroup.Item action href="#link2" onClick={
-                                                  (this.myFunction_2)
-
-                                        }>
-                                        {this.props.item.retailers[1].name}
-                                        </ListGroup.Item>
+                                    
+                                      {this.menu()}
                                         
                                       </ListGroup>
-                                    </Col>
-                                    <Col sm={5}>
-                                      <Tab.Content>
-                                        <Tab.Pane eventKey="#link1">
-                                      
-                                        </Tab.Pane>
-                                        <Tab.Pane eventKey="#link2">
-                                        
-                                        </Tab.Pane>
-                                      </Tab.Content>
                                     </Col>
 
                                   </Row>
@@ -341,5 +327,6 @@ handleClick() {
                   //</Page>
                 )
     
-             }
+        }
+
 }
