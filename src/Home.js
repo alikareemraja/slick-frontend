@@ -48,10 +48,13 @@ class Home extends Component {
           <section className="content">
             <switch>
               <Route exact path="/home" component={Wardrobe} />
-              <Route  path="/home/wardrobe/ownedItem/:itemId" component={OwnedItemPage}/>
-              <Route  path="/home/item" component={ItemListView} />
-              <Route  path="/home/show/:id" component={ItemDetailView} />
-              <Route  path="/home/search" component={SearchResults} />
+              <Route
+                path="/home/wardrobe/ownedItem/:itemId"
+                component={OwnedItemPage}
+              />
+              <Route path="/home/item" component={ItemListView} />
+              <Route path="/home/show/:id" component={ItemDetailView} />
+              <Route path="/home/search/:query" component={SearchResults} />
             </switch>
 
             {/* <Thread id="5d2a334af1ca4b48b6caaf85"/> */}
