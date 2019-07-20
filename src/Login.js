@@ -23,7 +23,7 @@ export default class Login extends Component {
         console.log("TRying to sign in with user: " + this.state.username + ", pass: " + this.state.password);
         UserService.login(this.state.username, this.state.password).then((data) => {
             console.log("Hurray, you are logged in!");
-            this.props.history.push("/");
+            this.props.history.push("/home");
         }).catch((e) => {
             console.error("An error was returned while logging in: " + e);
             this.setState({
