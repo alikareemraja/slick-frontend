@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import SearchField from "react-search-field";
+import UserService from './UserService';
 
 export default class Header extends Component {
     render() {
@@ -98,7 +99,7 @@ export default class Header extends Component {
                                                 <a href="fake_url" className="btn btn-default btn-flat">Profile</a>
                                             </div>
                                             <div className="pull-right">
-                                                <a href="fake_url" className="btn btn-default btn-flat">Sign out</a>
+                                                <a href="/" className="btn btn-default btn-flat" onClick={UserService.logout}>Sign out</a>
                                             </div>
                                         </li>
                                     </ul>

@@ -7,6 +7,7 @@ import OwnedItemPage from './OwnedItemPage';
 import { ItemListView } from './views/ItemListView';
 import { ItemDetailView }   from './views/ItemDetailView';
 import NotFound from './NotFound';
+import Thread from './Thread';
 
 class Home extends Component {
   constructor(props) {
@@ -45,6 +46,7 @@ class Home extends Component {
           <section className="content">
             <switch>
               <Route exact path='/' component={Wardrobe} />
+              <Route exact path='/thread' component={Thread} />
               <Route exact path='/wardrobe/ownedItem/:itemId' component={OwnedItemPage} /> 
               <Route exact path='/item' component={ItemListView} />
               <Route exact path='/show/:id' component={ItemDetailView} /> 

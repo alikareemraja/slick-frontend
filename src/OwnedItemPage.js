@@ -38,13 +38,11 @@ export default class OwnedItemPage extends Component {
             return (<div>Loading your item...</div>);
         console.log("Rendering item_id: " + this.state.item._id);
         return (
-        <div>
-            <div className="row">
-            <div className="d-flex justify-content-center text-center">
-                    <img src={this.state.item.imageURL} alt={this.state.item.title} style={{ "maxWidth": "200px", "maxHeight": "200px" }} />
+            <div className="row d-flex justify-content-center">
+                <div className="text-center">
+                    <img src={this.state.item.imageURL} alt={this.state.item.title} style={{ "maxWidth": "300px", "maxHeight": "500px" }} />
                     <h4>{this.state.item.title}</h4>
                     <button data-toggle="modal" data-target="#itemModal" style={{whiteSpace: "pre"}} ><span className="glyphicon glyphicon-pencil" />  Edit your item</button>
-            </div>
             </div>
             <Thread userId={this.userId} itemId={this.state.item._id}/>
             <ItemModal title={this.state.item.title} imgSrc={this.state.item.imageURL} description={this.state.item.description} itemId={this.props.match.params.itemId}/>

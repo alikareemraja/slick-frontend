@@ -12,9 +12,6 @@ export default class Login extends Component {
 
     componentWillMount() {
         document.getElementById('body').className = 'hold-transition login-page'
-        if (UserService.getCurrentUser){
-            this.props.history.push("/app/wardrobe");
-        }
     }
     componentWillUnmount() {
         document.getElementById('body').className = 'hold-transition skin-black sidebar-mini'
@@ -26,7 +23,7 @@ export default class Login extends Component {
         console.log("TRying to sign in with user: " + this.state.username + ", pass: " + this.state.password);
         UserService.login(this.state.username, this.state.password).then((data) => {
             console.log("Hurray, you are logged in!");
-            this.props.history.push("/app/wardrobe");
+            this.props.history.push("/");
         }).catch((e) => {
             console.error("An error was returned while logging in: " + e);
             this.setState({

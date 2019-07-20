@@ -7,7 +7,7 @@ export default class Wardrobe extends Component {
 
     static defaultImgSrc;
     static userId;
-
+    static itemCount;
     constructor(props) {
         super(props);
 
@@ -17,6 +17,7 @@ export default class Wardrobe extends Component {
 
         this.handleAddItemFormChange = this.handleAddItemFormChange.bind(this);
         this.handleAddItemFormSubmit = this.handleAddItemFormSubmit.bind(this);
+        this.itemCount = 0;
     }
 
     componentWillMount(props) {
@@ -37,9 +38,9 @@ export default class Wardrobe extends Component {
         });
     }
 
-    handleAddItemFormChange(event){
-        if(event.target && event.target.id && event.target.value){
-            switch(event.target.id) {
+    handleAddItemFormChange(event) {
+        if (event.target && event.target.id && event.target.value) {
+            switch (event.target.id) {
                 case "title":
                     this.setState({
                         addItemTitle: event.target.value
@@ -62,8 +63,8 @@ export default class Wardrobe extends Component {
         }
     }
 
-    handleAddItemFormSubmit(event){
-        if (!window.confirm("Are you sure? The item will be added to your wardrobe if you click 'OK'.")){
+    handleAddItemFormSubmit(event) {
+        if (!window.confirm("Are you sure? The item will be added to your wardrobe if you click 'OK'.")) {
             event.preventDefault();
             return;
         }
@@ -128,15 +129,15 @@ export default class Wardrobe extends Component {
                             {/* Modal that contains add item form */}
                             <div class="modal fade" id="addItemModal" tabindex="-1" role="dialog" aria-labelledby="modalTitle" aria-hidden="true">
                                 <div class="modal-dialog modal-dialog-centered" role="document">
-                                    <div class="modal-content">                                                                  
-                                            <div class="modal-header">
-                                                <h3 class="modal-title" id="modalTitle">Add new item
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h3 class="modal-title" id="modalTitle">Add new item
                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                     <span aria-hidden="true">&times;</span>
                                                 </button></h3>
-                                            </div>
-                                            <form onSubmit={this.handleAddItemFormSubmit}>   
-                                            <div class="modal-body">                                                       
+                                        </div>
+                                        <form onSubmit={this.handleAddItemFormSubmit}>
+                                            <div class="modal-body">
                                                 <div class="col">
                                                     <div class="form-group">
                                                         <input id="filePicker" type="file" class="form-control-file" accept=".gif,.jpg,.jpeg,.png" onChange={this.handleAddItemFormChange} />
@@ -148,7 +149,7 @@ export default class Wardrobe extends Component {
 
                                                     <div class="form-group">
                                                         <label for="title">Title:</label>
-                                                        <input type="text" class="form-control" id="title" placeholder="Title" required={true} onChange={this.handleAddItemFormChange}/>
+                                                        <input type="text" class="form-control" id="title" placeholder="Title" required={true} onChange={this.handleAddItemFormChange} />
                                                     </div>
 
                                                     <div class="form-group">
@@ -167,9 +168,17 @@ export default class Wardrobe extends Component {
                             </div>
 
                             {/* Each item in OwnedItems is displayed in a WardrobeItem */}
-                            {this.state.data.map((item) => { return (<WardrobeItem key={item._id} item={item} onDelete={(itemId) => this.deleteOwnedItem(itemId)} />); })}
+                            {this.state.data.map((item) => {
+                                return (
+                                    
+                                        <WardrobeItem key={item._id} item={item} onDelete={(itemId) => this.deleteOwnedItem(itemId)} />
+                                    
+                                );
+                            })}
                         </div>
-
+                        
+                        
+                        
                         {/* Show number of items in OwnedItems */}
                         <div className="text-center">
                             You have {this.state.data.length} item(s) in your wardrobe.
