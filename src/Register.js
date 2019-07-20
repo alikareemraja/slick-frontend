@@ -20,7 +20,7 @@ class Register extends Component {
     handleRegister(event) {
         event.preventDefault();
 
-        if(this.state.password1 !== this.state.password2){
+        if (this.state.password1 !== this.state.password2) {
             window.alert("Your passwords do not match!");
             return;
         }

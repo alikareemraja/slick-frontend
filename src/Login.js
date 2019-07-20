@@ -3,7 +3,7 @@ import UserService from './UserService';
 
 export default class Login extends Component {
 
-    constructor(props){
+    constructor(props) {
         super(props);
 
         this.handleLogin = this.handleLogin.bind(this);
@@ -12,12 +12,15 @@ export default class Login extends Component {
 
     componentWillMount() {
         document.getElementById('body').className = 'hold-transition login-page'
+        if (UserService.getCurrentUser){
+            this.props.history.push("/app/wardrobe");
+        }
     }
     componentWillUnmount() {
         document.getElementById('body').className = 'hold-transition skin-black sidebar-mini'
     }
 
-    handleLogin(event){
+    handleLogin(event) {
         event.preventDefault();
 
         console.log("TRying to sign in with user: " + this.state.username + ", pass: " + this.state.password);
@@ -32,10 +35,10 @@ export default class Login extends Component {
         });
     }
 
-    handleFormChange(event){
+    handleFormChange(event) {
         console.log(event.target);
-        if(event.target && event.target.id && event.target.value){
-            switch(event.target.id) {
+        if (event.target && event.target.id && event.target.value) {
+            switch (event.target.id) {
                 case "email":
                     this.setState({
                         username: event.target.value
@@ -54,11 +57,11 @@ export default class Login extends Component {
 
     render() {
         return (
-            
+
             <div className="login-box">
-            
-            <script src="../../plugins/iCheck/icheck.min.js"></script>
-            
+
+                <script src="../../plugins/iCheck/icheck.min.js"></script>
+
                 <div className="login-logo">
                     <a href="../../index2.html"><b>Slick</b></a>
                 </div>
@@ -67,11 +70,11 @@ export default class Login extends Component {
                     <p className="login-box-msg">Sign in to start your session</p>
                     <form action="../../index2.html" onSubmit={this.handleLogin}>
                         <div className="form-group has-feedback">
-                            <input id="email" type="email" className="form-control" placeholder="Email" onChange={this.handleFormChange} required={true}/>
+                            <input id="email" type="email" className="form-control" placeholder="Email" onChange={this.handleFormChange} required={true} />
                             <span className="glyphicon glyphicon-envelope form-control-feedback" />
                         </div>
                         <div className="form-group has-feedback">
-                            <input id="password" type="password" className="form-control" placeholder="Password" onChange={this.handleFormChange} required={true}/>
+                            <input id="password" type="password" className="form-control" placeholder="Password" onChange={this.handleFormChange} required={true} />
                             <span className="glyphicon glyphicon-lock form-control-feedback" />
                         </div>
                         <div className="row">
@@ -79,7 +82,7 @@ export default class Login extends Component {
                                 <div className="checkbox icheck">
                                     <label>
                                         <input type="checkbox" /> Remember Me
-              </label>
+                                    </label>
                                 </div>
                             </div>
                             {/* /.col */}

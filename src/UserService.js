@@ -2,18 +2,18 @@ import HttpService from "./HttpService";
 
 export default class UserService {
 
-    static baseURL() {return HttpService.apiURL() + "/users"; }
+    static baseURL() { return HttpService.apiURL() + "/users"; }
 
     static getOwnedItems(userId) {
         return new Promise((resolve, reject) => {
-            HttpService.get(this.baseURL() + "/" + userId + "/owned", function(data) {
-                if(data !== undefined || Object.keys(data).length !== 0) {
+            HttpService.get(this.baseURL() + "/" + userId + "/owned", function (data) {
+                if (data !== undefined || Object.keys(data).length !== 0) {
                     resolve(data);
                 }
                 else {
                     reject('Error while retrieving movie');
                 }
-            }, function(textStatus) {
+            }, function (textStatus) {
                 reject(textStatus);
             });
         });
@@ -21,14 +21,14 @@ export default class UserService {
 
     static getOwnedItem(userId, itemId) {
         return new Promise((resolve, reject) => {
-            HttpService.get(this.baseURL() + "/" + userId + "/owned/" + itemId, function(data) {
-                if(data !== undefined || Object.keys(data).length !== 0) {
+            HttpService.get(this.baseURL() + "/" + userId + "/owned/" + itemId, function (data) {
+                if (data !== undefined || Object.keys(data).length !== 0) {
                     resolve(data);
                 }
                 else {
                     reject('Error while retrieving movie');
                 }
-            }, function(textStatus) {
+            }, function (textStatus) {
                 reject(textStatus);
             });
         });
@@ -36,19 +36,29 @@ export default class UserService {
 
     static deleteOwnedItem(userId, itemId) {
         return new Promise((resolve, reject) => {
-            HttpService.remove(this.baseURL() + "/" + userId + "/owned/" + itemId, function(data) {
+            HttpService.remove(this.baseURL() + "/" + userId + "/owned/" + itemId, function (data) {
                 resolve(data);
-            }, function(textStatus) {
+            }, function (textStatus) {
                 reject(textStatus);
             });
         });
     }
 
-    static addOwnedItem(userId, item) {
+    static addOwnedItem(userId, itemId) {
         return new Promise((resolve, reject) => {
-            HttpService.post(this.baseURL() + "/" + userId + "/owned", item, function(data) {
+            HttpService.post(this.baseURL() + "/" + userId + "/owned", itemId, function (data) {
                 resolve(data);
-            }, function(textStatus) {
+            }, function (textStatus) {
+                reject(textStatus);
+            });
+        });
+    }
+
+    static updateOwnedItem(userId, itemId, item) {
+        return new Promise((resolve, reject) => {
+            HttpService.put(this.baseURL() + "/" + userId + "/owned/" + itemId, item, function (data) {
+                resolve(data);
+            }, function (textStatus) {
                 reject(textStatus);
             });
         });
@@ -60,9 +70,9 @@ export default class UserService {
             HttpService.post(HttpService.apiURL() + "/auth/register", {
                 username: user,
                 password: pass
-            }, function(data) {
+            }, function (data) {
                 resolve(data);
-            }, function(textStatus) {
+            }, function (textStatus) {
                 reject(textStatus);
             });
         });
@@ -74,9 +84,9 @@ export default class UserService {
             HttpService.post(HttpService.apiURL() + "/auth/login", {
                 username: user,
                 password: pass
-            }, function(data) {
+            }, function (data) {
                 resolve(data);
-            }, function(textStatus) {
+            }, function (textStatus) {
                 reject(textStatus);
             });
         });
@@ -89,12 +99,12 @@ export default class UserService {
         let base64Url = token.split('.')[1];
         let base64 = base64Url.replace('-', '+').replace('_', '/');
         return {
-            id : JSON.parse(window.atob(base64)).id,
+            id: JSON.parse(window.atob(base64)).id,
             username: JSON.parse(window.atob(base64)).username
         };
     }
 
-    static logout(){
+    static logout() {
         window.localStorage.removeItem('jwtToken');
     }
 }
