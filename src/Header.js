@@ -34,7 +34,7 @@ export default class Header extends Component {
                                 </li>
 
                                 {/* Notifications: style can be found in dropdown.less */}
-                                <li className="dropdown notifications-menu">
+                                {/* <li className="dropdown notifications-menu">
                                     <a href="fake_url" className="dropdown-toggle" data-toggle="dropdown">
                                         <i className="fa fa-bell-o" />
                                         <span className="label label-warning">10</span>
@@ -42,7 +42,7 @@ export default class Header extends Component {
                                     <ul className="dropdown-menu">
                                         <li className="header">You have 10 notifications</li>
                                         <li>
-                                            {/* inner menu: contains the actual data */}
+                                            
                                             <ul className="menu">
                                                 <li>
                                                     <a href="fake_url">
@@ -74,7 +74,7 @@ export default class Header extends Component {
                                         </li>
                                         <li className="footer"><a href="fake_url">View all</a></li>
                                     </ul>
-                                </li>
+                                </li> */}
 
                                 {/* User Account: style can be found in dropdown.less */}
                                 <li className="dropdown user user-menu">
