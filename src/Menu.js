@@ -1,4 +1,7 @@
 import React, { Component } from "react";
+import axios from "axios";
+//import SearchResults from "./components/SearchResults";
+const AddEndPoint = "http://localhost:3001/search/addstat";
 
 export default class Menu extends Component {
   constructor(props) {
@@ -6,7 +9,6 @@ export default class Menu extends Component {
     this.onChangeSearchInput = this.onChangeSearchInput.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
     this.state = {
-      search_history: "",
       input_text: "",
       search_text: "",
       show: false
@@ -17,19 +19,27 @@ export default class Menu extends Component {
     this.setState({
       input_text: e.target.value
     });
-    console.log("this.state.input_text: " + this.state.input_text);
   }
   onSubmit(e) {
     //called when the user submits the form
     e.preventDefault(); //prevent browser's default behavior
-    this.search_text = this.state.input_text;
-    console.log("this.search_text" + this.search_text);
+    // this.props.search_text = this.state.input_text; // make the call to back-end, passing the url of the back-end end point
 
+    console.log("this.search_text: " + this.search_text);
+    console.log("this.state.input_text: " + this.state.input_text);
     if (this.state.input_text) {
-      window.alert("Non empty search text");
-      this.props.triggerParentUpdate(this.search_text);
-      this.setState({ show: true });
-    }
+      //   console.log("Inside the first IF");
+      if (this.state.input_text != this.search_text) {
+        //     console.log("Inside the SECOND IF");
+        this.search_text = this.state.input_text;
+        this.props.triggerParentUpdate(this.search_text);
+        this.setState({ show: true });
+        const search_item = {
+          search_item: this.search_text
+        };
+        axios.post(AddEndPoint, search_item).then(res => {});
+      }
+    } else window.alert("Empty search text");
   }
 
   render() {
