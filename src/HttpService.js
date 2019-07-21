@@ -109,17 +109,17 @@ export default class HttpService {
     static put(url, data, onSuccess, onError) {
         let token = window.localStorage['jwtToken'];
         let header = new Headers();
-        if(token) {
+        if (token) {
             header.append('Authorization', `JWT ${token}`);
         }
         header.append('Content-Type', 'application/json');
-        window.alert("Put request came to HttpService. Url: " + url + ", data:");
+        window.alert("Put request came to HttpService. Url: " + url);
         fetch(url, {
             method: 'PUT',
             headers: header,
             body: JSON.stringify(data)
         }).then((resp) => {
-            if(this.checkIfUnauthorized(resp)) {
+            if (this.checkIfUnauthorized(resp)) {
                 window.location = "/login";
                 return;
             }
@@ -127,11 +127,11 @@ export default class HttpService {
                 return resp.json();
             }
         }).then((resp) => {
-            if(resp.error) {
+            if (resp.error) {
                 onError(resp.error);
             }
             else {
-                if(resp.hasOwnProperty('token')) {
+                if (resp.hasOwnProperty('token')) {
                     window.localStorage['jwtToken'] = resp.token;
                 }
                 onSuccess(resp);

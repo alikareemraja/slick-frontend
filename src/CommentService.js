@@ -18,12 +18,27 @@ export default class CommentService  {
         });
     }
 
+    static getUser(userId) {
+        return new Promise((resolve, reject) => {
+            HttpService.get(this.baseURL() + "/get/user/" + userId, function(data) {
+                if(data !== undefined || Object.keys(data).length !== 0) {
+                    resolve(data);
+                }
+                else {
+                    reject('Error while retrieving comments');
+                }
+            }, function(textStatus) {
+                reject(textStatus);
+            });
+        });
+    }
+
     static postComment(itemId, userId, text) {
         return new Promise((resolve, reject) => {
             HttpService.post(this.baseURL() + "/add", {
                 item: itemId,
                 user: userId,
-                date: new Date().getTime() / 1000,
+                date: new Date().getTime(),
                 text: text,
             }, function(data) {
                 resolve(data);
@@ -49,7 +64,7 @@ export default class CommentService  {
         return new Promise((resolve, reject) => {
             HttpService.post(this.baseURL() + "/add/"+ commentId, {
                 user: userId,
-                date: new Date().getTime() / 1000,
+                date: new Date().getTime(),
                 text: text,
             }, function(data) {
                 resolve(data);

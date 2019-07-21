@@ -2,6 +2,7 @@
 import React, { Component } from 'react'
 import CommentService from './CommentService'
 import {NotificationContainer, NotificationManager} from 'react-notifications';
+import UserService from './UserService'
 
 const actionButtonStyle = {
     margin: '2px',
@@ -12,9 +13,14 @@ export default class Comment extends Component {
     
     constructor(props) {
         super(props);
-        this.state = { editMode : false, updateText : "" };
+        this.getUser(this.props.userId);
+        this.state = { editMode : false, updateText : "", userName : "", loggedInUser : "" };
+        var user = UserService.getCurrentUser()
+        this.state.loggedInUser =  UserService.getCurrentUser().id;
+        var result = props.userId === this.state.loggedInUser
     }
-
+    
+    
     handleChange = (e) =>{ 
         this.setState({updateText: e.target.value});
       }
@@ -60,6 +66,21 @@ export default class Comment extends Component {
 
     }
 
+    getUser = function(userId){
+
+        CommentService.getUser(userId)
+        .then((data) => {
+            console.log("success!")
+            this.setState({userName: data.username});
+            this.props.callback()
+            
+        }).catch((error) => {
+            console.log(error);
+            NotificationManager.error('User details not found');
+        })
+        
+    }
+
     updateComment = function (commentId, text) {
         CommentService.updateComment(commentId, text)
         .then((data) => {
@@ -81,7 +102,7 @@ export default class Comment extends Component {
                 <div className="media">
                     {/* first comment */}
                     <div className="media-heading">
-                        <button className="btn btn-default btn-xs" type="button" data-toggle="collapse" data-target={"#collapse"+ this.props.comment._id} aria-expanded="false" aria-controls="collapseExample"><span className="glyphicon glyphicon-minus" aria-hidden="true" /></button> <span className="label label-info">12314</span> terminator {new Date(this.props.comment.date).toLocaleTimeString()  }
+                        <button className="btn btn-default btn-xs" type="button" data-toggle="collapse" data-target={"#collapse"+ this.props.comment._id} aria-expanded="false" aria-controls="collapseExample"><span className="glyphicon glyphicon-minus" aria-hidden="true" /></button> <span className="label label-info">12314</span> {this.state.userName} {new Date(this.props.comment.date).toLocaleTimeString()  }
         </div>
                     <div className="panel-collapse collapse in" id={"collapse" + this.props.comment._id}>
                         <div className="media-left">
@@ -100,7 +121,7 @@ export default class Comment extends Component {
                         </div>
                         {/* media-left */}
                         <div className="media-body">
-                            <p>{ this.state.editMode ? null : this.props.comment.text}</p>
+                            <p>{ this.state.editMode ? null : this.props.comment.text} </p>
                             <div className="collapse" id={"editComment" + this.props.comment._id}>
                                     <div>
                                         <div className="form-group">
@@ -110,10 +131,16 @@ export default class Comment extends Component {
                                     </div>
                                 </div>
                             <div className="comment-meta">
-                                <span><a className role="button" onClick={this.deleteComment.bind(this, this.props.comment._id)} style={actionButtonStyle}>Delete</a></span>
+                                { this.state.loggedInUser === this.props.userId ? 
+                                <span><a className role="button" onClick={this.deleteComment.bind(this, this.props.comment._id)} style={actionButtonStyle}>Delete</a></span> : null
+                                }
+                                
+                                { this.state.loggedInUser === this.props.userId ? 
                                 <span>
-                                    <a className role="button" data-toggle="collapse" href={"#editComment" + this.props.comment._id} style={actionButtonStyle} aria-expanded="false" aria-controls="collapseExample" onClick={this.toggleEdit}>Edit</a>
-                                </span>
+                                <a className role="button" data-toggle="collapse" href={"#editComment" + this.props.comment._id} style={actionButtonStyle} aria-expanded="false" aria-controls="collapseExample" onClick={this.toggleEdit}>Edit</a>
+                                </span>: null
+                                }
+                                
                                 <span>
                                     <a className role="button" data-toggle="collapse" href={"#replyComment" + this.props.comment._id} style={actionButtonStyle} aria-expanded="false" aria-controls="collapseExample">Reply</a>
                                 </span>
@@ -130,7 +157,7 @@ export default class Comment extends Component {
                             {/* comment-meta */}
                             {this.props.comment.replies.map((reply) => (
                                 <div >
-                                    <Comment comment={reply} callback={this.props.callback} />
+                                    <Comment comment={reply} userId={this.props.userId} callback={this.props.callback} />
                                 </div>
                             ))}
                         </div>

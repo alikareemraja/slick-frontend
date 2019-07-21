@@ -8,7 +8,7 @@ import {
 } from "react-router-dom";
 import axios from "axios";
 import "../DispFormat.css";
-const StatisticsRemoveEndPoint = "http://localhost:3001/search/";
+const StatisticsRemoveEndPoint = "http://localhost:3001/search/delete/";
 const StatisticsEndPoint = "http://localhost:3001/search/stat";
 
 export default class searchStat extends Component {
@@ -16,11 +16,25 @@ export default class searchStat extends Component {
     super(props);
     this.sList = this.sList.bind(this);
     this.handleClick = this.handleClick.bind(this);
+    this.checkIfUnauthorized = this.checkIfUnauthorized.bind(this);
     this.state = { search_Stats: [] };
   }
 
+  checkIfUnauthorized(res) {
+    if (res.status === 401) {
+      return true;
+    }
+    return false;
+  }
   componentDidMount() {
-    fetch(StatisticsEndPoint) // no data sent with GET so we get the list of items
+    console.log("SEARCH STATE COMPONENT DID MOUNT");
+
+    let token = window.localStorage["jwtToken"];
+    let header = new Headers();
+    if (token) {
+      header.append("Authorization", `JWT ${token}`);
+    }
+    fetch(StatisticsEndPoint, { headers: header }) // no data sent with GET so we get the list of items
       .then(res => res.json())
       .then(response => {
         console.log("=========================================");
@@ -36,22 +50,43 @@ export default class searchStat extends Component {
   handleClick = id => e => {
     e.preventDefault();
     let url = StatisticsRemoveEndPoint + id;
+    console.log("ID to be removed: ");
     console.log(id);
-    axios
-      .delete(url)
-      .then(response => {
-        console.log(response);
-        console.log("this.state.search_Stats from inside handle click ");
-        console.log(this.state.search_Stats);
-        console.log("FILTERED from inside handle click ");
-        this.setState({
-          search_Stats: this.state.search_Stats.filter(item => item._id !== id)
-        });
-      })
-      .catch(function(error) {
-        console.log(error);
-      });
+    console.log("URL: ");
     console.log(url);
+    let token = window.localStorage["jwtToken"];
+    let header = new Headers();
+    if (token) {
+      header.append("Authorization", `JWT ${token}`);
+    }
+    fetch(url, {
+      method: "DELETE",
+      headers: header
+    })
+      .then(resp => {
+        if (this.checkIfUnauthorized(resp)) {
+          window.location = "/login";
+          return;
+        } else {
+          return resp.json();
+        }
+      })
+      .then(resp => {
+        if (resp.error) {
+          console.log(resp.error);
+        } else {
+          this.setState({
+            search_Stats: this.state.search_Stats.filter(
+              item => item._id !== id
+            )
+          });
+
+          console.log(resp);
+        }
+      })
+      .catch(e => {
+        console.log(e.message);
+      });
   };
 
   sList() {
@@ -67,7 +102,7 @@ export default class searchStat extends Component {
             class="btn btn-link"
             onClick={this.handleClick(current._id)}
           >
-            Delete
+            Remove
           </button>
         </td>
       </tr>

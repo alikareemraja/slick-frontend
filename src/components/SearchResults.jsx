@@ -63,15 +63,6 @@ class SearchResults extends Component {
       if (token) {
         header.append("Authorization", `JWT ${token}`);
       }
-      fetch(StatisticsEndPoint, { headers: header }) // no data sent with GET so we get the list of items
-        .then(res => res.json())
-        .then(response => {
-          this.setState({ number: response.length });
-        })
-        .catch(function(error) {
-          console.log(error);
-        });
-
       // var url = SearchEndPoint + "?category=" + this.props.input_text;
       var url = SearchEndPoint + "?category=" + this.props.match.params.query;
       console.log("URL: ");
@@ -86,6 +77,15 @@ class SearchResults extends Component {
         .catch(function(error) {
           console.log(error);
         });
+
+      fetch(StatisticsEndPoint, { headers: header }) // no data sent with GET so we get the list of items
+        .then(res => res.json())
+        .then(response => {
+          this.setState({ number: response.length });
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
     }
   }
 
@@ -95,10 +95,7 @@ class SearchResults extends Component {
   }
 
   handleSubmit = () => {
-    this.props.history.push("/searchStat");
-    //return <Redirect to="/searchStat" />;
-    // return <Link to="/searchStat">Conference</Link>;
-    // return <searchStat />;
+    window.location.href = "/home/searchStat";
   };
 
   addDefaultSrc(ev) {
@@ -110,10 +107,14 @@ class SearchResults extends Component {
     console.log("this.state.results: ");
     console.log(this.state.results);
     return this.state.results.map((currentItem, i) => {
-      console.log("currentItem: " + currentItem.category);
+      console.log("currentItem: ");
+      console.log(currentItem);
+      console.log("currentItem category: " + currentItem.category);
       console.log("currentItem id: " + currentItem._id);
       console.log("currentItem image: " + currentItem.imageURL);
       console.log("currentItem isRecommended: " + currentItem.isRecommended);
+      console.log("currentItem Image url: " + currentItem.imageURL);
+      console.log("currentItem brand: " + currentItem.brand);
       console.log("currentItem retailers: ");
       console.log(currentItem.retailers);
       console.log(currentItem);
@@ -130,6 +131,7 @@ class SearchResults extends Component {
       console.log(lowestPrice);
       let colorsList = currentItem.color;
       let recommended = currentItem.isRecommended;
+
       if (recommended)
         return (
           <div className="container search-result-item-rec">
@@ -138,21 +140,21 @@ class SearchResults extends Component {
                 className="img-fluid item-image"
                 alt="Slick Fashion Portal"
                 onError={this.addDefaultSrc}
-                src={"/dist/img/" + currentItem.imageURL}
+                src={currentItem.imageURL}
               />
               <span className="badge badge-pill ">Recommended!</span>
             </div>
             <div className="col-sm-6 col-md-7 col-lg-8 display-result-col">
               <p className="row-sm-2 row-md-3 row-lg-5 text-left text-primary search-result-heading">
-                {currentItem.category},{i}
+                {currentItem.title}
               </p>
               <p className="row text-left search-result-info">
                 <h5 className="col-sm-1 col-md-2 col-lg-3 text-sm-left text-md-left text-lg-left text-dark left-col">
                   <span className="row text-left text-dark Brand"> Brand:</span>
                   <span className="row text-left text-dark Color"> Color:</span>
-                  <span className="row text-left text-dark Top-Comment">
+                  {/* <span className="row text-left text-dark Top-Comment">
                     Top comment:
-                  </span>
+                  </span> */}
                   <span className="row text-left text-dark Description">
                     Description:
                   </span>
@@ -170,12 +172,12 @@ class SearchResults extends Component {
                       );
                     })}
                   </span>
-                  <span className="row text-dark text-truncate comment-result">
-                    {/* {currentItem.reviews[0]["reviewTitle"]}*/}
-                  </span>
+                  {/* <span className="row text-dark text-truncate comment-result">
+                    Review
+                   {currentItem.reviews[0]["reviewTitle"]}
+                  </span> */}
                   <span className="row text-dark text-truncate desc-result">
-                    {/*  {currentItem.description}*/}
-                    {currentItem.isRecommended}
+                    {currentItem.description}
                   </span>
                 </h5>
               </p>
@@ -188,8 +190,14 @@ class SearchResults extends Component {
                 </span>
               </p>
               <p className="row-sm-2 row-md-3 row-lg-5 buttons">
-                <button className="btn btn-primary btn-sm view" href="#">
-                  View item
+                <button
+                  className="btn btn-primary btn-sm view"
+                  aria-pressed="true"
+                  onClick={() =>
+                    this.props.history.push("/home/show/" + currentItem._id)
+                  }
+                >
+                  View Item
                 </button>
                 <button
                   className="btn btn-success btn-sm Add"
@@ -237,20 +245,20 @@ class SearchResults extends Component {
                 className="img-fluid item-image"
                 alt="Slick Fashion Portal"
                 onError={this.addDefaultSrc}
-                src={"/dist/img/" + currentItem.imageURL}
+                src={currentItem.imageURL}
               />
             </div>
             <div className="col-sm-6 col-md-7 col-lg-8 display-result-col">
               <p className="row-sm-2 row-md-3 row-lg-5 text-left text-primary search-result-heading">
-                {currentItem.category}, {i}
+                {currentItem.title}
               </p>
               <p className="row text-left search-result-info">
                 <h5 className="col-sm-1 col-md-2 col-lg-3 text-sm-left text-md-left text-lg-left text-dark left-col">
                   <span className="row text-left text-dark Brand">Brand:</span>
                   <span className="row text-left text-dark Color">Color:</span>
-                  <span className="row text-left text-dark Top-Comment">
+                  {/*  <span className="row text-left text-dark Top-Comment">
                     Top comment:
-                  </span>
+                  </span>*/}
                   <span className="row text-left text-dark Description">
                     Description:
                   </span>
@@ -268,12 +276,11 @@ class SearchResults extends Component {
                       );
                     })}
                   </a>
-                  <span className="row text-dark text-truncate comment-result">
-                    {/* {currentItem.reviews[0]["reviewTitle"]}*/}
-                  </span>
+                  {/* <span className="row text-dark text-truncate comment-result">
+                     {currentItem.reviews[0]["reviewTitle"]}
+                  </span>*/}
                   <span className="row text-dark text-truncate desc-result">
-                    {/*  {currentItem.description}*/}
-                    {currentItem.isRecommended}
+                    {currentItem.description}
                   </span>
                 </h5>
               </p>
@@ -289,7 +296,9 @@ class SearchResults extends Component {
                 <button
                   className="btn btn-primary btn-sm view"
                   aria-pressed="true"
-                  onClick={this.handleSubmit}
+                  onClick={() =>
+                    this.props.history.push("/home/show/" + currentItem._id)
+                  }
                 >
                   View Item
                 </button>
@@ -347,16 +356,9 @@ class SearchResults extends Component {
           <div className="col stats">
             <p className="row-sm-1 row-md-1 row-lg-2">
               You have searched for {this.state.number} item(s)
-              {/*    <Link to="/searchStat" target="_blank">
-                
+              <button className="btn btn btn-link " onClick={this.handleSubmit}>
                 Check search history
-    </Link>*/}
-              <butaton
-                className="btn btn btn-link "
-                onClick={this.handleSubmit}
-              >
-                Check search history
-              </butaton>
+              </button>
             </p>
           </div>
         </div>
