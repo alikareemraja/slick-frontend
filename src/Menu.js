@@ -34,9 +34,12 @@ export default class Menu extends Component {
         this.search_text = this.state.input_text;
         this.props.triggerParentUpdate(this.search_text);
         this.setState({ show: true });
+        var time = new Date();
         const search_item = {
-          search_item: this.search_text
+          search_item: this.search_text,
+          Date: time
         };
+        console.log(search_item);
         axios.post(AddEndPoint, search_item).then(res => {});
       }
     } else window.alert("Empty search text");

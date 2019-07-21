@@ -63,15 +63,6 @@ class SearchResults extends Component {
       if (token) {
         header.append("Authorization", `JWT ${token}`);
       }
-      fetch(StatisticsEndPoint, { headers: header }) // no data sent with GET so we get the list of items
-        .then(res => res.json())
-        .then(response => {
-          this.setState({ number: response.length });
-        })
-        .catch(function(error) {
-          console.log(error);
-        });
-
       // var url = SearchEndPoint + "?category=" + this.props.input_text;
       var url = SearchEndPoint + "?category=" + this.props.match.params.query;
       console.log("URL: ");
@@ -86,6 +77,15 @@ class SearchResults extends Component {
         .catch(function(error) {
           console.log(error);
         });
+
+      fetch(StatisticsEndPoint, { headers: header }) // no data sent with GET so we get the list of items
+        .then(res => res.json())
+        .then(response => {
+          this.setState({ number: response.length });
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
     }
   }
 
@@ -96,6 +96,7 @@ class SearchResults extends Component {
 
   handleSubmit = () => {
     this.props.history.push("/searchStat");
+    //this.props.history.push("/home/show/" + currentItem._id);
     //return <Redirect to="/searchStat" />;
     // return <Link to="/searchStat">Conference</Link>;
     // return <searchStat />;
@@ -131,7 +132,6 @@ class SearchResults extends Component {
       let colorsList = currentItem.color;
       let recommended = currentItem.isRecommended;
 
-      
       if (recommended)
         return (
           <div className="container search-result-item-rec">
@@ -161,7 +161,7 @@ class SearchResults extends Component {
                 </h5>
                 <h5 className="col-sm-4 col-md-6 col-lg-9 text-sm-left text-md-left text-lg-left text-truncate text-dark right-col">
                   <span className="row text-primary brand-result">
-                    {currentItem.brand}
+                    {currentItem.brand}Nike
                   </span>
                   <span className="row text-primary color-result">
                     {colorsList.map(function(name, index) {
@@ -173,10 +173,11 @@ class SearchResults extends Component {
                     })}
                   </span>
                   <span className="row text-dark text-truncate comment-result">
+                    Review
                     {/* {currentItem.reviews[0]["reviewTitle"]}*/}
                   </span>
                   <span className="row text-dark text-truncate desc-result">
-                    {/*  {currentItem.description}*/}
+                    {/*  {currentItem.description}*/}Desription
                     {currentItem.isRecommended}
                   </span>
                 </h5>
@@ -190,8 +191,14 @@ class SearchResults extends Component {
                 </span>
               </p>
               <p className="row-sm-2 row-md-3 row-lg-5 buttons">
-                <button className="btn btn-primary btn-sm view" href="#">
-                  View item
+                <button
+                  className="btn btn-primary btn-sm view"
+                  aria-pressed="true"
+                  onClick={() =>
+                    this.props.history.push("/home/show/" + currentItem._id)
+                  }
+                >
+                  View Item
                 </button>
                 <button
                   className="btn btn-success btn-sm Add"
@@ -291,7 +298,9 @@ class SearchResults extends Component {
                 <button
                   className="btn btn-primary btn-sm view"
                   aria-pressed="true"
-                  onClick={this.handleSubmit}
+                  onClick={() =>
+                    this.props.history.push("/home/show/" + currentItem._id)
+                  }
                 >
                   View Item
                 </button>
@@ -349,16 +358,9 @@ class SearchResults extends Component {
           <div className="col stats">
             <p className="row-sm-1 row-md-1 row-lg-2">
               You have searched for {this.state.number} item(s)
-              {/*    <Link to="/searchStat" target="_blank">
-                
+              <button className="btn btn btn-link " onClick={this.handleSubmit}>
                 Check search history
-    </Link>*/}
-              <butaton
-                className="btn btn btn-link "
-                onClick={this.handleSubmit}
-              >
-                Check search history
-              </butaton>
+              </button>
             </p>
           </div>
         </div>

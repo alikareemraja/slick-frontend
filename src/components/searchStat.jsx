@@ -8,7 +8,7 @@ import {
 } from "react-router-dom";
 import axios from "axios";
 import "../DispFormat.css";
-const StatisticsRemoveEndPoint = "http://localhost:3001/search/";
+const StatisticsRemoveEndPoint = "http://localhost:3001/search/delete/";
 const StatisticsEndPoint = "http://localhost:3001/search/stat";
 
 export default class searchStat extends Component {
@@ -20,7 +20,14 @@ export default class searchStat extends Component {
   }
 
   componentDidMount() {
-    fetch(StatisticsEndPoint) // no data sent with GET so we get the list of items
+    console.log("SEARCH STATE COMPONENT DID MOUNT");
+
+    let token = window.localStorage["jwtToken"];
+    let header = new Headers();
+    if (token) {
+      header.append("Authorization", `JWT ${token}`);
+    }
+    fetch(StatisticsEndPoint, { headers: header }) // no data sent with GET so we get the list of items
       .then(res => res.json())
       .then(response => {
         console.log("=========================================");
@@ -67,7 +74,7 @@ export default class searchStat extends Component {
             class="btn btn-link"
             onClick={this.handleClick(current._id)}
           >
-            Delete
+            Remove
           </button>
         </td>
       </tr>
