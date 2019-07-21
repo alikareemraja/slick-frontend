@@ -13,7 +13,7 @@ import UserService from "../UserService";
 import HttpService from "../HttpService";
 const SearchEndPoint = "http://localhost:3001/search/get";
 const StatisticsEndPoint = "http://localhost:3001/search/stat";
-
+const buttonSize = {minHeight: "50px"}
 class SearchResults extends Component {
   constructor(props) {
     // the constructor is to set the initial state of results
@@ -194,48 +194,28 @@ class SearchResults extends Component {
                   <div className="flex-col" />
                   <div className="flex-col flex-col--end test">
                     <div className="row align-items-end">
-                      <div className="col-xs-4">
-                        <button
-                          className="btn btn-sm btn-primary active"
-                          aria-pressed="true"
+                    <div class="btn-group">
+                      <button type="button" style={buttonSize} aria-pressed="true"
                           onClick={() =>
                             this.props.history.push(
                               "/home/show/" + currentItem._id
                             )
-                          }
-                          style={{ minWidth: "80px" }}
-                        >
-                          View Item
-                        </button>
-                      </div>
-                      <div className="col-xs-4">
-                        <button
-                          className="btn btn-sm btn-succes Add"
-                          aria-pressed="true"
+                          } class="btn">View</button>
+                      <button type="button" aria-pressed="true"
                           href="#"
                           onClick={() => {
                             UserService.addWishlistItem(
                               UserService.getCurrentUser().id,
                               currentItem._id
                             );
-                          }}
-                          style={{ minWidth: "80px" }}
-                        >
-                          Add to wish list
-                        </button>
-                      </div>
-                      <div className="col-xs-4">
-                        <button
-                          className="btn btn-sm btn-primary "
-                          aria-pressed="true"
-                          style={{ minWidth: "80px" }}
+                          }}  style={buttonSize} class="btn">Add To Wishlist</button>
+                      <button type="button" style={buttonSize} aria-pressed="true"
+                          
                           onClick={() => {
                             window.open(currentItem.purchaseLink, "_blank");
-                          }}
-                        >
-                          Go to website
-                        </button>
-                      </div>
+                          }} class="btn btn-success">Buy On Store</button>
+                    </div>
+                      
                     </div>
                   </div>
                 </div>
@@ -304,48 +284,28 @@ class SearchResults extends Component {
                   <div className="flex-col" />
                   <div className="flex-col flex-col--end test">
                     <div className="row align-items-end">
-                      <div className="col-xs-4">
-                        <button
-                          className="btn btn-sm btn-primary active"
-                          aria-pressed="true"
+                    <div class="btn-group">
+                      <button type="button" style={buttonSize} aria-pressed="true"
                           onClick={() =>
                             this.props.history.push(
                               "/home/show/" + currentItem._id
                             )
-                          }
-                          style={{ minWidth: "80px" }}
-                        >
-                          View Item
-                        </button>
-                      </div>
-                      <div className="col-xs-4">
-                        <button
-                          className="btn btn-sm btn-succes Add"
-                          aria-pressed="true"
+                          } class="btn">View</button>
+                      <button type="button" aria-pressed="true"
                           href="#"
                           onClick={() => {
                             UserService.addWishlistItem(
                               UserService.getCurrentUser().id,
                               currentItem._id
                             );
-                          }}
-                          style={{ minWidth: "80px" }}
-                        >
-                          Add to wish list
-                        </button>
-                      </div>
-                      <div className="col-xs-4">
-                        <button
-                          className="btn btn-sm btn-primary "
-                          aria-pressed="true"
+                          }}  style={buttonSize}class="btn">Add To Wishlist</button>
+                      <button type="button" aria-pressed="true"
                           style={{ minWidth: "80px" }}
                           onClick={() => {
                             window.open(currentItem.purchaseLink, "_blank");
-                          }}
-                        >
-                          Go to website
-                        </button>
-                      </div>
+                          }} style={buttonSize} class="btn btn-success">Buy On Store</button>
+                    </div>
+                      
                     </div>
                   </div>
                 </div>
