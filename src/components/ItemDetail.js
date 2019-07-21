@@ -109,7 +109,7 @@ handleWishClick = (event) => {
 
         return (
            
-          <div style={{backgroundColor: "#ffffff"}}>
+          <div style={{/*backgroundColor: "#ffffff"*/}}>
     
                  <Container>
     
@@ -458,14 +458,15 @@ handleWishClick = (event) => {
                       </Row>
 
                       <Col sm={10}>
-                      <div style={{backgroundColor: "#ffffff"}}>
+                      <div style={{backgroundColor: "#ffffff", width: 999, marginLeft: -12,}}>
     
                         <div
                             style={{
                               color: "#504F5A",
+                              //width: 600,
                               marginTop: 5,
                               marginBottom: 20,
-                              //marginLeft: 10,
+                              marginLeft: 10,
                               //marginRight: 900,
                               fontSize: 22
                             }}
