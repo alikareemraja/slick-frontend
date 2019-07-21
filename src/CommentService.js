@@ -23,7 +23,7 @@ export default class CommentService  {
             HttpService.post(this.baseURL() + "/add", {
                 item: itemId,
                 user: userId,
-                date: new Date().getTime() / 1000,
+                date: new Date().getTime(),
                 text: text,
             }, function(data) {
                 resolve(data);
@@ -49,7 +49,7 @@ export default class CommentService  {
         return new Promise((resolve, reject) => {
             HttpService.post(this.baseURL() + "/add/"+ commentId, {
                 user: userId,
-                date: new Date().getTime() / 1000,
+                date: new Date().getTime(),
                 text: text,
             }, function(data) {
                 resolve(data);
