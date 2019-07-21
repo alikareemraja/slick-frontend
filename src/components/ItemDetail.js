@@ -9,7 +9,9 @@ import ListGroup from 'react-bootstrap/ListGroup'
 import Tab from 'react-bootstrap/Tab'
 
 import SlickService from '../services/SlickService';
+import { whileStatement } from '@babel/types';
 
+import UserService from '../UserService'
 
 
 export class ItemDetail extends React.Component {
@@ -19,6 +21,7 @@ export class ItemDetail extends React.Component {
         //console.log("itemdetailed called")
         //console.log(this.props.ritem)
         this.state = {
+          disabled : false,
           buyLink: this.props.item.retailers[0].website,
           price: this.props.item.retailers[0].price,
           ritem: [{},{},{}]
@@ -85,6 +88,19 @@ handleClick() {
   window.location.assign(this.state.buyLink);
 }
 
+// Handler for on wishlist click
+handleWishClick = (event) => {
+
+  UserService.addWishlistItem(UserService.getCurrentUser().id,this.props.item._id)
+
+  if (this.state.disabled) {
+      return;
+  }
+  this.setState({disabled: true})
+}
+
+
+
     //rendering
     render() {
     
@@ -95,7 +111,7 @@ handleClick() {
 
         return (
            
-          <div>
+          <div style={{/*backgroundColor: "#ffffff"*/}}>
     
                  <Container>
     
@@ -106,6 +122,7 @@ handleClick() {
                         <div className="details" style={{ 
                           width: 680,
                                 height: 700,
+                                backgroundColor: "#ffffff",
                                 paddingTop: 5,
                                 paddingBottom: 5,
                                 paddingLeft: 40,
@@ -146,8 +163,9 @@ handleClick() {
                                         alt={this.props.item.imageURL}
                                         style={{
                                           objectFit: "contain",
+                                          //marginLeft: -33,
                                           height: 320,
-                                          width: 320
+                                          width: 270
                                         }}
                                         src={this.props.item.imageURL} 
                                       />
@@ -164,16 +182,17 @@ handleClick() {
                                 flex: 1,
                                 marginLeft: 20,
                                 display: "flex",
-                                flexDirection: "column"
+                                flexDirection: "column",
+                                marginBottom: 20,
                               }}
                             >
-                              <div style={{ fontSize: 18, marginTop: 10 }}>
+                              <div style={{ fontSize: 18, marginTop: 10, marginBottom: 20, }}>
                                 Price: {this.state.price}
                               </div>
     
     
     
-                              <div>
+                              <div style={{marginBottom: 20,}}>
     
                                 <Tab.Container id="list-group-tabs" defaultActiveKey={"#link" + this.props.item.retailers[0].name}>
                                   <Row>
@@ -191,10 +210,18 @@ handleClick() {
                                 </div>
     
   
-                            <div>
-                              <Link to="/list">
-                                <button type="button" class="btn btn-info">Add to Wishlist</button>
-                              </Link>
+                            <div style={{marginBottom: 10,}}>
+
+
+                            <button type="button" class="btn btn-info" 
+                            
+                                  onClick={this.handleWishClick} 
+                              
+                                  disabled={this.state.disabled} >
+                                  {this.state.disabled ? 'In WishList' : 'Add to WishList'}
+                            </button>
+
+
                             </div>
 
                              <div>
@@ -213,7 +240,7 @@ handleClick() {
                           <div
                             style={{
                               color: "#504F5A",
-                              marginTop: 50,
+                              marginTop: 30,
                               marginBottom: 10,
                               //marginLeft: 240,
                               fontSize: 22
@@ -244,13 +271,14 @@ handleClick() {
     
     
                         <div className="details3" style={{ 
-                          width: 900,
+                          width: 1000,
                                 height: 250,
+                                backgroundColor: "#ffffff",
                                 paddingTop: 5,
                                 paddingBottom: 5,
                                 paddingLeft: 40,
                                 paddingRight: 40,
-                                marginLeft: 190,
+                                //marginLeft: 190,
                                 border: "1px solid transparent",
                                 borderRadius: "5px",
                           padding: 10 }}>
@@ -261,7 +289,7 @@ handleClick() {
                               color: "#504F5A",
                               marginTop: 10,
                               marginBottom: 20,
-                              //marginLeft: 240,
+                              //marginLeft: -240,
                               fontSize: 22
                             }}
                           >
@@ -282,6 +310,7 @@ handleClick() {
                                 height: 700,
                                 paddingTop: 5,
                                 paddingBottom: 5,
+                                backgroundColor: "#ffffff",
                                 paddingLeft: 40,
                                 paddingRight: 40,
                                 //marginLeft: 720,
@@ -325,17 +354,20 @@ handleClick() {
                             >
     
                                     <div>
+                                    <Link to = {"/show/" + this.state.ritem[0]._id}>
                                       <img
                                         alt={this.state.ritem[0].title}
                                         
                                         style={{
                                           objectFit: "contain",
-                                          marginLeft: -33,
+                                          //marginLeft: -33,
                                           height: 250,
-                                          width: 250
+                                          width: 200
                                         }}
                                         src={this.state.ritem[0].imageURL}
+        
                                       />
+                                      </Link>
                                     </div>
     
     
@@ -358,16 +390,18 @@ handleClick() {
                             >
     
                                     <div>
+                                      <Link to = {"/show/" + this.state.ritem[1]._id}>
                                       <img
                                         alt={this.state.ritem[1].title}
                                         style={{
                                           objectFit: "contain",
                                           //marginLeft: -33,
                                           height: 250,
-                                          width: 250
+                                          width: 200
                                         }}
                                         src={this.state.ritem[1].imageURL}
                                       />
+                                      </Link>
                                     </div>
     
     
