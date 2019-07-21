@@ -196,7 +196,7 @@ class SearchResults extends Component {
                     <div className="row align-items-end">
                       <div className="col-xs-4">
                         <button
-                          className="btn btn-sm btn-primary"
+                          className="btn btn-sm btn-primary active"
                           aria-pressed="true"
                           onClick={() =>
                             this.props.history.push(
@@ -226,7 +226,7 @@ class SearchResults extends Component {
                       </div>
                       <div className="col-xs-4">
                         <button
-                          className="btn btn-sm btn-primary active"
+                          className="btn btn-sm btn-primary "
                           aria-pressed="true"
                           style={{ minWidth: "80px" }}
                           onClick={() => {
@@ -306,7 +306,7 @@ class SearchResults extends Component {
                     <div className="row align-items-end">
                       <div className="col-xs-4">
                         <button
-                          className="btn btn-sm btn-primary"
+                          className="btn btn-sm btn-primary active"
                           aria-pressed="true"
                           onClick={() =>
                             this.props.history.push(
@@ -336,7 +336,7 @@ class SearchResults extends Component {
                       </div>
                       <div className="col-xs-4">
                         <button
-                          className="btn btn-sm btn-primary active"
+                          className="btn btn-sm btn-primary "
                           aria-pressed="true"
                           style={{ minWidth: "80px" }}
                           onClick={() => {
