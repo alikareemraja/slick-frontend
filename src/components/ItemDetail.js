@@ -7,12 +7,10 @@ import Col from 'react-bootstrap/Col'
 import Row from 'react-bootstrap/Row';
 import ListGroup from 'react-bootstrap/ListGroup'
 import Tab from 'react-bootstrap/Tab'
-
+import Image from 'react-bootstrap/Image';
 import SlickService from '../services/SlickService';
-import { whileStatement } from '@babel/types';
-
 import UserService from '../UserService'
-
+import Thread from '../Thread'
 
 export class ItemDetail extends React.Component {
 
@@ -121,7 +119,7 @@ handleWishClick = (event) => {
                             
                         <div className="details" style={{ 
                           width: 680,
-                                height: 700,
+                                height: 800,
                                 backgroundColor: "#ffffff",
                                 paddingTop: 5,
                                 paddingBottom: 5,
@@ -159,7 +157,7 @@ handleWishClick = (event) => {
                             >
     
                                     <div>
-                                      <img
+                                      <Image
                                         alt={this.props.item.imageURL}
                                         style={{
                                           objectFit: "contain",
@@ -168,7 +166,7 @@ handleWishClick = (event) => {
                                           width: 270
                                         }}
                                         src={this.props.item.imageURL} 
-                                      />
+                                      fluid/>
                                     </div>
     
                                     
@@ -240,15 +238,59 @@ handleWishClick = (event) => {
                           <div
                             style={{
                               color: "#504F5A",
-                              marginTop: 30,
-                              marginBottom: 10,
+                              marginTop: 40,
+                              marginBottom: 20,
                               //marginLeft: 240,
                               fontSize: 22
                             }}
                           >
                             Product Description
                           </div>
-    
+
+
+
+                          <div
+                              style={{
+                                color: "green",
+                                //marginLeft: 240,
+                                //marginRight: 400,
+                                textAlign: "justify",
+                                maxHeight: 200,
+                                fontSize: 16,
+                                overflow: "auto"
+                              }}
+                            >                                                                                                   
+                              Item:             "{this.props.item.title}"
+                            </div>
+
+                            <div
+                              style={{
+                                color: "green",
+                                //marginLeft: 240,
+                                //marginRight: 400,
+                                textAlign: "justify",
+                                maxHeight: 200,
+                                fontSize: 16,
+                                overflow: "auto"
+                              }}
+                            >                                                                                                   
+                              Category:         "{this.props.item.category}"
+                            </div>
+
+                            <div
+                              style={{
+                                color: "green",
+                                //marginLeft: 240,
+                                //marginRight: 400,
+                                textAlign: "justify",
+                                maxHeight: 200,
+                                fontSize: 16,
+                                overflow: "auto"
+                              }}
+                            >                                                                                                   
+                               Brand:            "{this.props.item.brand}"
+                            </div>
+
                           
                             <div
                               style={{
@@ -260,8 +302,8 @@ handleWishClick = (event) => {
                                 fontSize: 16,
                                 overflow: "auto"
                               }}
-                            >
-                                {this.props.item.description}
+                            >                                                                                                   
+                              {this.props.item.description}
                             </div>
     
                           
@@ -294,7 +336,9 @@ handleWishClick = (event) => {
                             }}
                           >
                             Reviews
-                         
+                            <div>
+                            <Thread itemId={this.props.item._id} />
+                            </div>
                           </div>
     
                          </div>
@@ -307,7 +351,7 @@ handleWishClick = (event) => {
     
                         <div className="details2" style={{ 
                           width: 320,
-                                height: 700,
+                                height: 800,
                                 paddingTop: 5,
                                 paddingBottom: 5,
                                 backgroundColor: "#ffffff",
@@ -346,7 +390,7 @@ handleWishClick = (event) => {
                                 paddingRight: 40,
                                 marginLeft: 8,
                                 marginBottom: 22,
-                                marginTop: 5,
+                                marginTop:30,
                                 border: "1px solid lightgray",
                                 borderRadius: "5px"
                           
@@ -355,7 +399,7 @@ handleWishClick = (event) => {
     
                                     <div>
                                     <Link to = {"/show/" + this.state.ritem[0]._id}>
-                                      <img
+                                      <Image
                                         alt={this.state.ritem[0].title}
                                         
                                         style={{
@@ -366,10 +410,24 @@ handleWishClick = (event) => {
                                         }}
                                         src={this.state.ritem[0].imageURL}
         
-                                      />
+                                      fluid/>
                                       </Link>
                                     </div>
-    
+                                  
+
+                                    <div style={{
+                                      color: "blue",
+                                        //marginLeft: 240,
+                                        //marginRight: 400,
+                                        textAlign: "center",
+                                        maxHeight: 200,
+                                        marginTop: -23,
+                                        fontSize: 21
+                                        ,
+                                        overflow: "auto"}}>
+                                    {this.state.ritem[0].title}
+
+                                    </div>
     
                             </div>
 
@@ -382,6 +440,7 @@ handleWishClick = (event) => {
                                 paddingLeft: 40,
                                 paddingRight: 40,
                                 marginLeft: 8,
+                                marginTop: 20,
                                 marginBottom: 22,
                                 border: "1px solid lightgray",
                                 borderRadius: "5px"
@@ -391,7 +450,8 @@ handleWishClick = (event) => {
     
                                     <div>
                                       <Link to = {"/show/" + this.state.ritem[1]._id}>
-                                      <img
+
+                                      <Image
                                         alt={this.state.ritem[1].title}
                                         style={{
                                           objectFit: "contain",
@@ -399,9 +459,23 @@ handleWishClick = (event) => {
                                           height: 250,
                                           width: 200
                                         }}
-                                        src={this.state.ritem[1].imageURL}
-                                      />
+                                         src={this.state.ritem[1].imageURL}
+                                         fluid/>
+                                            
                                       </Link>
+                                    </div>
+                                    <div style={{
+                                      color: "blue",
+                                        //marginLeft: 240,
+                                        //marginRight: 400,
+                                        textAlign: "center",
+                                        maxHeight: 200,
+                                        marginTop: -14,
+                                        fontSize: 21
+                                        ,
+                                        overflow: "auto"}}>
+                                    {this.state.ritem[1].title}
+
                                     </div>
     
     

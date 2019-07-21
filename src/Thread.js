@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import Comment from './Comment'
 import CommentService from './CommentService'
+import UserService from './UserService'
 import {NotificationContainer, NotificationManager} from 'react-notifications';
 
 const commentStyle = {
@@ -11,7 +12,8 @@ export default class Thread extends Component {
 
     constructor(props) {
         super(props);
-        this.state = { thread: [], text : "", refresh: false };
+        this.state = { thread: [], text : "", refresh: false , loggedInUser: ""};
+        this.state.loggedInUser =  UserService.getCurrentUser().id;
     }
 
     handleChange = (e) =>{ 
@@ -23,12 +25,12 @@ export default class Thread extends Component {
         this.componentDidMount();
         console.log("updated!");
     }
-    postComment = function (itemId, userId, text) {
+    postComment = function (itemId, text) {
         if(text === "" || text === undefined){
             NotificationManager.warning('Cannot post empty comment');
             return;
         } 
-        CommentService.postComment(itemId, userId, text)
+        CommentService.postComment(itemId, this.state.loggedInUser, text)
         .then((data) => {
             console.log("success!")
             this.setState({text: ""});
@@ -58,7 +60,7 @@ export default class Thread extends Component {
                             <label htmlFor="comment" >Your Comment</label>
                             <textarea name="comment" className="form-control" style={{"maxWidth":"600px", "margin":"0 auto"}} rows={3} value={this.state.text} onChange={this.handleChange} />
                         </div>
-                        <button  onClick={this.postComment.bind(this, this.props.itemId, this.props.userId, this.state.text)} className="btn btn-default">Post</button>
+                        <button  onClick={this.postComment.bind(this, this.props.itemId, this.state.text)} className="btn btn-default">Post</button>
                         </div>
                     </div>
                     <div className="col-lg-3"></div>
@@ -67,7 +69,7 @@ export default class Thread extends Component {
                     <div className="col-lg-6">
                     {this.state.thread.map((comment) => (
                             <div >
-                                <Comment comment={comment[0]} userId={this.props.userId} callback={this.reloadThread}/>
+                                <Comment comment={comment[0]}  callback={this.reloadThread}/>
                             </div>
                         ))}
                     </div>

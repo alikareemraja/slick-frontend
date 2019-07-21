@@ -58,7 +58,7 @@ export default class OwnedItemPage extends Component {
                         <h4>{this.state.item.title}</h4>
                         {this.state.isOwnPage ? <button data-toggle="modal" data-target="#itemModal" style={{ whiteSpace: "pre" }} ><span className="glyphicon glyphicon-pencil" />  Edit your item</button> : null}
                     </div>
-                    <Thread userId={this.userId} itemId={this.state.item._id} />
+                    <Thread userId={this.props.match.params.uid} itemId={this.state.item._id} />
                     <ItemModal title={this.state.item.title} imgSrc={this.state.item.imageURL} description={this.state.item.description} itemId={this.props.match.params.itemId} />
                 </div>
             </div>

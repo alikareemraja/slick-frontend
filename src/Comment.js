@@ -13,12 +13,12 @@ export default class Comment extends Component {
     
     constructor(props) {
         super(props);
-        this.getUser(this.props.userId);
+        
         this.state = { editMode : false, updateText : "", userName : "", loggedInUser : "" };
         var user = UserService.getCurrentUser()
         this.state.loggedInUser =  UserService.getCurrentUser().id;
-        var result = props.userId === this.state.loggedInUser;
-        
+        this.getUser(props.comment.user);
+                
         
     }
     
@@ -67,8 +67,8 @@ export default class Comment extends Component {
         })
     }
 
-    replyToComment = function (userId, commentId, text) {
-        CommentService.replyToComment(userId, commentId, text)
+    replyToComment = function (commentId, text) {
+        CommentService.replyToComment(this.state.loggedInUser, commentId, text)
         .then((data) => {
             console.log("success!")
             this.setState({updateText: ""});
@@ -146,11 +146,11 @@ export default class Comment extends Component {
                                     </div>
                                 </div>
                             <div className="comment-meta">
-                                { this.state.loggedInUser === this.props.userId ? 
+                                { this.state.loggedInUser === this.props.comment.user ? 
                                 <span><a className role="button" onClick={this.deleteComment.bind(this, this.props.comment._id)} style={actionButtonStyle}>Delete</a></span> : null
                                 }
                                 
-                                { this.state.loggedInUser === this.props.userId ? 
+                                { this.state.loggedInUser === this.props.comment.user ? 
                                 <span>
                                 <a className role="button" data-toggle="collapse" href={"#editComment" + this.props.comment._id} style={actionButtonStyle} aria-expanded="false" aria-controls="collapseExample" onClick={this.toggleEdit}>Edit</a>
                                 </span>: null
@@ -165,14 +165,14 @@ export default class Comment extends Component {
                                             <label htmlFor="comment">Your Comment</label>
                                             <textarea name="comment" className="form-control" rows={3} defaultValue={""} onChange={this.handleChange} />
                                         </div>
-                                        <button data-toggle="collapse" href={"#replyComment" + this.props.comment._id} onClick={this.replyToComment.bind(this, this.props.userId, this.props.comment._id, this.state.updateText)}  className="btn btn-default">Post</button>
+                                        <button data-toggle="collapse" href={"#replyComment" + this.props.comment._id} onClick={this.replyToComment.bind(this, this.props.comment._id, this.state.updateText)}  className="btn btn-default">Post</button>
                                     </div>
                                 </div>
                             </div>
                             {/* comment-meta */}
                             {this.props.comment.replies.map((reply) => (
                                 <div >
-                                    <Comment comment={reply} userId={this.props.userId} callback={this.props.callback} />
+                                    <Comment comment={reply} callback={this.props.callback} />
                                 </div>
                             ))}
                         </div>
