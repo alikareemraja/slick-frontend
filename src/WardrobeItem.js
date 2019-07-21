@@ -44,7 +44,7 @@ export default class WardrobeItem extends Component {
             <div className="col-lg-3">
                 <div style={card}  >
                     {/*<Link to={this.props.link}><img src={this.props.item.imageURL} alt="Avatar" style={{ width: '100%' }} /> </Link>*/}
-                    <a href={this.props.link}><img src={this.props.item.imageURL} alt="Avatar" style={{ width: '100%' }} /> </a>
+                    <a href={this.props.link}><img src={this.props.item.imageURL} alt={this.props.item.title} style={{ width: '100%' }} /> </a>
                     <div style={container}>
                         {this.props.isOwn ? <button className="btn btn-danger" style={{ "position": "absolute", "top": "5px", "height": "35px", "width": "35px", "transform": "translate(-100%, 0)", "borderRadius": "25px" }} onClick={() => this.props.onDelete(this.props.item._id)}>X</button> : null}
                         <h4><b style={{ "color": "#ffffff" }}>{this.props.item.title}</b></h4>

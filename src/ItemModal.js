@@ -100,7 +100,7 @@ export default class Wardrobe extends Component {
                 <div class="modal-dialog modal-dialog-centered" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h3 class="modal-title" id="modalTitle">Add new item
+                            <h3 class="modal-title" id="modalTitle">{this.state.isAdd ? "Add new item" : "Edit your item"}
                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button></h3>
@@ -129,7 +129,7 @@ export default class Wardrobe extends Component {
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <button type="submit" class="btn btn-primary">{this.state.IsAdd ? "Add to Wardrobe" : "Edit Item"}</button>
+                                <button type="submit" class="btn btn-primary">{this.state.isAdd ? "Add to Wardrobe" : "Edit Item"}</button>
                             </div>
                         </form>
                     </div>

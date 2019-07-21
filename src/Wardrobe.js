@@ -100,6 +100,20 @@ export default class Wardrobe extends Component {
             return ("Loading the wardrobe...")
         }
 
+        let rows = [];
+        let N = 4;
+        let len = this.state.ownedItems.length;
+        for (var i = 0; i <= Math.floor(len / N); i++) {
+            let cols = [];
+            for (var j = 0; j < (i === Math.floor(len / N) ? len % N : N); j++) {
+                let item = this.state.ownedItems[i * N + j];
+                cols.push(<WardrobeItem key={item._id} item={item} onDelete={(itemId) => this.deleteOwnedItem(itemId)} link={"/home/user/" + this.state.userId + "/ownedItem/" + item._id} isOwn={this.state.isOwnPage} />)
+            }
+            rows.push(
+                <div className="row">{cols}</div>
+            );
+        }
+
         return (
             <div>
                 <section className="content-header">
@@ -134,24 +148,11 @@ export default class Wardrobe extends Component {
                     {/* Nav panes */}
                     <div className="tab-content">
                         <div className="tab-pane active" id="owned">
-                            <div className="row">
+                            {/* Big plus button, a modal shows up when clicked */}
+                            {this.state.isOwnPage ? <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#itemModal" style={{ position: "fixed", bottom: "60px", right: "10px", width: "80px", height: "80px", borderRadius: "100%", fontSize: "50px", lineHeight: "50px", paddingTop: "0px", zIndex: "99" }}>+</button> : null}
 
-                                {/* Big plus button, a modal shows up when clicked */}
-                                {this.state.isOwnPage ? <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#itemModal" style={{ position: "fixed", bottom: "60px", right: "10px", width: "80px", height: "80px", borderRadius: "100%", fontSize: "50px", lineHeight: "50px", paddingTop: "0px", zIndex: "99" }}>+</button> : null}
-
-                                <ItemModal />
-
-                                {/* Each item in OwnedItems is displayed in a WardrobeItem */}
-                                {this.state.ownedItems.map((item) => {
-                                    return (
-
-                                        <WardrobeItem key={item._id} item={item} onDelete={(itemId) => this.deleteOwnedItem(itemId)} link={"/home/user/" + this.state.userId + "/ownedItem/" + item._id} isOwn={this.state.isOwnPage} />
-
-                                    );
-                                })}
-                            </div>
-
-
+                            <ItemModal />
+                            {rows}
 
                             {/* Show number of items in OwnedItems */}
                             <div className="text-center">
