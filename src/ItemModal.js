@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 import WardrobeItem from './WardrobeItem';
 import UserService from './UserService';
+import {NotificationContainer, NotificationManager} from 'react-notifications';
 
 export default class Wardrobe extends Component {
 
@@ -48,7 +49,8 @@ export default class Wardrobe extends Component {
                 case "filePicker":
                     if (event.target.files && event.target.files[0]) {
                         this.setState({
-                            imgSrc: URL.createObjectURL(event.target.files[0])
+                            imgSrc: URL.createObjectURL(event.target.files[0]),
+                            file: event.target.files[0]
                         });
                     }
                     break;
@@ -70,14 +72,27 @@ export default class Wardrobe extends Component {
         console.log(this.state);
 
         if (this.state.isAdd) {
+            event.preventDefault();
             if (!window.confirm("Are you sure? The item will be added to your wardrobe if you click 'OK'.")) {
                 event.preventDefault();
                 return;
             }
-
             console.log("User said OK.")
 
             UserService.addOwnedItem(this.userId, item).then((msg) => {
+
+                var data = new FormData()
+                data.append('file', this.state.file)
+
+                fetch('http://localhost:3001/items/photo', {
+                    method: 'POST',
+                    body: data
+                }).then((data) => {
+                    NotificationManager.success("File uploaded");
+                }).catch((error)=>{
+                    NotificationManager.error("File failed to upload");
+                })
+
                 console.log(msg);
             }).catch((e) => {
                 console.log(e);
@@ -101,7 +116,7 @@ export default class Wardrobe extends Component {
                     <div class="modal-content">
                         <div class="modal-header">
                             <h3 class="modal-title" id="modalTitle">{this.state.isAdd ? "Add new item" : "Edit your item"}
-                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button></h3>
                         </div>
