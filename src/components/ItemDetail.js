@@ -7,10 +7,8 @@ import Col from 'react-bootstrap/Col'
 import Row from 'react-bootstrap/Row';
 import ListGroup from 'react-bootstrap/ListGroup'
 import Tab from 'react-bootstrap/Tab'
-
+import Image from 'react-bootstrap/Image';
 import SlickService from '../services/SlickService';
-import { whileStatement } from '@babel/types';
-
 import UserService from '../UserService'
 
 
@@ -159,7 +157,7 @@ handleWishClick = (event) => {
                             >
     
                                     <div>
-                                      <img
+                                      <Image
                                         alt={this.props.item.imageURL}
                                         style={{
                                           objectFit: "contain",
@@ -168,7 +166,7 @@ handleWishClick = (event) => {
                                           width: 270
                                         }}
                                         src={this.props.item.imageURL} 
-                                      />
+                                      fluid/>
                                     </div>
     
                                     
@@ -253,7 +251,7 @@ handleWishClick = (event) => {
 
                           <div
                               style={{
-                                color: "blue",
+                                color: "green",
                                 //marginLeft: 240,
                                 //marginRight: 400,
                                 textAlign: "justify",
@@ -267,7 +265,7 @@ handleWishClick = (event) => {
 
                             <div
                               style={{
-                                color: "blue",
+                                color: "green",
                                 //marginLeft: 240,
                                 //marginRight: 400,
                                 textAlign: "justify",
@@ -281,7 +279,7 @@ handleWishClick = (event) => {
 
                             <div
                               style={{
-                                color: "blue",
+                                color: "green",
                                 //marginLeft: 240,
                                 //marginRight: 400,
                                 textAlign: "justify",
@@ -399,7 +397,7 @@ handleWishClick = (event) => {
     
                                     <div>
                                     <Link to = {"/show/" + this.state.ritem[0]._id}>
-                                      <img
+                                      <Image
                                         alt={this.state.ritem[0].title}
                                         
                                         style={{
@@ -410,10 +408,24 @@ handleWishClick = (event) => {
                                         }}
                                         src={this.state.ritem[0].imageURL}
         
-                                      />
+                                      fluid/>
                                       </Link>
                                     </div>
-    
+                                  
+
+                                    <div style={{
+                                      color: "blue",
+                                        //marginLeft: 240,
+                                        //marginRight: 400,
+                                        textAlign: "center",
+                                        maxHeight: 200,
+                                        marginTop: -23,
+                                        fontSize: 21
+                                        ,
+                                        overflow: "auto"}}>
+                                    {this.state.ritem[0].title}
+
+                                    </div>
     
                             </div>
 
@@ -436,7 +448,8 @@ handleWishClick = (event) => {
     
                                     <div>
                                       <Link to = {"/show/" + this.state.ritem[1]._id}>
-                                      <img
+
+                                      <Image
                                         alt={this.state.ritem[1].title}
                                         style={{
                                           objectFit: "contain",
@@ -444,9 +457,23 @@ handleWishClick = (event) => {
                                           height: 250,
                                           width: 200
                                         }}
-                                        src={this.state.ritem[1].imageURL}
-                                      />
+                                         src={this.state.ritem[1].imageURL}
+                                         fluid/>
+                                            
                                       </Link>
+                                    </div>
+                                    <div style={{
+                                      color: "blue",
+                                        //marginLeft: 240,
+                                        //marginRight: 400,
+                                        textAlign: "center",
+                                        maxHeight: 200,
+                                        marginTop: -14,
+                                        fontSize: 21
+                                        ,
+                                        overflow: "auto"}}>
+                                    {this.state.ritem[1].title}
+
                                     </div>
     
     
