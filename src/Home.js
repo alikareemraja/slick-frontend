@@ -21,6 +21,15 @@ class Home extends Component {
   constructor(props) {
     super(props);
 
+    UserService.getCurrentUserInfo().then((data) => {
+      console.log("Curent User Info: ");
+      console.log(data);
+      this.setState({
+        userFullName: data[0].name,
+        userImgSrc: data[0].imageURL
+      });
+    })
+
     this.state = {
       input_text: "",
       show: false
@@ -30,8 +39,9 @@ class Home extends Component {
   Callback = dataFromMenu => {
     this.setState({ input_text: dataFromMenu, show: true });
     console.log("Hiiiiiiiiii");
-    console.log(this.satate.input_text);
+    console.log(this.state.input_text);
   };
+
   render() {
     return (
       <div>
@@ -40,8 +50,8 @@ class Home extends Component {
           type="text/css"
           href="path/to/notifications.css"
         />
-        <Header />
-        <Menu triggerParentUpdate={this.Callback} />
+        <Header userFullName={this.state.userFullName} userImgSrc={this.state.userImgSrc} />
+        <Menu triggerParentUpdate={this.Callback} userFullName={this.state.userFullName} userImgSrc={this.state.userImgSrc} />
         <div className="content-wrapper">
           {/* Content Header (Page header) */}
 
@@ -56,11 +66,6 @@ class Home extends Component {
               <Route path="/home/searchStat" component={searchStat} />
             </switch>
 
-            {/* <Thread id="5d2a334af1ca4b48b6caaf85"/> */}
-            {/* {this.state.show && (
-              <SearchResults input_text={this.state.input_text} />
-            )}
-            <Wardrobe /> */}
           </section>
           <NotificationContainer />
           {/* /.content */}

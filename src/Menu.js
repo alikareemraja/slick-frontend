@@ -48,8 +48,8 @@ export default class Menu extends Component {
         HttpService.post(
           AddEndPoint,
           search_item,
-          function(data) {},
-          function(textStatus) {
+          function (data) { },
+          function (textStatus) {
             console.log(textStatus);
           }
         );
@@ -67,13 +67,13 @@ export default class Menu extends Component {
           <div className="user-panel">
             <div className="pull-left image">
               <img
-                src={require("./images/ali.jpg")}
+                src={this.props.userImgSrc}
                 className="img-circle"
                 alt="User"
               />
             </div>
             <div className="pull-left info">
-              <p>Ali Kareem Raja</p>
+              <p>{this.props.userFullName}</p>
               <a href="fake_url">
                 <i className="fa fa-circle text-success" /> Online
               </a>
