@@ -119,7 +119,7 @@ handleWishClick = (event) => {
                             
                         <div className="details" style={{ 
                           width: 680,
-                                height: 800,
+                                height: 850,
                                 backgroundColor: "#ffffff",
                                 paddingTop: 5,
                                 paddingBottom: 5,
@@ -321,7 +321,7 @@ handleWishClick = (event) => {
     
                         <div className="details2" style={{ 
                           width: 320,
-                                height: 800,
+                                height: 850,
                                 paddingTop: 5,
                                 paddingBottom: 5,
                                 backgroundColor: "#ffffff",
@@ -340,7 +340,7 @@ handleWishClick = (event) => {
                           <div
                             style={{
                               color: "#504F5A",
-                              marginTop: 10,
+                              marginTop: 20,
                               marginBottom: 20,
                               //marginLeft: 240,
                               fontSize: 22
@@ -360,7 +360,7 @@ handleWishClick = (event) => {
                                 paddingRight: 40,
                                 marginLeft: 8,
                                 marginBottom: 22,
-                                marginTop:30,
+                                marginTop:35,
                                 border: "1px solid lightgray",
                                 borderRadius: "5px"
                           
@@ -410,7 +410,7 @@ handleWishClick = (event) => {
                                 paddingLeft: 40,
                                 paddingRight: 40,
                                 marginLeft: 8,
-                                marginTop: 20,
+                                marginTop: 30,
                                 marginBottom: 22,
                                 border: "1px solid lightgray",
                                 borderRadius: "5px"
@@ -458,14 +458,14 @@ handleWishClick = (event) => {
                       </Row>
 
                       
+                      <div style={{backgroundColor: "#ffffff"}}>
     
-    
-                            <div
+                        <div
                             style={{
                               color: "#504F5A",
                               marginTop: 10,
                               marginBottom: 20,
-                              //marginLeft: -240,
+                              marginLeft: 10,
                               fontSize: 22
                             }}
                           >
@@ -479,6 +479,8 @@ handleWishClick = (event) => {
                                 <Thread itemId={this.props.item._id} />
 
                           </div>
+
+                        </div>
 
                       <Row>
 
