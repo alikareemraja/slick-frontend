@@ -96,7 +96,7 @@ export class ItemDetail extends React.Component {
 
   // Handler for on wishlist click
   handleWishClick = event => {
-    UserService.addWishlistItem(
+      UserService.addWishlistItem(
       UserService.getCurrentUser().id,
       this.props.item._id
     );
@@ -106,6 +106,11 @@ export class ItemDetail extends React.Component {
     }
     this.setState({ disabled: true });
   };
+
+  imageClick(id){
+    window.location.href = "/home/show/" + this.state.ritem[0]._id
+
+  }
 
   //rendering
   render() {
@@ -328,7 +333,7 @@ export class ItemDetail extends React.Component {
                   }}
                 >
                   <div>
-                    <Link to={"/home/show/" + this.state.ritem[0]._id}>
+                    
                       <Image
                         alt={this.state.ritem[0].title}
                         style={{
@@ -336,10 +341,12 @@ export class ItemDetail extends React.Component {
                           height: 250,
                           width: 200
                         }}
+                        
+                        onClick={this.imageClick.bind(this, this.state.ritem[0]._id)}
                         src={this.state.ritem[0].imageURL}
                         fluid
                       />
-                    </Link>
+                    
                   </div>
 
                   <div
@@ -372,7 +379,7 @@ export class ItemDetail extends React.Component {
                   }}
                 >
                   <div>
-                    <Link to={"/home/show/" + this.state.ritem[1]._id}>
+                    
                       <Image
                         alt={this.state.ritem[1].title}
                         style={{
@@ -380,10 +387,11 @@ export class ItemDetail extends React.Component {
                           height: 250,
                           width: 200
                         }}
+                        onClick={this.imageClick.bind(this, this.state.ritem[0]._id)}
                         src={this.state.ritem[1].imageURL}
                         fluid
                       />
-                    </Link>
+                    
                   </div>
                   <div
                     style={{
