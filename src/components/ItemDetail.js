@@ -8,24 +8,50 @@ import Row from 'react-bootstrap/Row';
 import ListGroup from 'react-bootstrap/ListGroup'
 import Tab from 'react-bootstrap/Tab'
 
+import SlickService from '../services/SlickService';
+
 
 
 export class ItemDetail extends React.Component {
 
     constructor(props) {
         super(props);
+        //console.log("itemdetailed called")
+        //console.log(this.props.ritem)
         this.state = {
           buyLink: this.props.item.retailers[0].website,
           price: this.props.item.retailers[0].price,
+          ritem: [{},{},{}]
         };
         
         this.myFunction=this.myFunction.bind(this);
         this.menu=this.menu.bind(this);
+        //this.getRelated=this.getRelated.bind(this);
+
+        this.getRelated();
     }
+
+ getRelated(){
+    
+    SlickService.getRelItems(this.props.item._id).then((rdata) => {
+      console.log("state of rdata")
+      console.log(rdata)
+      this.setState({
+          ritem: rdata,
+      });
+      //console.log("state of ritem")
+      //console.log(this.state.ritem)
+    }).catch((e) => {
+        console.error(e);
+    });
+
+  }
+
+
 
 //change the state after event
 myFunction(id){
-  console.log(id);
+  //console.log(id);
   this.setState({
     buyLink: id.website,
     price: id.price,
@@ -61,6 +87,11 @@ handleClick() {
 
     //rendering
     render() {
+    
+      
+
+      //console.log("state of ritem")
+      //console.log(this.props.ritem)
 
         return (
            
@@ -112,7 +143,7 @@ handleClick() {
     
                                     <div>
                                       <img
-                                        alt="Item"
+                                        alt={this.props.item.imageURL}
                                         style={{
                                           objectFit: "contain",
                                           height: 320,
@@ -159,16 +190,10 @@ handleClick() {
                                 </Tab.Container>
                                 </div>
     
-    
-    
-                             <div>
+  
+                            <div>
                               <Link to="/list">
-                                <button type="button" class="btn btn-info">Back to Products</button>
-                              </Link>
-                               </div>
-                               <div>
-                              <Link to="/list">
-                                <button type="button" class="btn btn-info">Add to Wardrobe</button>
+                                <button type="button" class="btn btn-info">Add to Wishlist</button>
                               </Link>
                             </div>
 
@@ -286,11 +311,13 @@ handleClick() {
                               style={{
                                 width: 280,
                                 height: 280,
-                                paddingTop: 5,
-                                paddingBottom: 5,
-                                paddingLeft: 40,
+                                paddingTop: 15,
+                                paddingBottom: 15,
+                                paddingLeft: 50,
                                 paddingRight: 40,
-                                //marginLeft: 240,
+                                marginLeft: 8,
+                                marginBottom: 22,
+                                marginTop: 5,
                                 border: "1px solid lightgray",
                                 borderRadius: "5px"
                           
@@ -299,13 +326,47 @@ handleClick() {
     
                                     <div>
                                       <img
-                                        alt="Item"
+                                        alt={this.state.ritem[0].title}
+                                        
                                         style={{
                                           objectFit: "contain",
+                                          marginLeft: -33,
                                           height: 250,
                                           width: 250
                                         }}
-                                        src={this.props.item.imageURL}
+                                        src={this.state.ritem[0].imageURL}
+                                      />
+                                    </div>
+    
+    
+                            </div>
+
+                            <div
+                              style={{
+                                width: 280,
+                                height: 280,
+                                paddingTop: 5,
+                                paddingBottom: 5,
+                                paddingLeft: 40,
+                                paddingRight: 40,
+                                marginLeft: 8,
+                                marginBottom: 22,
+                                border: "1px solid lightgray",
+                                borderRadius: "5px"
+                          
+                              }}
+                            >
+    
+                                    <div>
+                                      <img
+                                        alt={this.state.ritem[1].title}
+                                        style={{
+                                          objectFit: "contain",
+                                          //marginLeft: -33,
+                                          height: 250,
+                                          width: 250
+                                        }}
+                                        src={this.state.ritem[1].imageURL}
                                       />
                                     </div>
     

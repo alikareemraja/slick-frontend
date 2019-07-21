@@ -19,15 +19,36 @@ export class ItemDetailView extends React.Component {
         });
 
         let id = this.props.match.params.id;
-        console.log(id)
+
         SlickService.getItem(id).then((data) => {
+            //console.log("state of data")
+            //console.log(data)
             this.setState({
                 item: data,
                 loading: false
             });
+            //console.log("state of item")
+            //console.log(this.state.item)
+            
         }).catch((e) => {
             console.error(e);
-        });
+        });        
+        
+        
+        /*SlickService.getRelItems(id).then((rdata) => {
+            console.log("state of rdata")
+            console.log(rdata)
+            this.setState({
+                ritem: rdata,
+                loading: false
+            });
+            //console.log("state of ritem")
+            //console.log(this.state.ritem)
+        }).catch((e) => {
+            console.error(e);
+        });*/
+
+
 
     }
 
@@ -35,7 +56,7 @@ export class ItemDetailView extends React.Component {
         SlickService.deleteItem(id).then((message) => {
             this.props.history.push('/');
         }).catch((e) => {
-            console.log(e);
+            console.error(e);
         });
     }
 
@@ -44,8 +65,11 @@ export class ItemDetailView extends React.Component {
             return (<h2>Loading...</h2>);
         }
 
+        //console.log("state of finalrdata")
+        //console.log(this.state.rdata)
+
         return (
-            <ItemDetail item={this.state.item} onDelete={(id) => this.deleteItem(id)}/>
+            <ItemDetail item={this.state.item} /*ritem={this.state.ritem}*/ onDelete={(id) => this.deleteItem(id)}/>
         );
     }
 }
