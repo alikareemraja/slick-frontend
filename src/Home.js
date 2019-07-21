@@ -24,9 +24,10 @@ class Home extends Component {
     UserService.getCurrentUserInfo().then(data => {
       console.log("Curent User Info: ");
       console.log(data);
+
       this.setState({
         userFullName: data[0].name,
-        userImgSrc: data[0].imageURL
+        userImgSrc: "http://localhost:3001/items/photo/" + UserService.getCurrentUser().id
       });
     });
 
