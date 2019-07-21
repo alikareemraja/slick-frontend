@@ -7,7 +7,7 @@
   max-height: 100%;
   max-width: 100%;
   border-radius: 10px 10px 10px 10px;
-  background-color: rgba(188, 204, 191, 0.918);
+  background-color: rgba(223, 235, 225, 0.918);
   margin-bottom: 15px;
 }
 .search-result-item-rec {
@@ -15,11 +15,13 @@
   max-height: 100%;
   max-width: 100%;
   border-radius: 10px 10px 10px 10px;
-  background-color: rgba(240, 189, 225, 0.918);
+  background-color: rgba(226, 195, 217, 0.918);
 }
 
 .search-results-count {
-  text-align: center;
+  text-align: left;
+  font-weight: bolder;
+  font-size: 30px;
 }
 
 .search-result-item + .search-result-item {
@@ -30,19 +32,18 @@
   max-width: 100%;
 }
 .image-col {
-  /*
-  background: blueviolet;*/
+  background-color: rgba(255, 255, 255);
   max-width: 100%;
   max-height: 100%;
   border-radius: 10px 00px 00px 10px;
 }
+
 .image-col .item-image {
   border-radius: 10px 00px 00px 10px;
   max-width: 100%;
   max-height: 100%;
   background-position: center;
   background-repeat: no-repeat;
-  margin-left: -15px;
 }
 .v-center {
   display: flex;
@@ -50,7 +51,7 @@
 }
 .badge {
   position: absolute;
-  right: 15px;
+  right: 0px;
   top: 25px;
   background: rgb(99, 170, 78);
   text-align: center;

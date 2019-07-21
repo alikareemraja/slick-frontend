@@ -11,31 +11,38 @@ import "../DispFormat.css";
 import searchStat from "./searchStat";
 import UserService from "../UserService";
 import HttpService from "../HttpService";
-import {NotificationContainer, NotificationManager} from 'react-notifications';
+import {
+  NotificationContainer,
+  NotificationManager
+} from "react-notifications";
 
 const SearchEndPoint = "http://localhost:3001/search/get";
 const StatisticsEndPoint = "http://localhost:3001/search/stat";
-
-
-const buttonSize = {minHeight: "50px"}
+const buttonSize = { minHeight: "50px" };
 class SearchResults extends Component {
   constructor(props) {
     // the constructor is to set the initial state of results
+    UserService.getWishlistItems(UserService.getCurrentUser().id).then(data => {
+      console.log("Wishlist Items Dataaaaaaa: ");
+      console.log(data);
+      this.setState({
+        wishlistItems: data
+      });
+    });
+
     super(props);
     this.itemList = this.itemList.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.addDefaultSrc = this.addDefaultSrc.bind(this);
     this.state = {
       results: [], //empty array of results properties
-      number: 0
+      number: 0,
+      DisabledDictionary: {}
     };
   }
 
   componentDidMount() {
-    //   var url = SearchEndPoint + "?category=" + this.props.input_text;
     var url = SearchEndPoint + "?category=" + this.props.match.params.query;
-    console.log("URL: ");
-    console.log(url);
     let token = window.localStorage["jwtToken"];
     let header = new Headers();
     if (token) {
@@ -45,6 +52,11 @@ class SearchResults extends Component {
       .then(res => res.json())
       .then(response => {
         this.setState({ results: response });
+        response.map(item => (this.state.DisabledDictionary[item._id] = false));
+        console.log(this.state.DisabledDictionary);
+        this.state.wishlistItems.map(
+          item => (this.state.DisabledDictionary[item._id] = true)
+        );
       })
       .catch(function(error) {
         console.log(error);
@@ -67,16 +79,20 @@ class SearchResults extends Component {
       if (token) {
         header.append("Authorization", `JWT ${token}`);
       }
-      // var url = SearchEndPoint + "?category=" + this.props.input_text;
+
       var url = SearchEndPoint + "?category=" + this.props.match.params.query;
-      console.log("URL: ");
-      console.log(url);
 
       fetch(url, { headers: header })
         .then(res => res.json())
         .then(response => {
           this.setState({ results: response });
-          console.log(response);
+          response.map(
+            item => (this.state.DisabledDictionary[item._id] = false)
+          );
+          console.log(this.state.DisabledDictionary);
+          this.state.wishlistItems.map(
+            item => (this.state.DisabledDictionary[item._id] = true)
+          );
         })
         .catch(function(error) {
           console.log(error);
@@ -93,11 +109,6 @@ class SearchResults extends Component {
     }
   }
 
-  recommender() {
-    let recommended = Math.random() >= 0.5;
-    return recommended;
-  }
-
   handleSubmit = () => {
     window.location.href = "/home/searchStat";
   };
@@ -111,21 +122,8 @@ class SearchResults extends Component {
     console.log("this.state.results: ");
     console.log(this.state.results);
     return this.state.results.map((currentItem, i) => {
-      console.log("currentItem: ");
-      console.log(currentItem);
-      console.log("currentItem category: " + currentItem.category);
-      console.log("currentItem id: " + currentItem._id);
-      console.log("currentItem image: " + currentItem.imageURL);
-      console.log("currentItem isRecommended: " + currentItem.isRecommended);
-      console.log("currentItem Image url: " + currentItem.imageURL);
-      console.log("currentItem brand: " + currentItem.brand);
-      console.log("currentItem retailers: ");
-      console.log(currentItem.retailers);
-      console.log(currentItem);
       let itemPriceList = currentItem.retailers,
         priceList = [];
-      console.log("itemPriceList ");
-      console.log(itemPriceList);
       itemPriceList.map((p, i) => {
         priceList.push(itemPriceList[i]["price"]);
       });
@@ -198,30 +196,61 @@ class SearchResults extends Component {
                   <div className="flex-col" />
                   <div className="flex-col flex-col--end test">
                     <div className="row align-items-end">
-                    <div class="btn-group">
-                      <button type="button" style={buttonSize} aria-pressed="true"
+                      <div class="btn-group">
+                        <button
+                          type="button"
+                          style={buttonSize}
+                          aria-pressed="true"
                           onClick={() =>
                             this.props.history.push(
                               "/home/show/" + currentItem._id
                             )
-                          } class="btn">View</button>
-                      <button type="button" aria-pressed="true"
+                          }
+                          class="btn"
+                        >
+                          View
+                        </button>
+                        <button
+                          type="button"
+                          aria-pressed="true"
                           href="#"
+                          disabled={
+                            this.state.DisabledDictionary[currentItem._id]
+                          }
                           onClick={() => {
                             UserService.addWishlistItem(
                               UserService.getCurrentUser().id,
                               currentItem._id
-                            ).then(res => {
-                              NotificationManager.success("Added to wishlist");
-                            }).catch();
-                          }}  style={buttonSize} class="btn">Add To Wishlist</button>
-                      <button type="button" style={buttonSize} aria-pressed="true"
-                          
+                            )
+                              .then(res => {
+                                console.log("Added to wishlist");
+                                this.state.DisabledDictionary[
+                                  currentItem._id
+                                ] = true;
+                                this.setState({
+                                  DisabledDictionary: this.state
+                                    .DisabledDictionary
+                                });
+                              })
+                              .catch();
+                          }}
+                          style={buttonSize}
+                          class="btn"
+                        >
+                          Add To Wishlist
+                        </button>
+                        <button
+                          type="button"
+                          style={buttonSize}
+                          aria-pressed="true"
                           onClick={() => {
                             window.open(currentItem.purchaseLink, "_blank");
-                          }} class="btn btn-success">Buy On Store</button>
-                    </div>
-                      
+                          }}
+                          class="btn btn-success"
+                        >
+                          Buy On Store
+                        </button>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -243,7 +272,6 @@ class SearchResults extends Component {
                   />
                 </a>
               </div>
-
               <div className="col-xs-5 display-result-col">
                 <div className="row text-left text-primary search-result-heading">
                   {currentItem.title}
@@ -290,30 +318,48 @@ class SearchResults extends Component {
                   <div className="flex-col" />
                   <div className="flex-col flex-col--end test">
                     <div className="row align-items-end">
-                    <div class="btn-group">
-                      <button type="button" style={buttonSize} aria-pressed="true"
+                      <div class="btn-group">
+                        <button
+                          type="button"
+                          style={buttonSize}
+                          aria-pressed="true"
                           onClick={() =>
                             this.props.history.push(
                               "/home/show/" + currentItem._id
                             )
-                          } class="btn">View</button>
-                      <button type="button" aria-pressed="true"
+                          }
+                          class="btn"
+                        >
+                          View
+                        </button>
+                        <button
+                          type="button"
+                          aria-pressed="true"
                           href="#"
                           onClick={() => {
                             UserService.addWishlistItem(
                               UserService.getCurrentUser().id,
                               currentItem._id
-                            ).then(res => {
-                              NotificationManager.success("Added to wishlist");
-                            }).catch();;
-                          }}  style={buttonSize}class="btn">Add To Wishlist</button>
-                      <button type="button" aria-pressed="true"
+                            );
+                          }}
+                          style={buttonSize}
+                          class="btn"
+                        >
+                          Add To Wishlist
+                        </button>
+                        <button
+                          type="button"
+                          aria-pressed="true"
                           style={{ minWidth: "80px" }}
                           onClick={() => {
                             window.open(currentItem.purchaseLink, "_blank");
-                          }} style={buttonSize} class="btn btn-success">Buy On Store</button>
-                    </div>
-                      
+                          }}
+                          style={buttonSize}
+                          class="btn btn-success"
+                        >
+                          Buy On Store
+                        </button>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -330,7 +376,7 @@ class SearchResults extends Component {
         <div className="ResultsRendercontainer">
           <div className="col search-results-count">
             <p className="row-sm-1 row-md-1 row-lg-2">
-              {this.state.results.length} Results
+              {this.state.results.length} Items found
             </p>
           </div>
 
