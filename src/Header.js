@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import SearchField from "react-search-field";
 import UserService from './UserService';
 
 export default class Header extends Component {
@@ -37,20 +36,17 @@ export default class Header extends Component {
                                 {/* User Account: style can be found in dropdown.less */}
                                 <li className="dropdown user user-menu">
                                     <a href="fake_url" className="dropdown-toggle" data-toggle="dropdown">
-                                        <img src={require('./images/ali.jpg')} className="user-image" alt="User" />
-                                        <span className="hidden-xs">Ali Kareem Raja</span>
+                                        <img src={this.props.userImgSrc} className="user-image" alt="User" />
+                                        <span className="hidden-xs">{this.props.userFullName}</span>
                                     </a>
                                     <ul className="dropdown-menu">
                                         {/* User image */}
                                         <li className="user-header">
-                                            <img src={require('./images/ali.jpg')} className="img-circle" alt="User" />
-                                            <p>
-                                                Ali Kareem Raja - Web Developer
-                  <small>Member since Nov. 2012</small>
-                                            </p>
+                                            <img src={this.props.userImgSrc} className="img-circle" alt="User" />
+                                            <p>{this.props.userFullName}</p>
                                         </li>
                                         {/* Menu Body */}
-                                        
+
                                         {/* Menu Footer*/}
                                         <li className="user-footer">
                                             <div className="pull-left">
