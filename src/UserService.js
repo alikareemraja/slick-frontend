@@ -26,7 +26,7 @@ export default class UserService {
                     resolve(data);
                 }
                 else {
-                    reject('Error while retrieving owned item');
+                    reject('Error while retrieving the owned item');
                 }
             }, function (textStatus) {
                 reject(textStatus);
@@ -116,7 +116,7 @@ export default class UserService {
                     resolve(data);
                 }
                 else {
-                    reject('Error while retrieving owned item');
+                    reject('Error while retrieving friends');
                 }
             }, function (textStatus) {
                 reject(textStatus);
@@ -166,5 +166,20 @@ export default class UserService {
 
     static logout() {
         window.localStorage.removeItem('jwtToken');
+    }
+
+    static getCurrentUserInfo() {
+        return new Promise((resolve, reject) => {
+            HttpService.get(this.baseURL() + "/" + UserService.getCurrentUser().id, function (data) {
+                if (data !== undefined || Object.keys(data).length !== 0) {
+                    resolve(data);
+                }
+                else {
+                    reject('Error while retrieving current user info');
+                }
+            }, function (textStatus) {
+                reject(textStatus);
+            });
+        });
     }
 }
