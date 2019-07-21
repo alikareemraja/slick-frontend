@@ -7,6 +7,7 @@ import {
 const AddEndPoint = "http://localhost:3001/search/addstat";
 
 export default class Menu extends Component {
+  // the constructor is to set the initial state of results
   constructor(props) {
     super(props);
     this.onChangeSearchInput = this.onChangeSearchInput.bind(this);

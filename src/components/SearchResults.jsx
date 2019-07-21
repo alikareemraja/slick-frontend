@@ -41,11 +41,13 @@ class SearchResults extends Component {
   }
   componentWillMount() {
     var url = SearchEndPoint + "?category=" + this.props.match.params.query;
+    // user authentication using token
     let token = window.localStorage["jwtToken"];
     let header = new Headers();
     if (token) {
       header.append("Authorization", `JWT ${token}`);
     }
+    //fetching results from search end point
     fetch(url, { headers: header })
       .then(res => res.json())
       .then(response => {
@@ -62,11 +64,13 @@ class SearchResults extends Component {
 
   componentDidMount() {
     var url = SearchEndPoint + "?category=" + this.props.match.params.query;
+    // user authentication using token
     let token = window.localStorage["jwtToken"];
     let header = new Headers();
     if (token) {
       header.append("Authorization", `JWT ${token}`);
     }
+    //fetching results from search end point
     fetch(url, { headers: header })
       .then(res => res.json())
       .then(response => {
@@ -79,8 +83,8 @@ class SearchResults extends Component {
       .catch(function(error) {
         console.log(error);
       });
-
-    fetch(StatisticsEndPoint, { headers: header }) // no data sent with GET so we get the list of items
+    //fetching statistics data from statistics end point
+    fetch(StatisticsEndPoint, { headers: header }) // no data sent with GET
       .then(res => res.json())
       .then(response => {
         this.setState({ number: response.length });
@@ -91,13 +95,15 @@ class SearchResults extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
+    //comparing props before triggering an update
     if (prevProps.input_text !== this.props.input_text) {
+      // user authentication using token
       let token = window.localStorage["jwtToken"];
       let header = new Headers();
       if (token) {
         header.append("Authorization", `JWT ${token}`);
       }
-
+      //fetching results from search end point
       var url = SearchEndPoint + "?category=" + this.props.match.params.query;
       fetch(url, { headers: header })
         .then(res => res.json())
@@ -113,8 +119,8 @@ class SearchResults extends Component {
         .catch(function(error) {
           console.log(error);
         });
-
-      fetch(StatisticsEndPoint, { headers: header }) // no data sent with GET so we get the list of items
+      //fetching statistics data from statistics end point
+      fetch(StatisticsEndPoint, { headers: header }) // no data sent with GET
         .then(res => res.json())
         .then(response => {
           this.setState({ number: response.length });
@@ -133,15 +139,17 @@ class SearchResults extends Component {
     ev.target.src =
       "http://icons.iconarchive.com/icons/iconsmind/outline/256/T-Shirt-icon.png";
   }
+
   itemList() {
     return this.state.results.map((currentItem, i) => {
+      // lowest price calculations
       let itemPriceList = currentItem.retailers,
         priceList = [];
       itemPriceList.map((p, i) => {
         priceList.push(itemPriceList[i]["price"]);
       });
       let lowestPrice = Math.min.apply(null, priceList);
-      let colorsList = currentItem.color;
+      let colorsList = currentItem.color; // list of colors for item
       let recommended = currentItem.isRecommended;
 
       if (recommended)
