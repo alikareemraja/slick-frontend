@@ -32,7 +32,19 @@ class Register extends Component {
         }
 
         console.log("Trying to register user: " + this.state.username + ", pass: " + this.state.password1);
-        UserService.register(this.state.username, this.state.password1).then((data) => {
+        UserService.register(this.state.username, this.state.password1, this.state.fullname).then((d) => {
+            var uid = UserService.getCurrentUser().id
+            var data = new FormData()
+            data.append('file', this.state.file)
+
+            fetch('http://localhost:3001/items/photo/' + uid, {
+                    method: 'POST',
+                    body: data
+                }).then((data) => {
+                    NotificationManager.success("Profile Created!");
+                }).catch((error)=>{
+                    NotificationManager.error("Profile failed to create");
+                })
             console.log("Hurray, you are registered!");
             this.props.history.push("/home/");
         }).catch((e) => {
@@ -63,6 +75,19 @@ class Register extends Component {
                         password2: event.target.value
                     });
                     break;
+                case "filePicker":
+                    if (event.target.files && event.target.files[0]) {
+                        this.setState({
+                            imgSrc: URL.createObjectURL(event.target.files[0]),
+                            file: event.target.files[0]
+                        });
+                    }
+                    break;
+                case "name":
+                    this.setState({
+                        fullname: event.target.value
+                    });
+                    break;
                 default:
             }
         }
@@ -78,6 +103,9 @@ class Register extends Component {
                 <div className="register-box-body">
                     <p className="login-box-msg">Register a new membership</p>
                     <form action="../../index.html" onSubmit={this.handleRegister}>
+                        <div class="form-group">
+                            <input id="filePicker" required type="file" class="form-control-file" accept=".gif,.jpg,.jpeg,.png" onChange={this.handleFormChange} />
+                        </div>
                         <div className="form-group has-feedback">
                             <input id="name" type="text" className="form-control" placeholder="Full name" required={true} onChange={this.handleFormChange} />
                             <span className="glyphicon glyphicon-user form-control-feedback" />

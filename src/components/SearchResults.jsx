@@ -247,6 +247,7 @@ class SearchResults extends Component {
                                   DisabledDictionary: this.state
                                     .DisabledDictionary
                                 });
+                                NotificationManager.success("Added to wishlist!");
                               })
                               .catch();
                           }}

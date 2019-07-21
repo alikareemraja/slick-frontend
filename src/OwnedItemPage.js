@@ -54,7 +54,7 @@ export default class OwnedItemPage extends Component {
                 </section>
                 <div className="row d-flex justify-content-center">
                     <div className="text-center">
-                        <img src={this.state.item.imageURL} alt={this.state.item.title} style={{ "maxWidth": "600px", "maxHeight": "600px", "minWidth": "350px", "minHeight": "350px", "boxShadow": "0 4px 8px 0 rgba(0,0,0,0.2)", "borderRadius": "5px" }} />
+                        <img src={"http://localhost:3001/items/photo/" + this.state.item._id} alt={this.state.item.title} style={{ "maxWidth": "600px", "maxHeight": "600px", "minWidth": "350px", "minHeight": "350px", "boxShadow": "0 4px 8px 0 rgba(0,0,0,0.2)", "borderRadius": "5px" }} />
                         <h4>{this.state.item.title}</h4>
                         {this.state.isOwnPage ? <button data-toggle="modal" data-target="#itemModal" style={{ whiteSpace: "pre" }} ><span className="glyphicon glyphicon-pencil" />  Edit your item</button> : null}
                     </div>

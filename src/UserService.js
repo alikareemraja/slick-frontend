@@ -124,12 +124,13 @@ export default class UserService {
         });
     }
 
-    static register(user, pass) {
+    static register(user, pass, fullname) {
         console.log("UserService is registering user: " + user + ", pass:" + pass);
         return new Promise((resolve, reject) => {
             HttpService.post(HttpService.apiURL() + "/auth/register", {
                 username: user,
-                password: pass
+                password: pass,
+                name: fullname
             }, function (data) {
                 resolve(data);
             }, function (textStatus) {

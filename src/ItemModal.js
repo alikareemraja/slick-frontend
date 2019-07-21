@@ -84,7 +84,8 @@ export default class Wardrobe extends Component {
                 var data = new FormData()
                 data.append('file', this.state.file)
 
-                fetch('http://localhost:3001/items/photo', {
+                UserService.getOwnedItems(UserService.getCurrentUser().id).then((d) => {
+                    fetch('http://localhost:3001/items/photo/' + d.ownedItems[d.ownedItems.length-1]._id, {
                     method: 'POST',
                     body: data
                 }).then((data) => {
@@ -92,6 +93,9 @@ export default class Wardrobe extends Component {
                 }).catch((error)=>{
                     NotificationManager.error("File failed to upload");
                 })
+                })
+
+                
 
                 console.log(msg);
             }).catch((e) => {
