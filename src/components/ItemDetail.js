@@ -16,6 +16,7 @@ export class ItemDetail extends React.Component {
   constructor(props) {
     super(props);
 
+    //disable Add to WishList button for already added items
     let index = 0;
     let array = UserService.getWishlistItems(
       UserService.getCurrentUser().id
@@ -39,18 +40,16 @@ export class ItemDetail extends React.Component {
     this.getRelated();
   }
 
+  //Function to get the related items from the reccommender
   getRelated() {
     SlickService.getRelItems(this.props.item._id)
       .then(rdata => {
-        console.log(rdata);
         for (var index = 0; index < 2; index++) {
           if (this.props.item._id == rdata[index]._id) {
             rdata[index] = rdata[2];
             break;
           }
         }
-        console.log("after");
-        console.log(rdata);
         this.setState({
           ritem: rdata
         });
