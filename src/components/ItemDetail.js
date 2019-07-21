@@ -16,10 +16,17 @@ export class ItemDetail extends React.Component {
 
     constructor(props) {
         super(props);
-        //console.log("itemdetailed called")
-        //console.log(this.props.ritem)
+
+        let index = 0; 
+        let array = UserService.getWishlistItems(UserService.getCurrentUser().id).then((data) => {
+          for (index = 0; index < data.length; index++) {
+            if(this.props.item._id == data[index]._id){
+              this.setState({disabled : true,})
+            }}
+      })
+      
         this.state = {
-          disabled : false,
+
           buyLink: this.props.item.retailers[0].website,
           price: this.props.item.retailers[0].price,
           ritem: [{},{},{}]
@@ -27,7 +34,6 @@ export class ItemDetail extends React.Component {
         
         this.myFunction=this.myFunction.bind(this);
         this.menu=this.menu.bind(this);
-        //this.getRelated=this.getRelated.bind(this);
 
         this.getRelated();
     }
@@ -48,8 +54,7 @@ export class ItemDetail extends React.Component {
       this.setState({
           ritem: rdata,
       });
-      //console.log("state of ritem")
-      //console.log(this.state.ritem)
+
     }).catch((e) => {
         console.error(e);
     });
@@ -58,7 +63,6 @@ export class ItemDetail extends React.Component {
 
 //change the state after event
 myFunction(id){
-  //console.log(id);
   this.setState({
     buyLink: id.website,
     price: id.price,
@@ -107,11 +111,6 @@ handleWishClick = (event) => {
 
     //rendering
     render() {
-    
-      
-
-      //console.log("state of ritem")
-      //console.log(this.props.ritem)
 
         return (
            
