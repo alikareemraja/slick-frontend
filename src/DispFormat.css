@@ -1,140 +1,83 @@
 .ResultsRendercontainer {
-  margin-top: 0px;
   background-color: rgb(232, 235, 211);
-  position: relative;
-  width: 1015px;
-  margin-left: 10px;
+  max-height: 100%;
+  max-width: 100%;
 }
 
 .search-result-item {
-  height: 180px;
-  margin-left: 10px;
-  margin-right: auto;
-  margin-top: 15px;
+  max-height: 100%;
+  max-width: 100%;
   border-radius: 10px 10px 10px 10px;
-  background-color: rgba(169, 204, 177, 0.918);
-  top: -10px;
-  width: 1000px;
+  background-color: rgba(188, 204, 191, 0.918);
+  margin-bottom: 15px;
 }
 .search-result-item-rec {
-  height: 180px;
-  margin-left: 10px;
-  margin-right: auto;
   margin-top: 15px;
+  max-height: 100%;
+  max-width: 100%;
   border-radius: 10px 10px 10px 10px;
-  background-color: rgba(221, 174, 203, 0.918);
-  top: -10px;
-  width: 1000px;
+  background-color: rgba(240, 189, 225, 0.918);
 }
 
 .search-results-count {
-  margin-top: 30px;
   text-align: center;
   background-color: rgb(231, 153, 153);
-}
-@media (min-width: 768px) {
-  .search-result-item .image-link {
-    display: inline-block;
-    margin: -20px 0 -20px -20px;
-    float: left;
-    width: 200px;
-  }
-}
-
-@media (max-width: 767px) {
-  .search-result-item .image-link {
-    max-height: 200px;
-  }
 }
 
 .search-result-item + .search-result-item {
   margin-top: 20px;
 }
-
+.thumbnail img {
+  max-height: 100%;
+  max-width: 100%;
+}
 .image-col {
-  position: relative;
-  /*background: blueviolet;
-  */
-  margin-left: -15px;
-  height: 180px;
-  width: 180px;
+  /*
+  background: blueviolet;*/
+  max-width: 100%;
+  max-height: 100%;
   border-radius: 10px 00px 00px 10px;
 }
 .image-col .item-image {
-  position: absolute;
-  display: inline-block;
   border-radius: 10px 00px 00px 10px;
   max-width: 100%;
   max-height: 100%;
-  height: 180px;
-  width: 180px;
+  background-position: center;
+  background-repeat: no-repeat;
   margin-left: -15px;
 }
-
-.search-result-item-rec .badge {
-  position: relative;
-  left: 80px;
-  top: 24px;
-  background: green;
+.v-center {
+  display: flex;
+  align-items: center;
+}
+.badge {
+  position: absolute;
+  right: 15px;
+  top: 25px;
+  background: rgb(235, 128, 128);
   text-align: center;
   border-radius: 60px 60px 60px 60px;
   color: white;
   padding: 4px 4px;
-  font-size: 12px;
+  font-size: 10px;
   transform: rotate(45deg);
 }
 
-@media (min-width: 768px) {
-  .search-result-item-body-r {
-    height: 270px; /*
-    background-color: rgb(231, 114, 114);*/
-    margin-left: 600px;
-  }
-}
-
 .display-result-col {
-  height: 180px;
-  width: 520px;
+  max-width: 100%;
   max-height: 100%; /*
   background-color: rgb(236, 70, 70);*/
   text-align: left;
-  margin-left: 15px;
 }
 
 .search-result-heading {
-  /*background-color: burlywood;*/
-
   font-size: 35px;
-  display: inline-block;
-}
-
-@media (min-width: 768px) {
-  .search-result-heading {
-    margin: 0;
-  }
 }
 
 .search-result-info {
-  max-height: 100%; /*
+  /*
   background-color: rgb(12, 12, 228);*/
-  margin-left: -15px;
-  width: 520px;
-  height: 130px;
-}
-
-.right-col {
-  /*  background-color: yellow;
- */ /*display: inline-block;*/
-  top: -10px;
-  height: 130px;
-}
-
-.left-col {
-  position: relative;
-  /*  background-color: blueviolet;
- */
-  top: -10px;
-  height: 130px;
+  text-align: left;
 }
 
 .Brand {
@@ -145,105 +88,43 @@
   top: 0px;
 }
 
-/*.brand-result {
-  /* font-family: "Times New Roman", Times, serif;
-
-}*/
 .Color {
-  /*  background-color: aqua;
- */
-  position: relative;
-  top: -5px;
   font-size: 16px;
-  /*  position: absolute;
-  top: 30px;
-*/
 }
 .Top-Comment {
-  /* background-color: chartreuse;
- */
-  position: relative;
-  top: -10px;
-
   font-size: 16px;
-  /* position: absolute;
-  top: 60px;
-*/
 }
 .Description {
-  /* background-color: crimson;
- */
-  position: relative;
-  top: -15px;
   font-size: 16px;
-  /* position: absolute;
-   top: 90px;*/
 }
 .brand-result {
-  /*background-color: rgb(46, 186, 221);
- */
-  position: relative;
-  top: 0px;
-
   font-size: 16px;
 }
 .color-result {
-  /* background-color: black;
- */
-  position: relative;
-  top: -5px;
-
   font-size: 16px;
 }
 .comment-result {
-  /*  background-color: rgb(240, 231, 236);
- */
-  position: relative;
-  top: -10px;
-  /* display: block;
- */
   font-size: 16px;
 }
 .desc-result {
-  /* background-color: rgb(63, 241, 19);
-  /*  display: block;
- */
-  /*  margin-top: 17px;
- */
-  position: relative;
-  top: -15px;
   font-size: 16px;
 }
 
 .info-sec-col {
-  height: 180px;
-  width: 265px;
-  max-height: 100%; /*
+  max-height: 100%;
+  max-width: 100%; /*
   background-color: rgb(7, 0, 0);*/
-
-  text-align: right;
-}
-.info-sec-col .price {
-  position: relative;
-  bottom: -10px;
-  /* background-color: rgb(242, 247, 247);*/
+  text-align: center;
 }
 
-.info-sec-col .buttons {
+.buttons {
   position: relative;
-  top: 85px; /*
-  background-color: rgb(240, 10, 163);
-  */
-  text-align: right;
-  margin-left: -40px;
-  width: 295px;
+  top: 0px;
+  text-align: center;
 }
-.info-sec-col .Go {
-  margin-right: 7px;
-}
-.info-sec-col .Add {
-  margin-right: 7px;
-  margin-left: 7px;
+
+.Add {
+  margin-left: -7px;
 }
 .from {
   font-size: 30px;
@@ -256,6 +137,29 @@
 #ttt span::after {
   content: ", ";
 }
+
+.flex-row {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  height: 190px;
+  max-height: 100%;
+  max-width: 100%;
+}
+
+.flex-col--end {
+  align-self: flex-end;
+}
+.flex-col {
+  /*
+  background-color: cadetblue;*/
+  margin-left: -5px;
+}
 #ttt span:last-child::after {
   content: "  ";
 } /* empty string */
+
+.stats {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}

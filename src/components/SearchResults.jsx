@@ -135,193 +135,223 @@ class SearchResults extends Component {
       if (recommended)
         return (
           <div className="container search-result-item-rec">
-            <div className="col-sm-5 col-md-6 col-lg-8 image-col">
-              <img
-                className="img-fluid item-image"
-                alt="Slick Fashion Portal"
-                onError={this.addDefaultSrc}
-                src={currentItem.imageURL}
-              />
-              <span className="badge badge-pill ">Recommended!</span>
-            </div>
-            <div className="col-sm-6 col-md-7 col-lg-8 display-result-col">
-              <p className="row-sm-2 row-md-3 row-lg-5 text-left text-primary search-result-heading">
-                {currentItem.title}
-              </p>
-              <p className="row text-left search-result-info">
-                <h5 className="col-sm-1 col-md-2 col-lg-3 text-sm-left text-md-left text-lg-left text-dark left-col">
-                  <span className="row text-left text-dark Brand"> Brand:</span>
-                  <span className="row text-left text-dark Color"> Color:</span>
-                  {/* <span className="row text-left text-dark Top-Comment">
-                    Top comment:
-                  </span> */}
-                  <span className="row text-left text-dark Description">
-                    Description:
+            <div className="row v-center">
+              <div className="col-xs-3 image-col">
+                <a href="#" class="thumbnails">
+                  <span className="badge badge-pill ">Recommended!</span>
+                  <img
+                    className="img-fluid item-image"
+                    alt="Slick Fashion Portal"
+                    onError={this.addDefaultSrc}
+                    src={currentItem.imageURL}
+                  />
+                </a>
+              </div>
+
+              <div className="col-xs-5 display-result-col">
+                <div className="row text-left text-primary search-result-heading">
+                  {currentItem.title}
+                </div>
+                <div className="row text-left search-result-info">
+                  <h5 className="col-xs-3  text-sm-left text-dark left-col">
+                    <span className="row text-left text-dark Brand">
+                      Brand:
+                    </span>
+                    <span className="row text-left text-dark Color">
+                      Color:
+                    </span>
+                    <span className="row text-left text-dark Description">
+                      Description:
+                    </span>
+                  </h5>
+                  <h5 className="col-xs-9  text-lg-left text-truncate text-dark right-col">
+                    <span className="row text-primary brand-result">
+                      {currentItem.brand}
+                    </span>
+                    <a className="row text-primary color-result">
+                      {colorsList.map(function(name, index) {
+                        return (
+                          <span id="ttt">
+                            <span>{name}</span>
+                          </span>
+                        );
+                      })}
+                    </a>
+                    <span className="row text-dark text-truncate desc-result">
+                      {currentItem.description}
+                    </span>
+                  </h5>
+                </div>
+              </div>
+              <div className="col-xs-4 info-sec-col">
+                <div className="row">
+                  <span className="p-3 mb-2 text-dark from">From </span>
+                  <span className="p-3 mb-2 text-dark font-weight-bold actualprice">
+                    {lowestPrice} €
                   </span>
-                </h5>
-                <h5 className="col-sm-4 col-md-6 col-lg-9 text-sm-left text-md-left text-lg-left text-truncate text-dark right-col">
-                  <span className="row text-primary brand-result">
-                    {currentItem.brand}
-                  </span>
-                  <span className="row text-primary color-result">
-                    {colorsList.map(function(name, index) {
-                      return (
-                        <span id="ttt">
-                          <span>{name}</span>
-                        </span>
-                      );
-                    })}
-                  </span>
-                  {/* <span className="row text-dark text-truncate comment-result">
-                    Review
-                   {currentItem.reviews[0]["reviewTitle"]}
-                  </span> */}
-                  <span className="row text-dark text-truncate desc-result">
-                    {currentItem.description}
-                  </span>
-                </h5>
-              </p>
-            </div>
-            <div className="col-sm-6 col-md-7 col-lg-9 info-sec-col">
-              <p className="row-sm-1 row-md-2 row-lg-3 text-sm-right text-md-right text-lg-right  price">
-                <span className="p-3 mb-2 text-dark  from">From </span>
-                <span className="p-3 mb-2 text-dark font-weight-bold actualprice">
-                  {lowestPrice} €
-                </span>
-              </p>
-              <p className="row-sm-2 row-md-3 row-lg-5 buttons">
-                <button
-                  className="btn btn-primary btn-sm view"
-                  aria-pressed="true"
-                  onClick={() =>
-                    this.props.history.push("/home/show/" + currentItem._id)
-                  }
-                >
-                  View Item
-                </button>
-                <button
-                  className="btn btn-success btn-sm Add"
-                  href="#"
-                  onClick={() => {
-                    return new Promise((resolve, reject) => {
-                      HttpService.post(
-                        this.baseURL() +
-                          "/users/" +
-                          UserService.getCurrentUser().id +
-                          "/wishlist/" +
-                          currentItem._id,
-                        {},
-                        function(data) {
-                          resolve(data);
-                        },
-                        function(textStatus) {
-                          reject(textStatus);
-                        }
-                      );
-                    });
-                  }}
-                >
-                  Add to wish list
-                </button>
-                <button
-                  className="btn btn-primary btn-sm active Go"
-                  aria-pressed="true"
-                  onClick={() => {
-                    window.open(currentItem.purchaseLink, "_blank");
-                  }}
-                >
-                  Go to website
-                </button>
-              </p>
+                </div>
+                <div className="flex-row">
+                  <div className="flex-col" />
+                  <div className="flex-col flex-col--end test">
+                    <div className="row align-items-end">
+                      <div className="col-xs-4">
+                        <button
+                          className="btn btn-sm btn-primary"
+                          aria-pressed="true"
+                          onClick={() =>
+                            this.props.history.push(
+                              "/home/show/" + currentItem._id
+                            )
+                          }
+                          style={{ minWidth: "80px" }}
+                        >
+                          View Item
+                        </button>
+                      </div>
+                      <div className="col-xs-4">
+                        <button
+                          className="btn btn-sm btn-succes Add"
+                          aria-pressed="true"
+                          href="#"
+                          onClick={() => {
+                            UserService.addWishlistItem(
+                              UserService.getCurrentUser().id,
+                              currentItem._id
+                            );
+                          }}
+                          style={{ minWidth: "80px" }}
+                        >
+                          Add to wish list
+                        </button>
+                      </div>
+                      <div className="col-xs-4">
+                        <button
+                          className="btn btn-sm btn-primary active"
+                          aria-pressed="true"
+                          style={{ minWidth: "80px" }}
+                          onClick={() => {
+                            window.open(currentItem.purchaseLink, "_blank");
+                          }}
+                        >
+                          Go to website
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         );
       else
         return (
-          /* <section className="search-result-item" key={i}>*/
           <div className="container search-result-item">
-            <div className="col-sm-5 col-md-6 col-lg-8 image-col">
-              <img
-                className="img-fluid item-image"
-                alt="Slick Fashion Portal"
-                onError={this.addDefaultSrc}
-                src={currentItem.imageURL}
-              />
-            </div>
-            <div className="col-sm-6 col-md-7 col-lg-8 display-result-col">
-              <p className="row-sm-2 row-md-3 row-lg-5 text-left text-primary search-result-heading">
-                {currentItem.title}
-              </p>
-              <p className="row text-left search-result-info">
-                <h5 className="col-sm-1 col-md-2 col-lg-3 text-sm-left text-md-left text-lg-left text-dark left-col">
-                  <span className="row text-left text-dark Brand">Brand:</span>
-                  <span className="row text-left text-dark Color">Color:</span>
-                  {/*  <span className="row text-left text-dark Top-Comment">
-                    Top comment:
-                  </span>*/}
-                  <span className="row text-left text-dark Description">
-                    Description:
+            <div className="row v-center">
+              <div className="col-xs-3 image-col">
+                <a href="#" class="thumbnails">
+                  <img
+                    className="img-fluid item-image"
+                    alt="Slick Fashion Portal"
+                    onError={this.addDefaultSrc}
+                    src={currentItem.imageURL}
+                  />
+                </a>
+              </div>
+
+              <div className="col-xs-5 display-result-col">
+                <div className="row text-left text-primary search-result-heading">
+                  {currentItem.title}
+                </div>
+                <div className="row text-left search-result-info">
+                  <h5 className="col-xs-3  text-sm-left text-dark left-col">
+                    <span className="row text-left text-dark Brand">
+                      Brand:
+                    </span>
+                    <span className="row text-left text-dark Color">
+                      Color:
+                    </span>
+                    <span className="row text-left text-dark Description">
+                      Description:
+                    </span>
+                  </h5>
+                  <h5 className="col-xs-9  text-lg-left text-truncate text-dark right-col">
+                    <span className="row text-primary brand-result">
+                      {currentItem.brand}
+                    </span>
+                    <a className="row text-primary color-result">
+                      {colorsList.map(function(name, index) {
+                        return (
+                          <span id="ttt">
+                            <span>{name}</span>
+                          </span>
+                        );
+                      })}
+                    </a>
+                    <span className="row text-dark text-truncate desc-result">
+                      {currentItem.description}
+                    </span>
+                  </h5>
+                </div>
+              </div>
+              <div className="col-xs-4 info-sec-col">
+                <div className="row">
+                  <span className="p-3 mb-2 text-dark from">From </span>
+                  <span className="p-3 mb-2 text-dark font-weight-bold actualprice">
+                    {lowestPrice} €
                   </span>
-                </h5>
-                <h5 className="col-sm-4 col-md-6 col-lg-9 text-sm-left text-md-left text-lg-left text-truncate text-dark right-col">
-                  <span className="row text-primary brand-result">
-                    {currentItem.brand}
-                  </span>
-                  <a className="row text-primary color-result">
-                    {colorsList.map(function(name, index) {
-                      return (
-                        <span id="ttt">
-                          <span>{name}</span>
-                        </span>
-                      );
-                    })}
-                  </a>
-                  {/* <span className="row text-dark text-truncate comment-result">
-                     {currentItem.reviews[0]["reviewTitle"]}
-                  </span>*/}
-                  <span className="row text-dark text-truncate desc-result">
-                    {currentItem.description}
-                  </span>
-                </h5>
-              </p>
-            </div>
-            <div className="col-sm-6 col-md-7 col-lg-9 info-sec-col">
-              <p className="row-sm-1 row-md-2 row-lg-3 text-sm-right text-md-right text-lg-right  price">
-                <span className="p-3 mb-2 text-dark  from">From </span>
-                <span className="p-3 mb-2 text-dark font-weight-bold actualprice">
-                  {lowestPrice} €
-                </span>
-              </p>
-              <p className="row-sm-2 row-md-3 row-lg-5 buttons">
-                <button
-                  className="btn btn-primary btn-sm view"
-                  aria-pressed="true"
-                  onClick={() =>
-                    this.props.history.push("/home/show/" + currentItem._id)
-                  }
-                >
-                  View Item
-                </button>
-                <button
-                  className="btn btn-success btn-sm Add"
-                  aria-pressed="true"
-                  href="#"
-                >
-                  Add to wish list
-                </button>
-                <button
-                  className="btn btn-primary btn-sm active Go"
-                  aria-pressed="true"
-                  onClick={() => {
-                    window.open(currentItem.purchaseLink, "_blank");
-                  }}
-                >
-                  Go to website
-                </button>
-              </p>
+                </div>
+                <div className="flex-row">
+                  <div className="flex-col" />
+                  <div className="flex-col flex-col--end test">
+                    <div className="row align-items-end">
+                      <div className="col-xs-4">
+                        <button
+                          className="btn btn-sm btn-primary"
+                          aria-pressed="true"
+                          onClick={() =>
+                            this.props.history.push(
+                              "/home/show/" + currentItem._id
+                            )
+                          }
+                          style={{ minWidth: "80px" }}
+                        >
+                          View Item
+                        </button>
+                      </div>
+                      <div className="col-xs-4">
+                        <button
+                          className="btn btn-sm btn-succes Add"
+                          aria-pressed="true"
+                          href="#"
+                          onClick={() => {
+                            UserService.addWishlistItem(
+                              UserService.getCurrentUser().id,
+                              currentItem._id
+                            );
+                          }}
+                          style={{ minWidth: "80px" }}
+                        >
+                          Add to wish list
+                        </button>
+                      </div>
+                      <div className="col-xs-4">
+                        <button
+                          className="btn btn-sm btn-primary active"
+                          aria-pressed="true"
+                          style={{ minWidth: "80px" }}
+                          onClick={() => {
+                            window.open(currentItem.purchaseLink, "_blank");
+                          }}
+                        >
+                          Go to website
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
-          /*  </section>*/
         );
     });
   }
@@ -338,23 +368,8 @@ class SearchResults extends Component {
 
           {this.itemList()}
 
-          <ul className="pagination pagination-sm">
-            <li className="disabled">
-              <a href="#">Prev</a>
-            </li>
-            <li className="active">
-              <a href="#">1</a>
-            </li>
-            <li>
-              <a href="#">2</a>
-            </li>
-            <li>
-              <a href="#">Next</a>
-            </li>
-          </ul>
-          {/*  <Route path="/searchStat" component={searchStat} />*/}
-          <div className="col stats">
-            <p className="row-sm-1 row-md-1 row-lg-2">
+          <div className="col-sm-8 stats">
+            <p className="row">
               You have searched for {this.state.number} item(s)
               <button className="btn btn btn-link " onClick={this.handleSubmit}>
                 Check search history
