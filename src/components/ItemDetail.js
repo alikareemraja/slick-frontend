@@ -35,7 +35,15 @@ export class ItemDetail extends React.Component {
  getRelated(){
     
     SlickService.getRelItems(this.props.item._id).then((rdata) => {
-      console.log("state of rdata")
+      console.log(rdata)
+      for (var index = 0; index < 3; index++) {
+        if(this.props.item._id == rdata[index]._id){
+          if(index < 2){
+            rdata[index] = rdata[index+1]
+          }
+        }
+      }
+      console.log("after")
       console.log(rdata)
       this.setState({
           ritem: rdata,
@@ -47,8 +55,6 @@ export class ItemDetail extends React.Component {
     });
 
   }
-
-
 
 //change the state after event
 myFunction(id){
