@@ -9,7 +9,7 @@ const card = {
     transition: "0.3s",
     maxWidth: "300px",
     maxHeight: "400px",
-    
+
     margin: "20px 20px"
 }
 const card_hover = {
@@ -25,8 +25,7 @@ export default class WardrobeItem extends Component {
         super(props);
 
         this.state = {
-            loading: false,
-            data: []
+            loading: false
         };
 
         // Shorten the title so that it fits the title box
@@ -44,11 +43,12 @@ export default class WardrobeItem extends Component {
         return (
             <div className="col-lg-3">
                 <div style={card}  >
-                    <Link to={"/home/wardrobe/ownedItem/" + this.props.item._id}><img src={this.props.item.imageURL} alt="Avatar" style={{ width: '100%' }} /> </Link>
+                    {/*<Link to={this.props.link}><img src={this.props.item.imageURL} alt="Avatar" style={{ width: '100%' }} /> </Link>*/}
+                    <a href={this.props.link}><img src={this.props.item.imageURL} alt="Avatar" style={{ width: '100%' }} /> </a>
                     <div style={container}>
-                    <button className="btn btn-danger" style={{ "position": "absolute", "top": "5px", "height": "35px", "width": "35px", "transform": "translate(-100%, 0)", "borderRadius": "25px" }} onClick={() => this.props.onDelete(this.props.item._id)}>X</button>
-                    <h4><b style={{"color":"#ffffff"}}>{this.props.item.title}</b></h4>
-                    
+                        {this.props.isOwn ? <button className="btn btn-danger" style={{ "position": "absolute", "top": "5px", "height": "35px", "width": "35px", "transform": "translate(-100%, 0)", "borderRadius": "25px" }} onClick={() => this.props.onDelete(this.props.item._id)}>X</button> : null}
+                        <h4><b style={{ "color": "#ffffff" }}>{this.props.item.title}</b></h4>
+
                     </div>
                 </div>
             </div>

@@ -40,6 +40,7 @@ export default class CommentService  {
                 user: userId,
                 date: new Date().getTime(),
                 text: text,
+                votes: 0
             }, function(data) {
                 resolve(data);
             }, function(textStatus) {
@@ -66,6 +67,19 @@ export default class CommentService  {
                 user: userId,
                 date: new Date().getTime(),
                 text: text,
+                votes: 0
+            }, function(data) {
+                resolve(data);
+            }, function(textStatus) {
+                reject(textStatus);
+            });
+        });
+    }
+
+    static castVote(commentId, vote) {
+        return new Promise((resolve, reject) => {
+            HttpService.post(this.baseURL() + "/vote/"+ commentId + "/" + vote, {
+                date: new Date().getTime()
             }, function(data) {
                 resolve(data);
             }, function(textStatus) {

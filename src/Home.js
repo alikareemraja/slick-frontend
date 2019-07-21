@@ -15,6 +15,7 @@ import {
 } from "react-notifications";
 import "react-notifications/lib/notifications.css";
 import searchStat from "./components/searchStat";
+import UserService from "./UserService";
 
 class Home extends Component {
   constructor(props) {
@@ -47,11 +48,9 @@ class Home extends Component {
           {/* Main content */}
           <section className="content">
             <switch>
-              <Route exact path="/home" component={Wardrobe} />
-              <Route
-                path="/home/wardrobe/ownedItem/:itemId"
-                component={OwnedItemPage}
-              />
+              <Route exact path="/home" render={(props) => <Wardrobe userId={UserService.getCurrentUser().id} />} />
+              <Route exact path="/home/user/:uid" component={Wardrobe} />
+              <Route path="/home/user/:uid/ownedItem/:itemId" component={OwnedItemPage} />
               <Route path="/home/show/:id" component={ItemDetailView} />
               <Route path="/home/search/:query" component={SearchResults} />
               <Route path="/home/searchStat" component={searchStat} />

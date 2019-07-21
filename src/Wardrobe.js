@@ -8,33 +8,59 @@ export default class Wardrobe extends Component {
 
     static defaultImgSrc;
     static userId;
-    static itemCount;
     constructor(props) {
         super(props);
-
         this.defaultImgSrc = "http://icons.iconarchive.com/icons/iconsmind/outline/256/T-Shirt-icon.png";
         this.userId = UserService.getCurrentUser().id;
         console.log("Loading wardrobe for userid: " + this.userId);
-
-        this.itemCount = 0;
     }
 
     componentWillMount(props) {
+        let uid
+        if (this.props.userId) {
+            uid = this.props.userId
+        }
+        else if (this.props.match && this.props.match.params.uid) {
+            uid = this.props.match.params.uid
+        }
+        else {
+            window.location = "/home/"
+        }
         this.setState({
-            loading: true
+            loading: true,
+            addItemImgSrc: this.defaultImgSrc,
+            ownedItems: [],
+            wishlistItems: [],
+            friends: [],
+            isOwnPage: UserService.getCurrentUser().id === uid,
+            userId: uid
         });
 
-
-        UserService.getOwnedItems(this.userId).then((data) => {
-            console.log("Data: " + data.ownedItems + ", keys: " + Object.keys(data.ownedItems))
+        UserService.getOwnedItems(uid).then((data) => {
+            console.log("Owned Items Data: " + data)
             this.setState({
-                data: data.ownedItems,
-                loading: false,
-                addItemImgSrc: this.defaultImgSrc
+                ownedItems: data.ownedItems
             });
-        }).catch((e) => {
-            console.error(e);
-        });
+        }).then(
+            UserService.getWishlistItems(uid).then((data) => {
+                console.log("Wishlist Items Data: ")
+                console.log(data);
+                this.setState({
+                    wishlistItems: data
+                });
+            })).then(
+                UserService.getFriends(uid).then((data) => {
+                    console.log("Friends Data: ")
+                    console.log(data);
+                    this.setState({
+                        friends: data,
+                        loading: false
+                    });
+                })).catch((e) => {
+                    console.error(e);
+                });
+
+
     }
 
     deleteOwnedItem(itemId) {
@@ -45,7 +71,23 @@ export default class Wardrobe extends Component {
         UserService.deleteOwnedItem(this.userId, itemId).then((msg) => {
             console.log(msg);
             this.setState({
-                data: this.state.data.filter(item => item._id !== itemId),
+                ownedItems: this.state.ownedItems.filter(item => item._id !== itemId),
+                loading: false
+            });
+        }).catch((e) => {
+            console.log(e);
+        });
+    }
+
+    deleteWishlistItem(itemId) {
+        // Make the user confirm before actually deleting the item
+        if (!window.confirm("Are you sure? The item will be deleted if you click 'OK'."))
+            return;
+
+        UserService.deleteWishlistItem(this.userId, itemId).then((msg) => {
+            console.log(msg);
+            this.setState({
+                wishlistItems: this.state.wishlistItems.filter(item => item._id !== itemId),
                 loading: false
             });
         }).catch((e) => {
@@ -78,11 +120,14 @@ export default class Wardrobe extends Component {
 
                     {/* Nav tabs */}
                     <ul className="nav nav-tabs row">
-                        <li className="nav-item col-sm-5 active" >
+                        <li className="nav-item col-sm-4 active" >
                             <a data-toggle="tab" href="#owned">Owned Items</a>
                         </li>
-                        <li className="nav-item col-sm-5">
+                        <li className="nav-item col-sm-4">
                             <a data-toggle="tab" href="#wishlist">Wishlist</a>
+                        </li>
+                        <li className="nav-item col-sm-4">
+                            <a data-toggle="tab" href="#friends">Friends</a>
                         </li>
                     </ul>
 
@@ -92,15 +137,15 @@ export default class Wardrobe extends Component {
                             <div className="row">
 
                                 {/* Big plus button, a modal shows up when clicked */}
-                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#itemModal" style={{ position: "fixed", bottom: "10px", right: "10px", width: "80px", height: "80px", borderRadius: "100%", fontSize: "50px", lineHeight: "50px", paddingTop: "0px", zIndex: "99" }}>+</button>
+                                {this.state.isOwnPage ? <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#itemModal" style={{ position: "fixed", bottom: "60px", right: "10px", width: "80px", height: "80px", borderRadius: "100%", fontSize: "50px", lineHeight: "50px", paddingTop: "0px", zIndex: "99" }}>+</button> : null}
 
                                 <ItemModal />
 
                                 {/* Each item in OwnedItems is displayed in a WardrobeItem */}
-                                {this.state.data.map((item) => {
+                                {this.state.ownedItems.map((item) => {
                                     return (
 
-                                        <WardrobeItem key={item._id} item={item} onDelete={(itemId) => this.deleteOwnedItem(itemId)} />
+                                        <WardrobeItem key={item._id} item={item} onDelete={(itemId) => this.deleteOwnedItem(itemId)} link={"/home/user/" + this.state.userId + "/ownedItem/" + item._id} isOwn={this.state.isOwnPage} />
 
                                     );
                                 })}
@@ -110,13 +155,38 @@ export default class Wardrobe extends Component {
 
                             {/* Show number of items in OwnedItems */}
                             <div className="text-center">
-                                You have {this.state.data.length} item(s) in your wardrobe.
-                    </div>
+                                There are {this.state.ownedItems.length} item(s) in the wardrobe.
+                            </div>
                         </div>
                         <div className="tab-pane" id="wishlist">
-                            This is wishlist
-                    {/* There should be wishlist items here */}
-                            {/*<WardrobeItem />*/}
+                            <div className="row">
+                                {this.state.wishlistItems.map((item) => {
+                                    return (
+
+                                        <WardrobeItem key={item._id} item={item} onDelete={(itemId) => this.deleteWishlistItem(itemId)} link={"/home/show/" + item._id} />
+
+                                    );
+                                })}
+                            </div>
+
+                            <div className="text-center">
+                                There are {this.state.wishlistItems.length} item(s) in the wishlist.
+                            </div>
+                        </div>
+                        <div className="tab-pane" id="friends">
+                            <div className="row">
+                                {this.state.friends.map((item) => {
+                                    item["title"] = item.name;
+                                    return (
+                                        <WardrobeItem key={item._id} item={item} onDelete={(itemId) => this.deleteWishlistItem(itemId)} link={"/home/user/" + item._id} />
+
+                                    );
+                                })}
+                            </div>
+
+                            <div className="text-center">
+                                There are {this.state.friends.length} friend(s).
+                            </div>
                         </div>
                     </div>
                 </div>
