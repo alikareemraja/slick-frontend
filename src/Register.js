@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import UserService from './UserService';
+import {NotificationContainer, NotificationManager} from 'react-notifications';
+import 'react-notifications/lib/notifications.css';
 
 class Register extends Component {
 
@@ -17,11 +19,15 @@ class Register extends Component {
         document.getElementById('body').className = 'hold-transition skin-black sidebar-mini'
     }
 
+    socialLogin = function(id){
+        NotificationManager.info('Social login not available');
+    }
+
     handleRegister(event) {
         event.preventDefault();
 
         if (this.state.password1 !== this.state.password2) {
-            window.alert("Your passwords do not match!");
+            NotificationManager.error('Passwords do not match');
             return;
         }
 
@@ -30,6 +36,7 @@ class Register extends Component {
             console.log("Hurray, you are registered!");
             this.props.history.push("/home/");
         }).catch((e) => {
+            NotificationManager.error('Failed to register');
             console.error("An error was returned while registering: " + e);
             this.setState({
                 error: e
@@ -104,13 +111,14 @@ class Register extends Component {
                     </form>
                     <div className="social-auth-links text-center">
                         <p>- OR -</p>
-                        <a href="fake_url" className="btn btn-block btn-social btn-facebook btn-flat"><i className="fa fa-facebook" /> Sign up using
+                        <a onClick={this.socialLogin.bind(this,1)} className="btn btn-block btn-social btn-facebook btn-flat"><i className="fa fa-facebook" /> Sign up using
         Facebook</a>
-                        <a href="fake_url" className="btn btn-block btn-social btn-google btn-flat"><i className="fa fa-google-plus" /> Sign up using
+                        <a onClick={this.socialLogin.bind(this,2)} className="btn btn-block btn-social btn-google btn-flat"><i className="fa fa-google-plus" /> Sign up using
         Google+</a>
                     </div>
-                    <a href="login.html" className="text-center">I already have a membership</a>
+                    <a href="login" className="text-center">I already have a membership</a>
                 </div>
+                <NotificationContainer/>
                 {/* /.form-box */}
             </div>
 

@@ -24,6 +24,10 @@ export default class Thread extends Component {
         console.log("updated!");
     }
     postComment = function (itemId, userId, text) {
+        if(text === "" || text === undefined){
+            NotificationManager.warning('Cannot post empty comment');
+            return;
+        } 
         CommentService.postComment(itemId, userId, text)
         .then((data) => {
             console.log("success!")
@@ -51,7 +55,7 @@ export default class Thread extends Component {
                     <div className="col-lg-3"></div>
                         <div className="col-lg-6">
                         <div className="form-group">
-                            <label htmlFor="comment" >Your Comment ({this.state.thread.length})</label>
+                            <label htmlFor="comment" >Your Comment</label>
                             <textarea name="comment" className="form-control" style={{"maxWidth":"600px", "margin":"0 auto"}} rows={3} value={this.state.text} onChange={this.handleChange} />
                         </div>
                         <button  onClick={this.postComment.bind(this, this.props.itemId, this.props.userId, this.state.text)} className="btn btn-default">Post</button>
