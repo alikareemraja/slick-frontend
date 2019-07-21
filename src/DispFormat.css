@@ -252,3 +252,10 @@
 .actualprice {
   font-size: 25px;
 }
+
+#ttt span::after {
+  content: ", ";
+}
+#ttt span:last-child::after {
+  content: "  ";
+} /* empty string */

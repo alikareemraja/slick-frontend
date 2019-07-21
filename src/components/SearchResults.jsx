@@ -95,11 +95,7 @@ class SearchResults extends Component {
   }
 
   handleSubmit = () => {
-    this.props.history.push("/searchStat");
-    //this.props.history.push("/home/show/" + currentItem._id);
-    //return <Redirect to="/searchStat" />;
-    // return <Link to="/searchStat">Conference</Link>;
-    // return <searchStat />;
+    window.location.href = "/home/searchStat";
   };
 
   addDefaultSrc(ev) {
@@ -111,10 +107,14 @@ class SearchResults extends Component {
     console.log("this.state.results: ");
     console.log(this.state.results);
     return this.state.results.map((currentItem, i) => {
-      console.log("currentItem: " + currentItem.category);
+      console.log("currentItem: ");
+      console.log(currentItem);
+      console.log("currentItem category: " + currentItem.category);
       console.log("currentItem id: " + currentItem._id);
       console.log("currentItem image: " + currentItem.imageURL);
       console.log("currentItem isRecommended: " + currentItem.isRecommended);
+      console.log("currentItem Image url: " + currentItem.imageURL);
+      console.log("currentItem brand: " + currentItem.brand);
       console.log("currentItem retailers: ");
       console.log(currentItem.retailers);
       console.log(currentItem);
@@ -140,28 +140,28 @@ class SearchResults extends Component {
                 className="img-fluid item-image"
                 alt="Slick Fashion Portal"
                 onError={this.addDefaultSrc}
-                src={"/dist/img/" + currentItem.imageURL}
+                src={currentItem.imageURL}
               />
               <span className="badge badge-pill ">Recommended!</span>
             </div>
             <div className="col-sm-6 col-md-7 col-lg-8 display-result-col">
               <p className="row-sm-2 row-md-3 row-lg-5 text-left text-primary search-result-heading">
-                {currentItem.category},{i}
+                {currentItem.title}
               </p>
               <p className="row text-left search-result-info">
                 <h5 className="col-sm-1 col-md-2 col-lg-3 text-sm-left text-md-left text-lg-left text-dark left-col">
                   <span className="row text-left text-dark Brand"> Brand:</span>
                   <span className="row text-left text-dark Color"> Color:</span>
-                  <span className="row text-left text-dark Top-Comment">
+                  {/* <span className="row text-left text-dark Top-Comment">
                     Top comment:
-                  </span>
+                  </span> */}
                   <span className="row text-left text-dark Description">
                     Description:
                   </span>
                 </h5>
                 <h5 className="col-sm-4 col-md-6 col-lg-9 text-sm-left text-md-left text-lg-left text-truncate text-dark right-col">
                   <span className="row text-primary brand-result">
-                    {currentItem.brand}Nike
+                    {currentItem.brand}
                   </span>
                   <span className="row text-primary color-result">
                     {colorsList.map(function(name, index) {
@@ -172,13 +172,12 @@ class SearchResults extends Component {
                       );
                     })}
                   </span>
-                  <span className="row text-dark text-truncate comment-result">
+                  {/* <span className="row text-dark text-truncate comment-result">
                     Review
-                    {/* {currentItem.reviews[0]["reviewTitle"]}*/}
-                  </span>
+                   {currentItem.reviews[0]["reviewTitle"]}
+                  </span> */}
                   <span className="row text-dark text-truncate desc-result">
-                    {/*  {currentItem.description}*/}Desription
-                    {currentItem.isRecommended}
+                    {currentItem.description}
                   </span>
                 </h5>
               </p>
@@ -246,20 +245,20 @@ class SearchResults extends Component {
                 className="img-fluid item-image"
                 alt="Slick Fashion Portal"
                 onError={this.addDefaultSrc}
-                src={"/dist/img/" + currentItem.imageURL}
+                src={currentItem.imageURL}
               />
             </div>
             <div className="col-sm-6 col-md-7 col-lg-8 display-result-col">
               <p className="row-sm-2 row-md-3 row-lg-5 text-left text-primary search-result-heading">
-                {currentItem.category}, {i}
+                {currentItem.title}
               </p>
               <p className="row text-left search-result-info">
                 <h5 className="col-sm-1 col-md-2 col-lg-3 text-sm-left text-md-left text-lg-left text-dark left-col">
                   <span className="row text-left text-dark Brand">Brand:</span>
                   <span className="row text-left text-dark Color">Color:</span>
-                  <span className="row text-left text-dark Top-Comment">
+                  {/*  <span className="row text-left text-dark Top-Comment">
                     Top comment:
-                  </span>
+                  </span>*/}
                   <span className="row text-left text-dark Description">
                     Description:
                   </span>
@@ -277,12 +276,11 @@ class SearchResults extends Component {
                       );
                     })}
                   </a>
-                  <span className="row text-dark text-truncate comment-result">
-                    {/* {currentItem.reviews[0]["reviewTitle"]}*/}
-                  </span>
+                  {/* <span className="row text-dark text-truncate comment-result">
+                     {currentItem.reviews[0]["reviewTitle"]}
+                  </span>*/}
                   <span className="row text-dark text-truncate desc-result">
-                    {/*  {currentItem.description}*/}
-                    {currentItem.isRecommended}
+                    {currentItem.description}
                   </span>
                 </h5>
               </p>

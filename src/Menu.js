@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 //import SearchResults from "./components/SearchResults";
+import HttpService from "./HttpService";
 const AddEndPoint = "http://localhost:3001/search/addstat";
 
 export default class Menu extends Component {
@@ -24,13 +25,13 @@ export default class Menu extends Component {
     //called when the user submits the form
     e.preventDefault(); //prevent browser's default behavior
     // this.props.search_text = this.state.input_text; // make the call to back-end, passing the url of the back-end end point
-
+    console.log("DNTDNTMDNENDMENDNEMDNENNYNSMEM");
     console.log("this.search_text: " + this.search_text);
     console.log("this.state.input_text: " + this.state.input_text);
     if (this.state.input_text) {
       if (this.state.input_text != this.search_text) {
         this.search_text = this.state.input_text;
-        window.location.href = "/home/search/" + this.search_text;
+
         //this.props.history.push("/home/search/" + this.search_text);
         //  this.props.triggerParentUpdate(this.search_text);
         this.setState({ show: true });
@@ -39,8 +40,18 @@ export default class Menu extends Component {
           searchItem: this.search_text,
           Date: time
         };
+        console.log("Posting to search statistics");
         console.log(search_item);
-        axios.post(AddEndPoint, search_item).then(res => {});
+
+        HttpService.post(
+          AddEndPoint,
+          search_item,
+          function(data) {},
+          function(textStatus) {
+            console.log(textStatus);
+          }
+        );
+        window.location.href = "/home/search/" + this.search_text;
       }
     } else window.alert("Empty search text");
   }
