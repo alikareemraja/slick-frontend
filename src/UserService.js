@@ -11,7 +11,7 @@ export default class UserService {
                     resolve(data);
                 }
                 else {
-                    reject('Error while retrieving movie');
+                    reject('Error while retrieving owned items');
                 }
             }, function (textStatus) {
                 reject(textStatus);
@@ -26,7 +26,7 @@ export default class UserService {
                     resolve(data);
                 }
                 else {
-                    reject('Error while retrieving movie');
+                    reject('Error while retrieving owned item');
                 }
             }, function (textStatus) {
                 reject(textStatus);
@@ -72,6 +72,21 @@ export default class UserService {
         });
     }
 
+    static getWishlistItems(userId) {
+        return new Promise((resolve, reject) => {
+            HttpService.get(this.baseURL() + "/" + userId + "/wishlist", function (data) {
+                if (data !== undefined || Object.keys(data).length !== 0) {
+                    resolve(data);
+                }
+                else {
+                    reject('Error while retrieving wishlist items');
+                }
+            }, function (textStatus) {
+                reject(textStatus);
+            });
+        });
+    }
+
     static addWishlistItem(userId, itemId) {
         // itemID is a STRING, must be put into a JSON object
         itemId = { itemId: itemId };
@@ -88,6 +103,21 @@ export default class UserService {
         return new Promise((resolve, reject) => {
             HttpService.remove(this.baseURL() + "/" + userId + "/wishlist/" + itemId, function (data) {
                 resolve(data);
+            }, function (textStatus) {
+                reject(textStatus);
+            });
+        });
+    }
+
+    static getFriends(userId) {
+        return new Promise((resolve, reject) => {
+            HttpService.get(this.baseURL() + "/" + userId + "/friends", function (data) {
+                if (data !== undefined || Object.keys(data).length !== 0) {
+                    resolve(data);
+                }
+                else {
+                    reject('Error while retrieving owned item');
+                }
             }, function (textStatus) {
                 reject(textStatus);
             });
