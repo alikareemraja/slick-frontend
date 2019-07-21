@@ -303,7 +303,7 @@ class SearchResults extends Component {
                     <a className="row text-primary color-result">
                       {colorsList.map(function(name, index) {
                         return (
-                          <span id="ttt">
+                          <span id="name-style">
                             <span>{name}</span>
                           </span>
                         );
