@@ -9,14 +9,19 @@ export default class SlickService {
 
     static baseURL() {return "http://localhost:3001/items" }
 
-    static getItems(){
-       return new Promise((resolve, reject) => {
-           HttpService.get(this.baseURL(), function(data) {
-               resolve(data);
-           }, function(textStatus) {
-               reject(textStatus);
-           });
-       });
+    static getRelItems(id) {
+        return new Promise((resolve, reject) => {
+            HttpService.get(`${SlickService.baseURL()}/rel/${id}`, function(rdata) {
+                if(rdata != undefined || Object.keys(rdata).length !== 0) {
+                    resolve(rdata);
+                }
+                else {
+                    reject('Error while retrieving item');
+                }
+            }, function(textStatus) {
+                reject(textStatus);
+            });
+        });
     }
 
     static getItem(id) {
