@@ -121,7 +121,7 @@ handleWishClick = (event) => {
                             
                         <div className="details" style={{ 
                           width: 680,
-                                height: 700,
+                                height: 800,
                                 backgroundColor: "#ffffff",
                                 paddingTop: 5,
                                 paddingBottom: 5,
@@ -240,15 +240,59 @@ handleWishClick = (event) => {
                           <div
                             style={{
                               color: "#504F5A",
-                              marginTop: 30,
-                              marginBottom: 10,
+                              marginTop: 40,
+                              marginBottom: 20,
                               //marginLeft: 240,
                               fontSize: 22
                             }}
                           >
                             Product Description
                           </div>
-    
+
+
+
+                          <div
+                              style={{
+                                color: "blue",
+                                //marginLeft: 240,
+                                //marginRight: 400,
+                                textAlign: "justify",
+                                maxHeight: 200,
+                                fontSize: 16,
+                                overflow: "auto"
+                              }}
+                            >                                                                                                   
+                              Item:             "{this.props.item.title}"
+                            </div>
+
+                            <div
+                              style={{
+                                color: "blue",
+                                //marginLeft: 240,
+                                //marginRight: 400,
+                                textAlign: "justify",
+                                maxHeight: 200,
+                                fontSize: 16,
+                                overflow: "auto"
+                              }}
+                            >                                                                                                   
+                              Category:         "{this.props.item.category}"
+                            </div>
+
+                            <div
+                              style={{
+                                color: "blue",
+                                //marginLeft: 240,
+                                //marginRight: 400,
+                                textAlign: "justify",
+                                maxHeight: 200,
+                                fontSize: 16,
+                                overflow: "auto"
+                              }}
+                            >                                                                                                   
+                               Brand:            "{this.props.item.brand}"
+                            </div>
+
                           
                             <div
                               style={{
@@ -260,8 +304,8 @@ handleWishClick = (event) => {
                                 fontSize: 16,
                                 overflow: "auto"
                               }}
-                            >
-                                {this.props.item.description}
+                            >                                                                                                   
+                              {this.props.item.description}
                             </div>
     
                           
@@ -307,7 +351,7 @@ handleWishClick = (event) => {
     
                         <div className="details2" style={{ 
                           width: 320,
-                                height: 700,
+                                height: 800,
                                 paddingTop: 5,
                                 paddingBottom: 5,
                                 backgroundColor: "#ffffff",
@@ -346,7 +390,7 @@ handleWishClick = (event) => {
                                 paddingRight: 40,
                                 marginLeft: 8,
                                 marginBottom: 22,
-                                marginTop: 5,
+                                marginTop:30,
                                 border: "1px solid lightgray",
                                 borderRadius: "5px"
                           
@@ -382,6 +426,7 @@ handleWishClick = (event) => {
                                 paddingLeft: 40,
                                 paddingRight: 40,
                                 marginLeft: 8,
+                                marginTop: 20,
                                 marginBottom: 22,
                                 border: "1px solid lightgray",
                                 borderRadius: "5px"
