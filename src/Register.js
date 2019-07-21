@@ -41,9 +41,9 @@ class Register extends Component {
                     method: 'POST',
                     body: data
                 }).then((data) => {
-                    NotificationManager.success("File uploaded");
+                    NotificationManager.success("Profile Created!");
                 }).catch((error)=>{
-                    NotificationManager.error("File failed to upload");
+                    NotificationManager.error("Profile failed to create");
                 })
             console.log("Hurray, you are registered!");
             this.props.history.push("/home/");
@@ -104,7 +104,7 @@ class Register extends Component {
                     <p className="login-box-msg">Register a new membership</p>
                     <form action="../../index.html" onSubmit={this.handleRegister}>
                         <div class="form-group">
-                            <input id="filePicker" type="file" class="form-control-file" accept=".gif,.jpg,.jpeg,.png" onChange={this.handleFormChange} />
+                            <input id="filePicker" required type="file" class="form-control-file" accept=".gif,.jpg,.jpeg,.png" onChange={this.handleFormChange} />
                         </div>
                         <div className="form-group has-feedback">
                             <input id="name" type="text" className="form-control" placeholder="Full name" required={true} onChange={this.handleFormChange} />
