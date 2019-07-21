@@ -1,12 +1,4 @@
 import React, { Component } from "react";
-import {
-  BrowserRouter as Router,
-  Route,
-  Link,
-  Redirect,
-  withRouter
-} from "react-router-dom";
-import axios from "axios";
 import "../DispFormat.css";
 const StatisticsRemoveEndPoint = "http://localhost:3001/search/delete/";
 const StatisticsEndPoint = "http://localhost:3001/search/stat";
@@ -93,9 +85,8 @@ export default class searchStat extends Component {
     return this.state.search_Stats.map((current, i) => (
       <tr>
         <th scope="row">{i}</th>
-        <th scope="row">{current._id}</th>
-        <td>{current.search_item}</td>
-        <td>{current.count}</td>
+        <td>{current.searchItem}</td>
+        <td>{current.Date}</td>
         <td>
           <button
             type="button"
@@ -117,7 +108,6 @@ export default class searchStat extends Component {
           <thead>
             <tr>
               <th>#</th>
-              <th>ID</th>
               <th>Item</th>
               <th>Date</th>
               <th>Actions</th>
