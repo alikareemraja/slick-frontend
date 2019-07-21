@@ -42,11 +42,10 @@ export class ItemDetail extends React.Component {
     
     SlickService.getRelItems(this.props.item._id).then((rdata) => {
       console.log(rdata)
-      for (var index = 0; index < 3; index++) {
+      for (var index = 0; index < 2; index++) {
         if(this.props.item._id == rdata[index]._id){
-          if(index < 2){
-            rdata[index] = rdata[index+1]
-          }
+            rdata[index] = rdata[2]
+            break;
         }
       }
       console.log("after")
