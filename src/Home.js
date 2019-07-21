@@ -14,6 +14,7 @@ import {
   NotificationManager
 } from "react-notifications";
 import "react-notifications/lib/notifications.css";
+import searchStat from "./components/searchStat";
 
 class Home extends Component {
   constructor(props) {
@@ -27,6 +28,8 @@ class Home extends Component {
   //callbackFromParent
   Callback = dataFromMenu => {
     this.setState({ input_text: dataFromMenu, show: true });
+    console.log("Hiiiiiiiiii");
+    console.log(this.satate.input_text);
   };
   render() {
     return (
@@ -51,6 +54,7 @@ class Home extends Component {
               />
               <Route path="/home/show/:id" component={ItemDetailView} />
               <Route path="/home/search/:query" component={SearchResults} />
+              <Route path="/home/searchStat" component={searchStat} />
             </switch>
 
             {/* <Thread id="5d2a334af1ca4b48b6caaf85"/> */}

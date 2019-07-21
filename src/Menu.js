@@ -28,15 +28,15 @@ export default class Menu extends Component {
     console.log("this.search_text: " + this.search_text);
     console.log("this.state.input_text: " + this.state.input_text);
     if (this.state.input_text) {
-      //   console.log("Inside the first IF");
       if (this.state.input_text != this.search_text) {
-        //     console.log("Inside the SECOND IF");
         this.search_text = this.state.input_text;
-        this.props.triggerParentUpdate(this.search_text);
+        window.location.href = "/home/search/" + this.search_text;
+        //this.props.history.push("/home/search/" + this.search_text);
+        //  this.props.triggerParentUpdate(this.search_text);
         this.setState({ show: true });
         var time = new Date();
         const search_item = {
-          search_item: this.search_text,
+          searchItem: this.search_text,
           Date: time
         };
         console.log(search_item);
