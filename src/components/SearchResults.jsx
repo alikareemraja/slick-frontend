@@ -11,10 +11,7 @@ import "../DispFormat.css";
 import searchStat from "./searchStat";
 import UserService from "../UserService";
 import HttpService from "../HttpService";
-import {
-  NotificationContainer,
-  NotificationManager
-} from "react-notifications";
+import { NotificationContainer,NotificationManager } from "react-notifications";
 
 const SearchEndPoint = "http://localhost:3001/search/get";
 const StatisticsEndPoint = "http://localhost:3001/search/stat";
@@ -369,6 +366,7 @@ class SearchResults extends Component {
                                   DisabledDictionary: this.state
                                     .DisabledDictionary
                                 });
+                                NotificationManager.success("Added to wishlist!");
                               })
                               .catch();
                           }}
