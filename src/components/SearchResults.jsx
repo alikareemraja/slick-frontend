@@ -23,11 +23,11 @@ class SearchResults extends Component {
   constructor(props) {
     // the constructor is to set the initial state of results
     UserService.getWishlistItems(UserService.getCurrentUser().id).then(data => {
-      console.log("Wishlist Items Dataaaaaaa: ");
-      console.log(data);
       this.setState({
         wishlistItems: data
       });
+      console.log("this.state.wishlistItems in the constructor");
+      console.log(this.state.wishlistItems);
     });
 
     super(props);
@@ -36,6 +36,7 @@ class SearchResults extends Component {
     this.addDefaultSrc = this.addDefaultSrc.bind(this);
     this.state = {
       results: [], //empty array of results properties
+      wishlistItems: [],
       number: 0,
       DisabledDictionary: {}
     };
@@ -53,10 +54,15 @@ class SearchResults extends Component {
       .then(response => {
         this.setState({ results: response });
         response.map(item => (this.state.DisabledDictionary[item._id] = false));
+        console.log("componentDidMount");
+        console.log("this.state.DisabledDictionary");
         console.log(this.state.DisabledDictionary);
         this.state.wishlistItems.map(
           item => (this.state.DisabledDictionary[item._id] = true)
         );
+        console.log("componentDidMount");
+        console.log("this.state.DisabledDictionary");
+        console.log(this.state.DisabledDictionary);
       })
       .catch(function(error) {
         console.log(error);
@@ -81,11 +87,13 @@ class SearchResults extends Component {
       }
 
       var url = SearchEndPoint + "?category=" + this.props.match.params.query;
-
       fetch(url, { headers: header })
         .then(res => res.json())
         .then(response => {
           this.setState({ results: response });
+          console.log("componentDidUpdate");
+          console.log("this.state.DisabledDictionary");
+          console.log(this.state.DisabledDictionary);
           response.map(
             item => (this.state.DisabledDictionary[item._id] = false)
           );
@@ -93,6 +101,9 @@ class SearchResults extends Component {
           this.state.wishlistItems.map(
             item => (this.state.DisabledDictionary[item._id] = true)
           );
+          console.log("componentDidUpdate");
+          console.log("this.state.DisabledDictionary");
+          console.log(this.state.DisabledDictionary);
         })
         .catch(function(error) {
           console.log(error);
@@ -114,7 +125,6 @@ class SearchResults extends Component {
   };
 
   addDefaultSrc(ev) {
-    //    ev.target.src = "https://bootdey.com/img/Content/avatar/avatar2.png";
     ev.target.src =
       "http://icons.iconarchive.com/icons/iconsmind/outline/256/T-Shirt-icon.png";
   }
@@ -127,10 +137,7 @@ class SearchResults extends Component {
       itemPriceList.map((p, i) => {
         priceList.push(itemPriceList[i]["price"]);
       });
-      console.log(priceList);
       let lowestPrice = Math.min.apply(null, priceList);
-      console.log("Lowest Price: ");
-      console.log(lowestPrice);
       let colorsList = currentItem.color;
       let recommended = currentItem.isRecommended;
 
@@ -149,7 +156,6 @@ class SearchResults extends Component {
                   />
                 </a>
               </div>
-
               <div className="col-xs-5 display-result-col">
                 <div className="row text-left text-primary search-result-heading">
                   {currentItem.title}
@@ -194,7 +200,7 @@ class SearchResults extends Component {
                 </div>
                 <div className="flex-row">
                   <div className="flex-col" />
-                  <div className="flex-col flex-col--end test">
+                  <div className="flex-col flex-col--end">
                     <div className="row align-items-end">
                       <div class="btn-group">
                         <button
@@ -336,11 +342,25 @@ class SearchResults extends Component {
                           type="button"
                           aria-pressed="true"
                           href="#"
+                          disabled={
+                            this.state.DisabledDictionary[currentItem._id]
+                          }
                           onClick={() => {
                             UserService.addWishlistItem(
                               UserService.getCurrentUser().id,
                               currentItem._id
-                            );
+                            )
+                              .then(res => {
+                                console.log("Added to wishlist");
+                                this.state.DisabledDictionary[
+                                  currentItem._id
+                                ] = true;
+                                this.setState({
+                                  DisabledDictionary: this.state
+                                    .DisabledDictionary
+                                });
+                              })
+                              .catch();
                           }}
                           style={buttonSize}
                           class="btn"
