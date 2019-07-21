@@ -10,7 +10,7 @@ import Tab from 'react-bootstrap/Tab'
 import Image from 'react-bootstrap/Image';
 import SlickService from '../services/SlickService';
 import UserService from '../UserService'
-
+import Thread from '../Thread'
 
 export class ItemDetail extends React.Component {
 
@@ -336,7 +336,9 @@ handleWishClick = (event) => {
                             }}
                           >
                             Reviews
-                         
+                            <div>
+                            <Thread itemId={this.props.item._id} />
+                            </div>
                           </div>
     
                          </div>
