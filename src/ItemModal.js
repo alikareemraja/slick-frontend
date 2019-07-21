@@ -20,7 +20,7 @@ export default class Wardrobe extends Component {
             imgSrc: this.props.imgSrc ? this.props.imgSrc : this.defaultImgSrc,
             title: this.props.title,
             description: this.props.description,
-            isAdd: this.props.length > 0,
+            isAdd: this.props.title === undefined,
         };
 
         console.log("Item model was called with " + Object.keys(this.props).length + " props. They are:");
@@ -66,6 +66,8 @@ export default class Wardrobe extends Component {
         }
         console.log("The submitted item is: ");
         console.log(item)
+        console.log("State is: ");
+        console.log(this.state);
 
         if (this.state.isAdd) {
             if (!window.confirm("Are you sure? The item will be added to your wardrobe if you click 'OK'.")) {
@@ -127,7 +129,7 @@ export default class Wardrobe extends Component {
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <button type="submit" class="btn btn-primary">Add to Wardrobe</button>
+                                <button type="submit" class="btn btn-primary">{this.state.IsAdd ? "Add to Wardrobe" : "Edit Item"}</button>
                             </div>
                         </form>
                     </div>

@@ -52,7 +52,15 @@ export default class UserService {
                 reject(textStatus);
             });
         });
-    }
+    }/* static addOwnedItem(userId, itemId) {
+        return new Promise((resolve, reject) => {
+            HttpService.post(this.baseURL() + "/" + userId + "/owned", itemId, function (data) {
+                resolve(data);
+            }, function (textStatus) {
+                reject(textStatus);
+            });
+        });
+    }*/
 
     static updateOwnedItem(userId, itemId, item) {
         return new Promise((resolve, reject) => {
