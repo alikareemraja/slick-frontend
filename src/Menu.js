@@ -2,7 +2,9 @@ import React, { Component } from "react";
 import axios from "axios";
 //import SearchResults from "./components/SearchResults";
 import HttpService from "./HttpService";
+import {NotificationContainer, NotificationManager} from 'react-notifications';
 const AddEndPoint = "http://localhost:3001/search/addstat";
+
 
 export default class Menu extends Component {
   constructor(props) {
@@ -53,7 +55,7 @@ export default class Menu extends Component {
         );
         window.location.href = "/home/search/" + this.search_text;
       }
-    } else window.alert("Empty search text");
+    } else NotificationManager.info("Cant perform emtpy search!");
   }
 
   render() {
@@ -131,6 +133,14 @@ export default class Menu extends Component {
             <li>
               <a href="/">
                 <i className="fa fa-angellist" /> <span>Wishlist</span>
+                <span className="pull-right-container">
+                  {/* <small className="label pull-right bg-green">new</small> */}
+                </span>
+              </a>
+            </li>
+            <li>
+              <a href="/">
+                <i className="fa fa-user-circle" /> <span>Friends</span>
                 <span className="pull-right-container">
                   {/* <small className="label pull-right bg-green">new</small> */}
                 </span>
