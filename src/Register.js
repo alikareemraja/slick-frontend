@@ -28,7 +28,7 @@ class Register extends Component {
         console.log("Trying to register user: " + this.state.username + ", pass: " + this.state.password1);
         UserService.register(this.state.username, this.state.password1).then((data) => {
             console.log("Hurray, you are registered!");
-            this.props.history.push("/app/wardrobe");
+            this.props.history.push("/home/");
         }).catch((e) => {
             console.error("An error was returned while registering: " + e);
             this.setState({
