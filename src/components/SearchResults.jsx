@@ -26,8 +26,6 @@ class SearchResults extends Component {
       this.setState({
         wishlistItems: data
       });
-      console.log("this.state.wishlistItems in the constructor");
-      console.log(this.state.wishlistItems);
     });
 
     super(props);
@@ -40,6 +38,26 @@ class SearchResults extends Component {
       number: 0,
       DisabledDictionary: {}
     };
+  }
+  componentWillMount() {
+    var url = SearchEndPoint + "?category=" + this.props.match.params.query;
+    let token = window.localStorage["jwtToken"];
+    let header = new Headers();
+    if (token) {
+      header.append("Authorization", `JWT ${token}`);
+    }
+    fetch(url, { headers: header })
+      .then(res => res.json())
+      .then(response => {
+        this.setState({ results: response });
+        response.map(item => (this.state.DisabledDictionary[item._id] = false));
+        this.state.wishlistItems.map(
+          item => (this.state.DisabledDictionary[item._id] = true)
+        );
+      })
+      .catch(function(error) {
+        console.log(error);
+      });
   }
 
   componentDidMount() {
@@ -54,15 +72,9 @@ class SearchResults extends Component {
       .then(response => {
         this.setState({ results: response });
         response.map(item => (this.state.DisabledDictionary[item._id] = false));
-        console.log("componentDidMount");
-        console.log("this.state.DisabledDictionary");
-        console.log(this.state.DisabledDictionary);
         this.state.wishlistItems.map(
           item => (this.state.DisabledDictionary[item._id] = true)
         );
-        console.log("componentDidMount");
-        console.log("this.state.DisabledDictionary");
-        console.log(this.state.DisabledDictionary);
       })
       .catch(function(error) {
         console.log(error);
@@ -91,19 +103,12 @@ class SearchResults extends Component {
         .then(res => res.json())
         .then(response => {
           this.setState({ results: response });
-          console.log("componentDidUpdate");
-          console.log("this.state.DisabledDictionary");
-          console.log(this.state.DisabledDictionary);
           response.map(
             item => (this.state.DisabledDictionary[item._id] = false)
           );
-          console.log(this.state.DisabledDictionary);
           this.state.wishlistItems.map(
             item => (this.state.DisabledDictionary[item._id] = true)
           );
-          console.log("componentDidUpdate");
-          console.log("this.state.DisabledDictionary");
-          console.log(this.state.DisabledDictionary);
         })
         .catch(function(error) {
           console.log(error);
@@ -129,8 +134,6 @@ class SearchResults extends Component {
       "http://icons.iconarchive.com/icons/iconsmind/outline/256/T-Shirt-icon.png";
   }
   itemList() {
-    console.log("this.state.results: ");
-    console.log(this.state.results);
     return this.state.results.map((currentItem, i) => {
       let itemPriceList = currentItem.retailers,
         priceList = [];
@@ -229,7 +232,6 @@ class SearchResults extends Component {
                               currentItem._id
                             )
                               .then(res => {
-                                console.log("Added to wishlist");
                                 this.state.DisabledDictionary[
                                   currentItem._id
                                 ] = true;
@@ -351,7 +353,6 @@ class SearchResults extends Component {
                               currentItem._id
                             )
                               .then(res => {
-                                console.log("Added to wishlist");
                                 this.state.DisabledDictionary[
                                   currentItem._id
                                 ] = true;
