@@ -11,8 +11,12 @@ import "../DispFormat.css";
 import searchStat from "./searchStat";
 import UserService from "../UserService";
 import HttpService from "../HttpService";
+import {NotificationContainer, NotificationManager} from 'react-notifications';
+
 const SearchEndPoint = "http://localhost:3001/search/get";
 const StatisticsEndPoint = "http://localhost:3001/search/stat";
+
+
 const buttonSize = {minHeight: "50px"}
 class SearchResults extends Component {
   constructor(props) {
@@ -207,7 +211,9 @@ class SearchResults extends Component {
                             UserService.addWishlistItem(
                               UserService.getCurrentUser().id,
                               currentItem._id
-                            );
+                            ).then(res => {
+                              NotificationManager.success("Added to wishlist");
+                            }).catch();
                           }}  style={buttonSize} class="btn">Add To Wishlist</button>
                       <button type="button" style={buttonSize} aria-pressed="true"
                           
@@ -297,7 +303,9 @@ class SearchResults extends Component {
                             UserService.addWishlistItem(
                               UserService.getCurrentUser().id,
                               currentItem._id
-                            );
+                            ).then(res => {
+                              NotificationManager.success("Added to wishlist");
+                            }).catch();;
                           }}  style={buttonSize}class="btn">Add To Wishlist</button>
                       <button type="button" aria-pressed="true"
                           style={{ minWidth: "80px" }}

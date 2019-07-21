@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import WardrobeItem from './WardrobeItem';
 import UserService from './UserService';
 import ItemModal from './ItemModal';
+import {NotificationContainer, NotificationManager} from 'react-notifications';
 
 export default class Wardrobe extends Component {
 
@@ -70,6 +71,7 @@ export default class Wardrobe extends Component {
 
         UserService.deleteOwnedItem(this.userId, itemId).then((msg) => {
             console.log(msg);
+            NotificationManager.success("Item deleted");
             this.setState({
                 ownedItems: this.state.ownedItems.filter(item => item._id !== itemId),
                 loading: false
@@ -86,6 +88,7 @@ export default class Wardrobe extends Component {
 
         UserService.deleteWishlistItem(this.userId, itemId).then((msg) => {
             console.log(msg);
+            NotificationManager.success("Deleted from wishlist");
             this.setState({
                 wishlistItems: this.state.wishlistItems.filter(item => item._id !== itemId),
                 loading: false
