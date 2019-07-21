@@ -1,6 +1,4 @@
 import React, { Component } from "react";
-import axios from "axios";
-//import SearchResults from "./components/SearchResults";
 import HttpService from "./HttpService";
 import {
   NotificationContainer,
@@ -9,6 +7,7 @@ import {
 const AddEndPoint = "http://localhost:3001/search/addstat";
 
 export default class Menu extends Component {
+  // the constructor is to set the initial state of results
   constructor(props) {
     super(props);
     this.onChangeSearchInput = this.onChangeSearchInput.bind(this);
@@ -28,22 +27,15 @@ export default class Menu extends Component {
   onSubmit(e) {
     //called when the user submits the form
     e.preventDefault(); //prevent browser's default behavior
-    // this.props.search_text = this.state.input_text; // make the call to back-end, passing the url of the back-end end point
     if (this.state.input_text) {
       if (this.state.input_text != this.search_text) {
         this.search_text = this.state.input_text;
-
-        //this.props.history.push("/home/search/" + this.search_text);
-        //  this.props.triggerParentUpdate(this.search_text);
         this.setState({ show: true });
         var time = new Date();
         const search_item = {
           searchItem: this.search_text,
           Date: time
         };
-        console.log("Posting to search statistics");
-        console.log(search_item);
-
         HttpService.post(
           AddEndPoint,
           search_item,
@@ -89,7 +81,7 @@ export default class Menu extends Component {
               <input
                 className="form-control"
                 type="text"
-                value={this.props.input_text} /**{this.state.input_text} */
+                value={this.props.input_text}
                 onChange={this.onChangeSearchInput}
                 placeholder="Search..."
               />
@@ -103,8 +95,6 @@ export default class Menu extends Component {
                 >
                   <i className="fa fa-search" />
                 </button>
-                {/*  React.cloneElement(this.props.children, input_text : "UUU")
-                 */}
               </span>
             </div>
           </form>

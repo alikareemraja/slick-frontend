@@ -23,8 +23,6 @@ class SearchResults extends Component {
   constructor(props) {
     // the constructor is to set the initial state of results
     UserService.getWishlistItems(UserService.getCurrentUser().id).then(data => {
-      console.log("Wishlist Items Dataaaaaaa: ");
-      console.log(data);
       this.setState({
         wishlistItems: data
       });
@@ -36,24 +34,25 @@ class SearchResults extends Component {
     this.addDefaultSrc = this.addDefaultSrc.bind(this);
     this.state = {
       results: [], //empty array of results properties
+      wishlistItems: [],
       number: 0,
       DisabledDictionary: {}
     };
   }
-
-  componentDidMount() {
+  componentWillMount() {
     var url = SearchEndPoint + "?category=" + this.props.match.params.query;
+    // user authentication using token
     let token = window.localStorage["jwtToken"];
     let header = new Headers();
     if (token) {
       header.append("Authorization", `JWT ${token}`);
     }
+    //fetching results from search end point
     fetch(url, { headers: header })
       .then(res => res.json())
       .then(response => {
         this.setState({ results: response });
         response.map(item => (this.state.DisabledDictionary[item._id] = false));
-        console.log(this.state.DisabledDictionary);
         this.state.wishlistItems.map(
           item => (this.state.DisabledDictionary[item._id] = true)
         );
@@ -61,8 +60,31 @@ class SearchResults extends Component {
       .catch(function(error) {
         console.log(error);
       });
+  }
 
-    fetch(StatisticsEndPoint, { headers: header }) // no data sent with GET so we get the list of items
+  componentDidMount() {
+    var url = SearchEndPoint + "?category=" + this.props.match.params.query;
+    // user authentication using token
+    let token = window.localStorage["jwtToken"];
+    let header = new Headers();
+    if (token) {
+      header.append("Authorization", `JWT ${token}`);
+    }
+    //fetching results from search end point
+    fetch(url, { headers: header })
+      .then(res => res.json())
+      .then(response => {
+        this.setState({ results: response });
+        response.map(item => (this.state.DisabledDictionary[item._id] = false));
+        this.state.wishlistItems.map(
+          item => (this.state.DisabledDictionary[item._id] = true)
+        );
+      })
+      .catch(function(error) {
+        console.log(error);
+      });
+    //fetching statistics data from statistics end point
+    fetch(StatisticsEndPoint, { headers: header }) // no data sent with GET
       .then(res => res.json())
       .then(response => {
         this.setState({ number: response.length });
@@ -73,15 +95,16 @@ class SearchResults extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
+    //comparing props before triggering an update
     if (prevProps.input_text !== this.props.input_text) {
+      // user authentication using token
       let token = window.localStorage["jwtToken"];
       let header = new Headers();
       if (token) {
         header.append("Authorization", `JWT ${token}`);
       }
-
+      //fetching results from search end point
       var url = SearchEndPoint + "?category=" + this.props.match.params.query;
-
       fetch(url, { headers: header })
         .then(res => res.json())
         .then(response => {
@@ -89,7 +112,6 @@ class SearchResults extends Component {
           response.map(
             item => (this.state.DisabledDictionary[item._id] = false)
           );
-          console.log(this.state.DisabledDictionary);
           this.state.wishlistItems.map(
             item => (this.state.DisabledDictionary[item._id] = true)
           );
@@ -97,8 +119,8 @@ class SearchResults extends Component {
         .catch(function(error) {
           console.log(error);
         });
-
-      fetch(StatisticsEndPoint, { headers: header }) // no data sent with GET so we get the list of items
+      //fetching statistics data from statistics end point
+      fetch(StatisticsEndPoint, { headers: header }) // no data sent with GET
         .then(res => res.json())
         .then(response => {
           this.setState({ number: response.length });
@@ -114,24 +136,20 @@ class SearchResults extends Component {
   };
 
   addDefaultSrc(ev) {
-    //    ev.target.src = "https://bootdey.com/img/Content/avatar/avatar2.png";
     ev.target.src =
       "http://icons.iconarchive.com/icons/iconsmind/outline/256/T-Shirt-icon.png";
   }
+
   itemList() {
-    console.log("this.state.results: ");
-    console.log(this.state.results);
     return this.state.results.map((currentItem, i) => {
+      // lowest price calculations
       let itemPriceList = currentItem.retailers,
         priceList = [];
       itemPriceList.map((p, i) => {
         priceList.push(itemPriceList[i]["price"]);
       });
-      console.log(priceList);
       let lowestPrice = Math.min.apply(null, priceList);
-      console.log("Lowest Price: ");
-      console.log(lowestPrice);
-      let colorsList = currentItem.color;
+      let colorsList = currentItem.color; // list of colors for item
       let recommended = currentItem.isRecommended;
 
       if (recommended)
@@ -149,7 +167,6 @@ class SearchResults extends Component {
                   />
                 </a>
               </div>
-
               <div className="col-xs-5 display-result-col">
                 <div className="row text-left text-primary search-result-heading">
                   {currentItem.title}
@@ -173,7 +190,7 @@ class SearchResults extends Component {
                     <a className="row text-primary color-result">
                       {colorsList.map(function(name, index) {
                         return (
-                          <span id="ttt">
+                          <span id="name-style">
                             <span>{name}</span>
                           </span>
                         );
@@ -194,7 +211,7 @@ class SearchResults extends Component {
                 </div>
                 <div className="flex-row">
                   <div className="flex-col" />
-                  <div className="flex-col flex-col--end test">
+                  <div className="flex-col flex-col--end">
                     <div className="row align-items-end">
                       <div class="btn-group">
                         <button
@@ -223,7 +240,6 @@ class SearchResults extends Component {
                               currentItem._id
                             )
                               .then(res => {
-                                console.log("Added to wishlist");
                                 this.state.DisabledDictionary[
                                   currentItem._id
                                 ] = true;
@@ -295,7 +311,7 @@ class SearchResults extends Component {
                     <a className="row text-primary color-result">
                       {colorsList.map(function(name, index) {
                         return (
-                          <span id="ttt">
+                          <span id="name-style">
                             <span>{name}</span>
                           </span>
                         );
@@ -336,11 +352,24 @@ class SearchResults extends Component {
                           type="button"
                           aria-pressed="true"
                           href="#"
+                          disabled={
+                            this.state.DisabledDictionary[currentItem._id]
+                          }
                           onClick={() => {
                             UserService.addWishlistItem(
                               UserService.getCurrentUser().id,
                               currentItem._id
-                            );
+                            )
+                              .then(res => {
+                                this.state.DisabledDictionary[
+                                  currentItem._id
+                                ] = true;
+                                this.setState({
+                                  DisabledDictionary: this.state
+                                    .DisabledDictionary
+                                });
+                              })
+                              .catch();
                           }}
                           style={buttonSize}
                           class="btn"
