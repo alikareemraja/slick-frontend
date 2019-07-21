@@ -2,9 +2,11 @@ import React, { Component } from "react";
 import axios from "axios";
 //import SearchResults from "./components/SearchResults";
 import HttpService from "./HttpService";
-import {NotificationContainer, NotificationManager} from 'react-notifications';
+import {
+  NotificationContainer,
+  NotificationManager
+} from "react-notifications";
 const AddEndPoint = "http://localhost:3001/search/addstat";
-
 
 export default class Menu extends Component {
   constructor(props) {
@@ -27,9 +29,6 @@ export default class Menu extends Component {
     //called when the user submits the form
     e.preventDefault(); //prevent browser's default behavior
     // this.props.search_text = this.state.input_text; // make the call to back-end, passing the url of the back-end end point
-    console.log("DNTDNTMDNENDMENDNEMDNENNYNSMEM");
-    console.log("this.search_text: " + this.search_text);
-    console.log("this.state.input_text: " + this.state.input_text);
     if (this.state.input_text) {
       if (this.state.input_text != this.search_text) {
         this.search_text = this.state.input_text;
@@ -48,8 +47,8 @@ export default class Menu extends Component {
         HttpService.post(
           AddEndPoint,
           search_item,
-          function (data) { },
-          function (textStatus) {
+          function(data) {},
+          function(textStatus) {
             console.log(textStatus);
           }
         );
