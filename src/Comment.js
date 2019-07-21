@@ -17,7 +17,9 @@ export default class Comment extends Component {
         this.state = { editMode : false, updateText : "", userName : "", loggedInUser : "" };
         var user = UserService.getCurrentUser()
         this.state.loggedInUser =  UserService.getCurrentUser().id;
-        var result = props.userId === this.state.loggedInUser
+        var result = props.userId === this.state.loggedInUser;
+        
+        
     }
     
     
@@ -50,6 +52,19 @@ export default class Comment extends Component {
             NotificationManager.error('Comment Failed to delete');
         })
 
+    }
+
+    castVote = function(vote){
+        
+        CommentService.castVote(this.props.comment._id, this.props.comment.votes + vote )
+        .then((data) => {
+            NotificationManager.success('Vote cast');
+            this.props.callback()
+        })
+        .catch((error) => {
+            console.log(error);
+            NotificationManager.error('Failed to cast vote');
+        })
     }
 
     replyToComment = function (userId, commentId, text) {
@@ -98,23 +113,23 @@ export default class Comment extends Component {
 
     render() {
         return (
-            <div>
+            <div style={{marginTop: "15px"}}>
                 <div className="media">
                     {/* first comment */}
                     <div className="media-heading">
-                        <button className="btn btn-default btn-xs" type="button" data-toggle="collapse" data-target={"#collapse"+ this.props.comment._id} aria-expanded="false" aria-controls="collapseExample"><span className="glyphicon glyphicon-minus" aria-hidden="true" /></button> <span className="label label-info">12314</span> {this.state.userName} {new Date(this.props.comment.date).toLocaleTimeString()  }
+                        <button className="btn btn-default btn-xs" type="button" data-toggle="collapse" data-target={"#collapse"+ this.props.comment._id} aria-expanded="false" aria-controls="collapseExample"><span className="glyphicon glyphicon-minus" aria-hidden="true" /></button> <span className="label label-info">{this.props.comment.votes}</span> {this.state.userName} {new Date(this.props.comment.date).toLocaleTimeString()  }
         </div>
                     <div className="panel-collapse collapse in" id={"collapse" + this.props.comment._id}>
                         <div className="media-left">
                             <div className="vote-wrap">
-                                <div className="save-post">
+                                {/* <div className="save-post">
                                     <a href="fake_url"><span className="glyphicon glyphicon-star" aria-label="Save" /></a>
-                                </div>
+                                </div> */}
                                 <div className="vote up">
-                                    <i className="glyphicon glyphicon-menu-up" />
+                                    <i className="glyphicon glyphicon-menu-up" onClick={this.castVote.bind(this, 1)} style={{cursor: "pointer"}} />
                                 </div>
                                 <div className="vote inactive">
-                                    <i className="glyphicon glyphicon-menu-down" />
+                                <i className="glyphicon glyphicon-menu-down" onClick={this.castVote.bind(this, -1)} style={{cursor: "pointer"}} />
                                 </div>
                             </div>
                             {/* vote-wrap */}
