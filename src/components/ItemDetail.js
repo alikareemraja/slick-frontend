@@ -328,7 +328,7 @@ export class ItemDetail extends React.Component {
                   }}
                 >
                   <div>
-                    <Link to={"/show/" + this.state.ritem[0]._id}>
+                    <Link to={"/home/show/" + this.state.ritem[0]._id}>
                       <Image
                         alt={this.state.ritem[0].title}
                         style={{
@@ -372,7 +372,7 @@ export class ItemDetail extends React.Component {
                   }}
                 >
                   <div>
-                    <Link to={"/show/" + this.state.ritem[1]._id}>
+                    <Link to={"/home/show/" + this.state.ritem[1]._id}>
                       <Image
                         alt={this.state.ritem[1].title}
                         style={{
