@@ -12,7 +12,8 @@ export default class Comment extends Component {
     
     constructor(props) {
         super(props);
-        this.state = { editMode : false, updateText : "" };
+        this.getUser(this.props.userId);
+        this.state = { editMode : false, updateText : "", userName : "" };
     }
 
     handleChange = (e) =>{ 
@@ -60,6 +61,21 @@ export default class Comment extends Component {
 
     }
 
+    getUser = function(userId){
+
+        CommentService.getUser(userId)
+        .then((data) => {
+            console.log("success!")
+            this.setState({userName: data.username});
+            this.props.callback()
+            this.toggleEdit();
+        }).catch((error) => {
+            console.log(error);
+            NotificationManager.error('User details not found');
+        })
+        
+    }
+
     updateComment = function (commentId, text) {
         CommentService.updateComment(commentId, text)
         .then((data) => {
@@ -81,7 +97,7 @@ export default class Comment extends Component {
                 <div className="media">
                     {/* first comment */}
                     <div className="media-heading">
-                        <button className="btn btn-default btn-xs" type="button" data-toggle="collapse" data-target={"#collapse"+ this.props.comment._id} aria-expanded="false" aria-controls="collapseExample"><span className="glyphicon glyphicon-minus" aria-hidden="true" /></button> <span className="label label-info">12314</span> terminator {new Date(this.props.comment.date).toLocaleTimeString()  }
+                        <button className="btn btn-default btn-xs" type="button" data-toggle="collapse" data-target={"#collapse"+ this.props.comment._id} aria-expanded="false" aria-controls="collapseExample"><span className="glyphicon glyphicon-minus" aria-hidden="true" /></button> <span className="label label-info">12314</span> {this.state.userName} {new Date(this.props.comment.date).toLocaleTimeString()  }
         </div>
                     <div className="panel-collapse collapse in" id={"collapse" + this.props.comment._id}>
                         <div className="media-left">
@@ -130,7 +146,7 @@ export default class Comment extends Component {
                             {/* comment-meta */}
                             {this.props.comment.replies.map((reply) => (
                                 <div >
-                                    <Comment comment={reply} callback={this.props.callback} />
+                                    <Comment comment={reply} userId={this.props.userId} callback={this.props.callback} />
                                 </div>
                             ))}
                         </div>
