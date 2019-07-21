@@ -21,14 +21,14 @@ class Home extends Component {
   constructor(props) {
     super(props);
 
-    UserService.getCurrentUserInfo().then((data) => {
+    UserService.getCurrentUserInfo().then(data => {
       console.log("Curent User Info: ");
       console.log(data);
       this.setState({
         userFullName: data[0].name,
         userImgSrc: data[0].imageURL
       });
-    })
+    });
 
     this.state = {
       input_text: "",
@@ -38,8 +38,6 @@ class Home extends Component {
   //callbackFromParent
   Callback = dataFromMenu => {
     this.setState({ input_text: dataFromMenu, show: true });
-    console.log("Hiiiiiiiiii");
-    console.log(this.state.input_text);
   };
 
   render() {
@@ -50,22 +48,37 @@ class Home extends Component {
           type="text/css"
           href="path/to/notifications.css"
         />
-        <Header userFullName={this.state.userFullName} userImgSrc={this.state.userImgSrc} />
-        <Menu triggerParentUpdate={this.Callback} userFullName={this.state.userFullName} userImgSrc={this.state.userImgSrc} />
+        <Header
+          userFullName={this.state.userFullName}
+          userImgSrc={this.state.userImgSrc}
+        />
+        <Menu
+          triggerParentUpdate={this.Callback}
+          userFullName={this.state.userFullName}
+          userImgSrc={this.state.userImgSrc}
+        />
         <div className="content-wrapper">
           {/* Content Header (Page header) */}
 
           {/* Main content */}
           <section className="content">
             <switch>
-              <Route exact path="/home" render={(props) => <Wardrobe userId={UserService.getCurrentUser().id} />} />
+              <Route
+                exact
+                path="/home"
+                render={props => (
+                  <Wardrobe userId={UserService.getCurrentUser().id} />
+                )}
+              />
               <Route exact path="/home/user/:uid" component={Wardrobe} />
-              <Route path="/home/user/:uid/ownedItem/:itemId" component={OwnedItemPage} />
+              <Route
+                path="/home/user/:uid/ownedItem/:itemId"
+                component={OwnedItemPage}
+              />
               <Route path="/home/show/:id" component={ItemDetailView} />
               <Route path="/home/search/:query" component={SearchResults} />
               <Route path="/home/searchStat" component={searchStat} />
             </switch>
-
           </section>
           <NotificationContainer />
           {/* /.content */}

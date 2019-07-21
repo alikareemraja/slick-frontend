@@ -64,8 +64,7 @@
 
 .display-result-col {
   max-width: 100%;
-  max-height: 100%; /*
-  background-color: rgb(236, 70, 70);*/
+  max-height: 100%;
   text-align: left;
 }
 
@@ -74,14 +73,10 @@
 }
 
 .search-result-info {
-  /*
-  background-color: rgb(12, 12, 228);*/
   text-align: left;
 }
 
 .Brand {
-  /* background-color: brown;
- */
   font-size: 16px;
   position: relative;
   top: 0px;
@@ -111,8 +106,7 @@
 
 .info-sec-col {
   max-height: 100%;
-  max-width: 100%; /*
-  background-color: rgb(7, 0, 0);*/
+  max-width: 100%;
   text-align: center;
 }
 
@@ -131,10 +125,6 @@
   text-align: right;
 }
 
-#ttt span::after {
-  content: ", ";
-}
-
 .flex-row {
   display: flex;
   flex-direction: row;
@@ -149,13 +139,16 @@
   margin-bottom: 10px;
 }
 .flex-col {
-  /*
-  background-color: cadetblue;*/
   margin-left: -5px;
 }
-#ttt span:last-child::after {
-  content: "  ";
-} /* empty string */
+
+#name-style span:last-child::after {
+  content: ", ";
+}
+
+#name-style span::after {
+  content: ", ";
+}
 
 .stats {
   margin-top: 20px;
