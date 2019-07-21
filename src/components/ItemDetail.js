@@ -312,36 +312,6 @@ handleWishClick = (event) => {
                         </div>
     
     
-                        <div className="details3" style={{ 
-                          width: 1000,
-                                height: 250,
-                                backgroundColor: "#ffffff",
-                                paddingTop: 5,
-                                paddingBottom: 5,
-                                paddingLeft: 40,
-                                paddingRight: 40,
-                                //marginLeft: 190,
-                                border: "1px solid transparent",
-                                borderRadius: "5px",
-                          padding: 10 }}>
-    
-    
-                            <div
-                            style={{
-                              color: "#504F5A",
-                              marginTop: 10,
-                              marginBottom: 20,
-                              //marginLeft: -240,
-                              fontSize: 22
-                            }}
-                          >
-                            Reviews
-                            <div>
-                            <Thread itemId={this.props.item._id} />
-                            </div>
-                          </div>
-    
-                         </div>
     
     
     
@@ -485,6 +455,34 @@ handleWishClick = (event) => {
     
                         </Col>
 
+                      </Row>
+
+                      
+    
+    
+                            <div
+                            style={{
+                              color: "#504F5A",
+                              marginTop: 10,
+                              marginBottom: 20,
+                              //marginLeft: -240,
+                              fontSize: 22
+                            }}
+                          >
+                            Reviews
+                            
+                          </div>
+
+
+                          <div className="row d-flex justify-content-center">
+
+                                <Thread itemId={this.props.item._id} />
+
+                          </div>
+
+                      <Row>
+
+                        
                       </Row>
 
                   </Container>
