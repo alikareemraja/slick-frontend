@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import WardrobeItem from './WardrobeItem';
 import UserService from './UserService';
 import ItemModal from './ItemModal';
-import {NotificationContainer, NotificationManager} from 'react-notifications';
+import { NotificationContainer, NotificationManager } from 'react-notifications';
 
 export default class Wardrobe extends Component {
 
@@ -103,7 +103,7 @@ export default class Wardrobe extends Component {
             return ("Loading the wardrobe...")
         }
 
-        let rows = [];
+        let rows_OI = [];
         let N = 4;
         let len = this.state.ownedItems.length;
         for (var i = 0; i <= Math.floor(len / N); i++) {
@@ -112,7 +112,34 @@ export default class Wardrobe extends Component {
                 let item = this.state.ownedItems[i * N + j];
                 cols.push(<WardrobeItem key={item._id} item={item} onDelete={(itemId) => this.deleteOwnedItem(itemId)} link={"/home/user/" + this.state.userId + "/ownedItem/" + item._id} isOwn={this.state.isOwnPage} />)
             }
-            rows.push(
+            rows_OI.push(
+                <div className="row">{cols}</div>
+            );
+        }
+
+        let rows_WL = [];
+        len = this.state.wishlistItems.length;
+        for (i = 0; i <= Math.floor(len / N); i++) {
+            let cols = [];
+            for (j = 0; j < (i === Math.floor(len / N) ? len % N : N); j++) {
+                let item = this.state.wishlistItems[i * N + j];
+                cols.push(<WardrobeItem key={item._id} item={item} onDelete={(itemId) => this.deleteWishlistItem(itemId)} link={"/home/show/" + item._id} isOwn={this.state.isOwnPage} />)
+            }
+            rows_WL.push(
+                <div className="row">{cols}</div>
+            );
+        }
+
+        let rows_F = [];
+        len = this.state.friends.length;
+        for (i = 0; i <= Math.floor(len / N); i++) {
+            let cols = [];
+            for (j = 0; j < (i === Math.floor(len / N) ? len % N : N); j++) {
+                let item = this.state.friends[i * N + j];
+                item["title"] = item.name;
+                cols.push(<WardrobeItem key={item._id} item={item} onDelete={(itemId) => this.deleteWishlistItem(itemId)} link={"/home/user/" + item._id} isOwn={this.state.isOwnPage} />)
+            }
+            rows_F.push(
                 <div className="row">{cols}</div>
             );
         }
@@ -155,7 +182,7 @@ export default class Wardrobe extends Component {
                             {this.state.isOwnPage ? <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#itemModal" style={{ position: "fixed", bottom: "60px", right: "10px", width: "80px", height: "80px", borderRadius: "100%", fontSize: "50px", lineHeight: "50px", paddingTop: "0px", zIndex: "99" }}>+</button> : null}
 
                             <ItemModal />
-                            {rows}
+                            {rows_OI}
 
                             {/* Show number of items in OwnedItems */}
                             <div className="text-center">
@@ -163,7 +190,7 @@ export default class Wardrobe extends Component {
                             </div>
                         </div>
                         <div className="tab-pane" id="wishlist">
-                            <div className="row">
+                            {/*<div className="row">
                                 {this.state.wishlistItems.map((item) => {
                                     return (
 
@@ -171,14 +198,15 @@ export default class Wardrobe extends Component {
 
                                     );
                                 })}
-                            </div>
+                            </div>*/}
+                            {rows_WL}
 
                             <div className="text-center">
                                 There are {this.state.wishlistItems.length} item(s) in the wishlist.
                             </div>
                         </div>
                         <div className="tab-pane" id="friends">
-                            <div className="row">
+                            {/*<div className="row">
                                 {this.state.friends.map((item) => {
                                     item["title"] = item.name;
                                     return (
@@ -186,7 +214,8 @@ export default class Wardrobe extends Component {
 
                                     );
                                 })}
-                            </div>
+                            </div>*/}
+                            {rows_F}
 
                             <div className="text-center">
                                 There are {this.state.friends.length} friend(s).
