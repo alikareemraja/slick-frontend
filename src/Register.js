@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import UserService from './UserService';
-import {NotificationContainer, NotificationManager} from 'react-notifications';
+import { NotificationContainer, NotificationManager } from 'react-notifications';
 import 'react-notifications/lib/notifications.css';
 
 class Register extends Component {
@@ -19,7 +19,7 @@ class Register extends Component {
         document.getElementById('body').className = 'hold-transition skin-black sidebar-mini'
     }
 
-    socialLogin = function(id){
+    socialLogin = function (id) {
         NotificationManager.info('Social login not available');
     }
 
@@ -38,13 +38,13 @@ class Register extends Component {
             data.append('file', this.state.file)
 
             fetch('http://localhost:3001/items/photo/' + uid, {
-                    method: 'POST',
-                    body: data
-                }).then((data) => {
-                    NotificationManager.success("Profile Created!");
-                }).catch((error)=>{
-                    NotificationManager.error("Profile failed to create");
-                })
+                method: 'POST',
+                body: data
+            }).then((data) => {
+                NotificationManager.success("Profile Created!");
+            }).catch((error) => {
+                NotificationManager.error("Profile failed to create");
+            })
             console.log("Hurray, you are registered!");
             this.props.history.push("/home/");
         }).catch((e) => {
@@ -98,14 +98,11 @@ class Register extends Component {
         return (
             <div className="register-box">
                 <div className="register-logo">
-                    <a href="../../index2.html"><b>Slick</b></a>
+                    <a href="./register"><b>Slick</b></a>
                 </div>
                 <div className="register-box-body">
                     <p className="login-box-msg">Register a new membership</p>
                     <form action="../../index.html" onSubmit={this.handleRegister}>
-                        <div class="form-group">
-                            <input id="filePicker" required type="file" class="form-control-file" accept=".gif,.jpg,.jpeg,.png" onChange={this.handleFormChange} />
-                        </div>
                         <div className="form-group has-feedback">
                             <input id="name" type="text" className="form-control" placeholder="Full name" required={true} onChange={this.handleFormChange} />
                             <span className="glyphicon glyphicon-user form-control-feedback" />
@@ -122,31 +119,30 @@ class Register extends Component {
                             <input id="password2" type="password" className="form-control" placeholder="Retype password" required={true} onChange={this.handleFormChange} />
                             <span className="glyphicon glyphicon-log-in form-control-feedback" />
                         </div>
-                        <div className="row">
-                            <div className="col-xs-8">
-                                <div className="checkbox icheck">
-                                    <label>
-                                        <input type="checkbox" /> I agree to the <a href="fake_url">terms</a>
-                                    </label>
-                                </div>
+                        <div class="form-group has-feedback">Profile picture:
+                            <input id="filePicker" required type="file" class="form-control-file" accept=".gif,.jpg,.jpeg,.png" onChange={this.handleFormChange} />
+                        </div>
+                        <div className="form-group has-feedback">
+                            <div className="col-xs-8" style={{ paddingLeft: "0" }}>
+                                <p className="form-check-label" >
+                                    <input id="remember" className="form-check-input" type="checkbox" value="" style={{ verticalAlign: "top" }} required /> I agree to the <a href="fake_url">terms</a>
+                                </p>
                             </div>
-                            {/* /.col */}
-                            <div className="col-xs-4">
+                            <div className="col-xs-4" style={{ paddingRight: "0" }}>
                                 <button type="submit" className="btn btn-primary btn-block btn-flat">Register</button>
                             </div>
-                            {/* /.col */}
                         </div>
                     </form>
                     <div className="social-auth-links text-center">
                         <p>- OR -</p>
-                        <a onClick={this.socialLogin.bind(this,1)} className="btn btn-block btn-social btn-facebook btn-flat"><i className="fa fa-facebook" /> Sign up using
+                        <a onClick={this.socialLogin.bind(this, 1)} className="btn btn-block btn-social btn-facebook btn-flat"><i className="fa fa-facebook" /> Sign up using
         Facebook</a>
-                        <a onClick={this.socialLogin.bind(this,2)} className="btn btn-block btn-social btn-google btn-flat"><i className="fa fa-google-plus" /> Sign up using
+                        <a onClick={this.socialLogin.bind(this, 2)} className="btn btn-block btn-social btn-google btn-flat"><i className="fa fa-google-plus" /> Sign up using
         Google+</a>
                     </div>
                     <a href="login" className="text-center">I already have a membership</a>
                 </div>
-                <NotificationContainer/>
+                <NotificationContainer />
                 {/* /.form-box */}
             </div>
 

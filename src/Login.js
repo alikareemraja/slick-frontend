@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import UserService from './UserService';
-import {NotificationContainer, NotificationManager} from 'react-notifications';
+import { NotificationContainer, NotificationManager } from 'react-notifications';
 import 'react-notifications/lib/notifications.css';
 
 export default class Login extends Component {
@@ -36,7 +36,7 @@ export default class Login extends Component {
         });
     }
 
-    socialLogin = function(id){
+    socialLogin = function (id) {
         NotificationManager.info('Social login not available');
     }
 
@@ -64,7 +64,7 @@ export default class Login extends Component {
         return (
 
             <div className="login-box">
-                
+
                 <script src="../../plugins/iCheck/icheck.min.js"></script>
 
                 <div className="login-logo">
@@ -73,7 +73,7 @@ export default class Login extends Component {
                 {/* /.login-logo */}
                 <div className="login-box-body">
                     <p className="login-box-msg">Sign in to start your session</p>
-                    <form  onSubmit={this.handleLogin}>
+                    <form onSubmit={this.handleLogin}>
                         <div className="form-group has-feedback">
                             <input id="email" type="email" className="form-control" placeholder="Email" onChange={this.handleFormChange} required={true} />
                             <span className="glyphicon glyphicon-envelope form-control-feedback" />
@@ -82,26 +82,22 @@ export default class Login extends Component {
                             <input id="password" type="password" className="form-control" placeholder="Password" onChange={this.handleFormChange} required={true} />
                             <span className="glyphicon glyphicon-lock form-control-feedback" />
                         </div>
-                        <div className="row">
-                            <div className="col-xs-8">
-                                <div className="checkbox icheck">
-                                    <label>
-                                        <input type="checkbox" /> Remember Me
-                                    </label>
-                                </div>
+                        <div className="form-group has-feedback">
+                            <div className="col-xs-8" style={{ paddingLeft: "0" }}>
+                                <p className="form-check-label" >
+                                    <input id="remember" className="form-check-input" type="checkbox" value="" style={{ verticalAlign: "top" }} /> Remember me
+                                </p>
                             </div>
-                            {/* /.col */}
-                            <div className="col-xs-4">
+                            <div className="col-xs-4" style={{ paddingRight: "0" }}>
                                 <button type="submit" className="btn btn-primary btn-block btn-flat">Sign In</button>
                             </div>
-                            {/* /.col */}
                         </div>
                     </form>
                     <div className="social-auth-links text-center">
                         <p>- OR -</p>
-                        <a onClick={this.socialLogin.bind(this,1)}  className="btn btn-block btn-social btn-facebook btn-flat"><i className="fa fa-facebook" /> Sign in using
+                        <a onClick={this.socialLogin.bind(this, 1)} className="btn btn-block btn-social btn-facebook btn-flat"><i className="fa fa-facebook" /> Sign in using
           Facebook</a>
-                        <a onClick={this.socialLogin.bind(this,2)} className="btn btn-block btn-social btn-google btn-flat"><i className="fa fa-google-plus" /> Sign in using
+                        <a onClick={this.socialLogin.bind(this, 2)} className="btn btn-block btn-social btn-google btn-flat"><i className="fa fa-google-plus" /> Sign in using
           Google+</a>
                     </div>
                     {/* /.social-auth-links */}
@@ -109,7 +105,7 @@ export default class Login extends Component {
                     <a href="register" className="text-center">Register a new membership</a>
                 </div>
                 {/* /.login-box-body */}
-                <NotificationContainer/>
+                <NotificationContainer />
             </div>
 
 
