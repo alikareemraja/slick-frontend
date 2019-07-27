@@ -13,7 +13,6 @@ export default class Wardrobe extends Component {
         super(props);
         this.defaultImgSrc = "http://icons.iconarchive.com/icons/iconsmind/outline/256/T-Shirt-icon.png";
         this.userId = UserService.getCurrentUser().id;
-        console.log("Loading wardrobe for userid: " + this.userId);
     }
 
     componentWillMount(props) {
@@ -36,6 +35,8 @@ export default class Wardrobe extends Component {
             isOwnPage: UserService.getCurrentUser().id === uid,
             userId: uid
         });
+
+        console.log("Loading wardrobe of userid: " + uid + ", current userid: " + this.userId);
 
         UserService.getOwnedItems(uid).then((data) => {
             console.log("Owned Items Data: " + data)
@@ -159,7 +160,7 @@ export default class Wardrobe extends Component {
                             <div className="row" style={{ margin: "0px 0px 0px 0px" }}>
                                 {this.state.wishlistItems.map((item) => {
                                     return (
-                                        <WardrobeItem key={item._id} item={item} onDelete={(itemId) => { return }} link={"/home/user/" + item._id} isOwn={this.state.isOwnPage} />
+                                        <WardrobeItem key={item._id} item={item} onDelete={(itemId) => { return }} link={"/home/show/" + item._id} isOwn={this.state.isOwnPage} />
                                     );
                                 })
                                 }
@@ -174,7 +175,7 @@ export default class Wardrobe extends Component {
                                 {this.state.friends.map((item) => {
                                     item["title"] = item.name;
                                     return (
-                                        <WardrobeItem key={item._id} item={item} onDelete={(itemId) => { }} link={"/home/show/" + item._id} isOwn={this.state.isOwnPage} />
+                                        <WardrobeItem key={item._id} item={item} onDelete={(itemId) => { }} link={"/home/user/" + item._id} isOwn={this.state.isOwnPage} />
                                     );
                                 })
                                 }

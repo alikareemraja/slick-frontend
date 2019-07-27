@@ -3,8 +3,20 @@ import UserService from './UserService';
 import Thread from './Thread';
 import ItemModal from './ItemModal';
 
-export default class OwnedItemPage extends Component {
+const styleImg = {
+    borderRadius: "5px",
+    boxShadow: "0 4px 8px 0 rgba(0,0,0,0.2)",
+    objectFit: "cover",
+    width: "100%",
+    height: "100%",
+    padding: "3px 3px 0px 3px",
+    maxHeight: "600px",
+    minHeight: "350px",
+    maxWidth: "600px",
+    minWidth: "150px"
+}
 
+export default class OwnedItemPage extends Component {
 
     constructor(props) {
         super(props);
@@ -31,16 +43,15 @@ export default class OwnedItemPage extends Component {
     }
 
     render() {
-        {/* TODO: Add editItem */ }
         if (this.state.loading)
             return (<div>Loading your item...</div>);
+
         console.log("Rendering item_id: " + this.state.item._id);
         return (
             <div>
                 <section className="content-header">
                     <h1>
-                        Wardrobe
-              <small>your custom choice</small>
+                        Wardrobe<small>your custom choice</small>
                     </h1>
                     <ol className="breadcrumb">
                         <li>
@@ -52,15 +63,19 @@ export default class OwnedItemPage extends Component {
                         <li className="active">Item</li>
                     </ol>
                 </section>
-                <div className="row d-flex justify-content-center">
-                    <div className="text-center">
-                        <img src={"http://localhost:3001/items/photo/" + this.state.item._id} alt={this.state.item.title} style={{ "maxWidth": "600px", "maxHeight": "600px", "minWidth": "350px", "minHeight": "350px", "boxShadow": "0 4px 8px 0 rgba(0,0,0,0.2)", "borderRadius": "5px" }} />
-                        <h4>{this.state.item.title}</h4>
-                        {this.state.isOwnPage ? <button data-toggle="modal" data-target="#itemModal" style={{ whiteSpace: "pre" }} ><span className="glyphicon glyphicon-pencil" />  Edit your item</button> : null}
-                    </div>
-                    <Thread userId={this.props.match.params.uid} itemId={this.state.item._id} />
-                    <ItemModal title={this.state.item.title} imgSrc={this.state.item.imageURL} description={this.state.item.description} itemId={this.props.match.params.itemId} />
+
+                <div className="container col-xs-12 text-center">
+                    <img src={"http://localhost:3001/items/photo/" + this.state.item._id} alt={this.state.item.title} style={styleImg} />
+
+                    <h4>{this.state.item.title}</h4>
+
+                    {this.state.isOwnPage ? <button data-toggle="modal" data-target="#itemModal" style={{ whiteSpace: "pre" }} ><span className="glyphicon glyphicon-pencil" />  Edit your item</button> : null}
                 </div>
+
+                <Thread userId={this.props.match.params.uid} itemId={this.state.item._id} />
+
+                <ItemModal title={this.state.item.title} imgSrc={this.state.item.imageURL} description={this.state.item.description} itemId={this.props.match.params.itemId} />
+
             </div>
 
         );
