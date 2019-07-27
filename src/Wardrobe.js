@@ -103,59 +103,17 @@ export default class Wardrobe extends Component {
             return ("Loading the wardrobe...")
         }
 
-        let rows_OI = [];
-        let N = 4;
-        let len = this.state.ownedItems.length;
-        for (var i = 0; i <= Math.floor(len / N); i++) {
-            let cols = [];
-            for (var j = 0; j < (i === Math.floor(len / N) ? len % N : N); j++) {
-                let item = this.state.ownedItems[i * N + j];
-                cols.push(<WardrobeItem key={item._id} item={item} onDelete={(itemId) => this.deleteOwnedItem(itemId)} link={"/home/user/" + this.state.userId + "/ownedItem/" + item._id} isOwn={this.state.isOwnPage} />)
-            }
-            rows_OI.push(
-                <div className="row">{cols}</div>
-            );
-        }
-
-        let rows_WL = [];
-        len = this.state.wishlistItems.length;
-        for (i = 0; i <= Math.floor(len / N); i++) {
-            let cols = [];
-            for (j = 0; j < (i === Math.floor(len / N) ? len % N : N); j++) {
-                let item = this.state.wishlistItems[i * N + j];
-                cols.push(<WardrobeItem key={item._id} item={item} onDelete={(itemId) => this.deleteWishlistItem(itemId)} link={"/home/show/" + item._id} isOwn={this.state.isOwnPage} />)
-            }
-            rows_WL.push(
-                <div className="row">{cols}</div>
-            );
-        }
-
-        let rows_F = [];
-        len = this.state.friends.length;
-        for (i = 0; i <= Math.floor(len / N); i++) {
-            let cols = [];
-            for (j = 0; j < (i === Math.floor(len / N) ? len % N : N); j++) {
-                let item = this.state.friends[i * N + j];
-                item["title"] = item.name;
-                cols.push(<WardrobeItem key={item._id} item={item} onDelete={(itemId) => this.deleteWishlistItem(itemId)} link={"/home/user/" + item._id} isOwn={this.state.isOwnPage} />)
-            }
-            rows_F.push(
-                <div className="row">{cols}</div>
-            );
-        }
-
         return (
             <div>
                 <section className="content-header">
                     <h1>
-                        Wardrobe
-              <small>your custom choice</small>
+                        Wardrobe<small>your custom choice</small>
                     </h1>
                     <ol className="breadcrumb">
                         <li>
                             <a href="/home">
                                 <i className="fa fa-dashboard" /> Home
-                </a>
+                            </a>
                         </li>
                         <li className="active">Wardrobe</li>
                     </ol>
@@ -177,54 +135,58 @@ export default class Wardrobe extends Component {
 
                     {/* Nav panes */}
                     <div className="tab-content">
+
                         <div className="tab-pane active" id="owned">
                             {/* Big plus button, a modal shows up when clicked */}
                             {this.state.isOwnPage ? <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#itemModal" style={{ position: "fixed", bottom: "60px", right: "10px", width: "80px", height: "80px", borderRadius: "100%", fontSize: "50px", lineHeight: "50px", paddingTop: "0px", zIndex: "99" }}>+</button> : null}
 
                             <ItemModal />
-                            {rows_OI}
 
-                            {/* Show number of items in OwnedItems */}
+                            <div className="row" style={{ margin: "0px 0px 0px 0px" }}>
+                                {this.state.ownedItems.map((item) => {
+                                    return (
+                                        <WardrobeItem key={item._id} item={item} onDelete={(itemId) => this.deleteOwnedItem(itemId)} link={"/home/user/" + this.state.userId + "/ownedItem/" + item._id} isOwn={this.state.isOwnPage} />
+                                    );
+                                })
+                                }
+                            </div>
                             <div className="text-center">
                                 There are {this.state.ownedItems.length} item(s) in the wardrobe.
                             </div>
                         </div>
+
                         <div className="tab-pane" id="wishlist">
-                            {/*<div className="row">
+                            <div className="row" style={{ margin: "0px 0px 0px 0px" }}>
                                 {this.state.wishlistItems.map((item) => {
                                     return (
-
-                                        <WardrobeItem key={item._id} item={item} onDelete={(itemId) => this.deleteWishlistItem(itemId)} link={"/home/show/" + item._id} />
-
+                                        <WardrobeItem key={item._id} item={item} onDelete={(itemId) => { return }} link={"/home/user/" + item._id} isOwn={this.state.isOwnPage} />
                                     );
-                                })}
-                            </div>*/}
-                            {rows_WL}
-
+                                })
+                                }
+                            </div>
                             <div className="text-center">
                                 There are {this.state.wishlistItems.length} item(s) in the wishlist.
                             </div>
                         </div>
+
                         <div className="tab-pane" id="friends">
-                            {/*<div className="row">
+                            <div className="row" style={{ margin: "0px 0px 0px 0px" }}>
                                 {this.state.friends.map((item) => {
                                     item["title"] = item.name;
                                     return (
-                                        <WardrobeItem key={item._id} item={item} onDelete={(itemId) => this.deleteWishlistItem(itemId)} link={"/home/user/" + item._id} />
-
+                                        <WardrobeItem key={item._id} item={item} onDelete={(itemId) => { }} link={"/home/show/" + item._id} isOwn={this.state.isOwnPage} />
                                     );
-                                })}
-                            </div>*/}
-                            {rows_F}
-
+                                })
+                                }
+                            </div>
                             <div className="text-center">
                                 There are {this.state.friends.length} friend(s).
                             </div>
                         </div>
+
                     </div>
                 </div>
             </div>
-
         );
     }
 }

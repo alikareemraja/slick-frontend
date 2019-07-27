@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-
 
 const card = {
     boxShadow: "0 4px 8px 0 rgba(0,0,0,0.2)",
@@ -8,16 +6,27 @@ const card = {
     borderRadius: "5px",
     transition: "0.3s",
     maxWidth: "300px",
-    maxHeight: "400px",
-
-    margin: "20px 20px"
+    minWidth: "150px",
+    margin: "20px auto"
 }
-const card_hover = {
-    ".card:hover": { boxShadow: "0 8px 16px 0 rgba(0,0,0,0.2)" }
+
+const styleDelButton = {
+    position: "absolute",
+    top: "5px",
+    height: "30px",
+    width: "30px",
+    transform: "translate(-50%, 0%)",
+    borderRadius: "25px",
+    padding: "0px"
 };
 
-const container = { padding: "2px 16px" };
-
+const styleImg = {
+    borderRadius: "5px",
+    objectFit: "cover",
+    width: "100%",
+    height: "100%",
+    padding: "3px 3px 0px 3px"
+}
 
 export default class WardrobeItem extends Component {
 
@@ -29,7 +38,7 @@ export default class WardrobeItem extends Component {
         };
 
         // Shorten the title so that it fits the title box
-        let MAX_LENGTH = 34;
+        let MAX_LENGTH = 15;
         if (this.props.item.title) {
             let len = this.props.item.title.length;
             console.log("title: " + this.props.item.title + ", length: " + this.props.item.title.length);
@@ -41,26 +50,25 @@ export default class WardrobeItem extends Component {
 
     render() {
         return (
-            <div className="col-lg-3">
-                <div style={card}  >
-                    {/*<Link to={this.props.link}><img src={this.props.item.imageURL} alt="Avatar" style={{ width: '100%' }} /> </Link>*/}
-                    <a href={this.props.link}><img src={"http://localhost:3001/items/photo/" + this.props.item._id} alt={this.props.item.title} style={{ width: '100%' }} /> </a>
-                    <div style={container}>
-                        {this.props.isOwn ? <button className="btn btn-danger" style={{ "position": "absolute", "top": "5px", "height": "35px", "width": "35px", "transform": "translate(-100%, 0)", "borderRadius": "25px" }} onClick={() => this.props.onDelete(this.props.item._id)}>X</button> : null}
-                        <h4><b style={{ "color": "#ffffff" }}>{this.props.item.title}</b></h4>
+            <div className="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+                <div style={card}>
+                    
+                    {this.props.isOwn ? <button className="btn btn-danger" style={styleDelButton} onClick={() => this.props.onDelete(this.props.item._id)}><span className="glyphicon glyphicon-remove" /></button> : null}
 
+                    <div className="col" style={{ height: "350px", maxWidth: "300px", minWidth: "150px", }}>
+                        <a href={this.props.link}>
+                            <img src={"http://localhost:3001/items/photo/" + this.props.item._id} alt={this.props.item.title} style={styleImg} />
+                        </a>
                     </div>
+
+                    <div className="col text-center" style={{ maxWidth: "300px", padding: "5px 5px 5px 5px" }}>
+                        <a href={this.props.link}>
+                            <h4><b style={{ "color": "#ffffff" }}>{this.props.item.title} </b></h4>
+                        </a>
+                    </div>
+
                 </div>
             </div>
-
-            // <div className="col-sm-4" style={{ "marginTop": "10px" }}>
-            //     <div className="text-center">
-            //     <Link to={"/wardrobe/ownedItem/" + this.props.item._id}><img src={this.props.item.imageURL} alt={this.props.item.title} style={{ "maxWidth": "200px", "maxHeight": "200px" }} /></Link>
-            //         <button className="btn btn-danger" style={{ "position": "absolute", "top": "0", "height": "35px", "width": "35px", "transform": "translate(-100%, 0)" }} onClick={() => this.props.onDelete(this.props.item._id)}>X</button>
-            //         <h4>{this.props.item.title}</h4>
-            //     </div>
-            //     {/* TODO: Add link on image div to pop-up item modal*/}
-            // </div>
         );
     }
 }
