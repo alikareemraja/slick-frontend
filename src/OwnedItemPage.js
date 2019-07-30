@@ -63,17 +63,18 @@ export default class OwnedItemPage extends Component {
                         <li className="active">Item</li>
                     </ol>
                 </section>
+                <div className="row">
+                    <div className="container col-xs-12 text-center" >
+                        <img src={"http://localhost:3001/items/photo/" + this.state.item._id} alt={this.state.item.title} style={styleImg} />
 
-                <div className="container col-xs-12 text-center">
-                    <img src={"http://localhost:3001/items/photo/" + this.state.item._id} alt={this.state.item.title} style={styleImg} />
+                        <h4>{this.state.item.title}</h4>
 
-                    <h4>{this.state.item.title}</h4>
-
-                    {this.state.isOwnPage ? <button data-toggle="modal" data-target="#itemModal" style={{ whiteSpace: "pre" }} ><span className="glyphicon glyphicon-pencil" />  Edit your item</button> : null}
+                        {this.state.isOwnPage ? <button data-toggle="modal" data-target="#itemModal" style={{ whiteSpace: "pre" }} ><span className="glyphicon glyphicon-pencil" />  Edit your item</button> : null}
+                    </div>
                 </div>
-
-                <Thread userId={this.props.match.params.uid} itemId={this.state.item._id} />
-
+                <div className="row">
+                    <Thread userId={this.props.match.params.uid} itemId={this.state.item._id} />
+                </div>
                 <ItemModal title={this.state.item.title} imgSrc={this.state.item.imageURL} description={this.state.item.description} itemId={this.props.match.params.itemId} />
 
             </div>

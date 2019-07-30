@@ -108,7 +108,7 @@ export class ItemDetail extends React.Component {
   };
 
   imageClick(id){
-    window.location.href = "/home/show/" + this.state.ritem[0]._id
+    window.location.href = "/home/show/" + id;
 
   }
 
@@ -387,7 +387,7 @@ export class ItemDetail extends React.Component {
                           height: 250,
                           width: 200
                         }}
-                        onClick={this.imageClick.bind(this, this.state.ritem[0]._id)}
+                        onClick={this.imageClick.bind(this, this.state.ritem[1]._id)}
                         src={this.state.ritem[1].imageURL}
                         fluid
                       />
