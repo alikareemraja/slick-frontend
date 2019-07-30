@@ -113,7 +113,6 @@ export default class HttpService {
             header.append('Authorization', `JWT ${token}`);
         }
         header.append('Content-Type', 'application/json');
-        window.alert("Put request came to HttpService. Url: " + url);
         fetch(url, {
             method: 'PUT',
             headers: header,

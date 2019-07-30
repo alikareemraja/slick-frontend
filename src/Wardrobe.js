@@ -160,7 +160,7 @@ export default class Wardrobe extends Component {
                             <div className="row" style={{ margin: "0px 0px 0px 0px" }}>
                                 {this.state.wishlistItems.map((item) => {
                                     return (
-                                        <WardrobeItem key={item._id} item={item} onDelete={(itemId) => { return }} link={"/home/show/" + item._id} isOwn={this.state.isOwnPage} />
+                                        <WardrobeItem key={item._id} item={item} onDelete={(itemId) => { this.deleteWishlistItem(itemId) }} link={"/home/show/" + item._id} isOwn={this.state.isOwnPage} />
                                     );
                                 })
                                 }
